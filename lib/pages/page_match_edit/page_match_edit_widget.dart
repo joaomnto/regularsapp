@@ -550,12 +550,9 @@ class _PageMatchEditWidgetState extends State<PageMatchEditWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 10.0, 0.0, 0.0),
                                       child: FlutterFlowPlacePicker(
-                                        iOSGoogleMapsApiKey:
-                                            'AIzaSyBQXqNkhf9rqtTOirJgdDVsukSQzrPatc0',
-                                        androidGoogleMapsApiKey:
-                                            'AIzaSyDo74j7F2oziee7ZvQ-FlyC4tUMwX1qG_M',
-                                        webGoogleMapsApiKey:
-                                            'AIzaSyAF1NAmv2uUQYHehcxROWGNg7xTc5n0aVM',
+                                        iOSGoogleMapsApiKey: '',
+                                        androidGoogleMapsApiKey: '',
+                                        webGoogleMapsApiKey: '',
                                         onSelect: (place) async {
                                           safeSetState(() =>
                                               _model.placePickerValue = place);
