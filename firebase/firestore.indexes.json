@@ -1,0 +1,62 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "Matches",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "matchEndDate",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "matchDate",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Matches",
+      "queryScope": "COLLECTION_GROUP",
+      "fields": [
+        {
+          "fieldPath": "attendanceUserRefs",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "matchEndDate",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "matchDate",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Matches",
+      "queryScope": "COLLECTION_GROUP",
+      "fields": [
+        {
+          "fieldPath": "matchGroupMembers",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "matchDate",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": [
+    {
+      "collectionGroup": "Members",
+      "fieldPath": "userRef",
+      "indexes": [
+        {
+          "order": "ASCENDING",
+          "queryScope": "COLLECTION_GROUP"
+        }
+      ]
+    }
+  ]
+}
