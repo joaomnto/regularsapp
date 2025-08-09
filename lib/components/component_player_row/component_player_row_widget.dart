@@ -91,7 +91,7 @@ class _ComponentPlayerRowWidgetState extends State<ComponentPlayerRowWidget> {
                           'Player',
                         ),
                         style: FlutterFlowTheme.of(context).titleLarge.override(
-                              font: GoogleFonts.interTight(
+                              font: GoogleFonts.lexendDeca(
                                 fontWeight: FlutterFlowTheme.of(context)
                                     .titleLarge
                                     .fontWeight,
@@ -120,7 +120,7 @@ class _ComponentPlayerRowWidgetState extends State<ComponentPlayerRowWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  font: GoogleFonts.inter(
+                                  font: GoogleFonts.lexendDeca(
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .fontWeight,
@@ -143,7 +143,7 @@ class _ComponentPlayerRowWidgetState extends State<ComponentPlayerRowWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    font: GoogleFonts.inter(
+                                    font: GoogleFonts.lexendDeca(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,

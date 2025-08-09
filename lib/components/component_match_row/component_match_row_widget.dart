@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'component_match_row_model.dart';
 export 'component_match_row_model.dart';
@@ -66,10 +67,9 @@ class _ComponentMatchRowWidgetState extends State<ComponentMatchRowWidget> {
             child: SizedBox(
               width: 50.0,
               height: 50.0,
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(
-                  FlutterFlowTheme.of(context).primary,
-                ),
+              child: SpinKitRipple(
+                color: FlutterFlowTheme.of(context).primary,
+                size: 50.0,
               ),
             ),
           );
@@ -78,7 +78,7 @@ class _ComponentMatchRowWidgetState extends State<ComponentMatchRowWidget> {
         final orderCardGroupsRecord = snapshot.data!;
 
         return Container(
-          height: 86.0,
+          height: 90.0,
           decoration: BoxDecoration(
             color: widget.matchStatus == MatchStatus.Running
                 ? FlutterFlowTheme.of(context).secondaryBackground
@@ -123,7 +123,7 @@ class _ComponentMatchRowWidgetState extends State<ComponentMatchRowWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    font: GoogleFonts.inter(
+                                    font: GoogleFonts.lexendDeca(
                                       fontWeight: FontWeight.w500,
                                       fontStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -147,7 +147,7 @@ class _ComponentMatchRowWidgetState extends State<ComponentMatchRowWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      font: GoogleFonts.inter(
+                                      font: GoogleFonts.lexendDeca(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .fontWeight,
@@ -177,7 +177,7 @@ class _ComponentMatchRowWidgetState extends State<ComponentMatchRowWidget> {
                           style: FlutterFlowTheme.of(context)
                               .headlineSmall
                               .override(
-                                font: GoogleFonts.interTight(
+                                font: GoogleFonts.lexendDeca(
                                   fontWeight: FlutterFlowTheme.of(context)
                                       .headlineSmall
                                       .fontWeight,
@@ -224,7 +224,7 @@ class _ComponentMatchRowWidgetState extends State<ComponentMatchRowWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .labelMedium
                                       .override(
-                                        font: GoogleFonts.inter(
+                                        font: GoogleFonts.lexendDeca(
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
                                                   .labelMedium

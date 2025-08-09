@@ -48,7 +48,9 @@ class _ComponentGroupRowWidgetState extends State<ComponentGroupRowWidget> {
     return Container(
       width: double.infinity,
       height: 56.0,
-      decoration: BoxDecoration(),
+      decoration: BoxDecoration(
+        color: FlutterFlowTheme.of(context).secondaryBackground,
+      ),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -70,7 +72,7 @@ class _ComponentGroupRowWidgetState extends State<ComponentGroupRowWidget> {
                           'Group',
                         ),
                         style: FlutterFlowTheme.of(context).bodyLarge.override(
-                              font: GoogleFonts.inter(
+                              font: GoogleFonts.lexendDeca(
                                 fontWeight: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .fontWeight,

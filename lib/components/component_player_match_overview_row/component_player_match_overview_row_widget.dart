@@ -151,7 +151,7 @@ class _ComponentPlayerMatchOverviewRowWidgetState
                           'Player',
                         ),
                         style: FlutterFlowTheme.of(context).titleLarge.override(
-                              font: GoogleFonts.interTight(
+                              font: GoogleFonts.lexendDeca(
                                 fontWeight: FlutterFlowTheme.of(context)
                                     .titleLarge
                                     .fontWeight,

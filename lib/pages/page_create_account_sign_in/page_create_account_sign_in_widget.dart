@@ -1,8 +1,10 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -187,7 +189,7 @@ class _PageCreateAccountSignInWidgetState
                                       style: FlutterFlowTheme.of(context)
                                           .headlineMedium
                                           .override(
-                                            font: GoogleFonts.interTight(
+                                            font: GoogleFonts.lexendDeca(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .headlineMedium
@@ -218,7 +220,7 @@ class _PageCreateAccountSignInWidgetState
                                       style: FlutterFlowTheme.of(context)
                                           .headlineMedium
                                           .override(
-                                            font: GoogleFonts.interTight(
+                                            font: GoogleFonts.lexendDeca(
                                               fontWeight: FontWeight.w300,
                                               fontStyle:
                                                   FlutterFlowTheme.of(context)
@@ -272,7 +274,7 @@ class _PageCreateAccountSignInWidgetState
                                         labelStyle: FlutterFlowTheme.of(context)
                                             .displaySmall
                                             .override(
-                                              font: GoogleFonts.interTight(
+                                              font: GoogleFonts.lexendDeca(
                                                 fontWeight:
                                                     FlutterFlowTheme.of(context)
                                                         .displaySmall
@@ -296,7 +298,7 @@ class _PageCreateAccountSignInWidgetState
                                                 .of(context)
                                             .displaySmall
                                             .override(
-                                              font: GoogleFonts.interTight(
+                                              font: GoogleFonts.lexendDeca(
                                                 fontWeight: FontWeight.normal,
                                                 fontStyle:
                                                     FlutterFlowTheme.of(context)
@@ -358,9 +360,8 @@ class _PageCreateAccountSignInWidgetState
                                                                   context)
                                                               .labelMedium
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .inter(
+                                                                font: GoogleFonts
+                                                                    .lexendDeca(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
                                                                       .labelMedium
@@ -409,7 +410,7 @@ class _PageCreateAccountSignInWidgetState
                                                                   .labelMedium
                                                                   .override(
                                                                     font: GoogleFonts
-                                                                        .inter(
+                                                                        .lexendDeca(
                                                                       fontWeight: FlutterFlowTheme.of(
                                                                               context)
                                                                           .labelMedium
@@ -499,9 +500,8 @@ class _PageCreateAccountSignInWidgetState
                                                                     context)
                                                                 .bodyMedium
                                                                 .override(
-                                                                  font:
-                                                                      GoogleFonts
-                                                                          .inter(
+                                                                  font: GoogleFonts
+                                                                      .lexendDeca(
                                                                     fontWeight: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -563,7 +563,7 @@ class _PageCreateAccountSignInWidgetState
                                                                   .labelMedium
                                                                   .override(
                                                                     font: GoogleFonts
-                                                                        .inter(
+                                                                        .lexendDeca(
                                                                       fontWeight: FlutterFlowTheme.of(
                                                                               context)
                                                                           .labelMedium
@@ -676,9 +676,8 @@ class _PageCreateAccountSignInWidgetState
                                                                     context)
                                                                 .bodyMedium
                                                                 .override(
-                                                                  font:
-                                                                      GoogleFonts
-                                                                          .inter(
+                                                                  font: GoogleFonts
+                                                                      .lexendDeca(
                                                                     fontWeight: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -801,7 +800,7 @@ class _PageCreateAccountSignInWidgetState
                                                                   .titleSmall
                                                                   .override(
                                                                     font: GoogleFonts
-                                                                        .interTight(
+                                                                        .lexendDeca(
                                                                       fontWeight: FlutterFlowTheme.of(
                                                                               context)
                                                                           .titleSmall
@@ -887,7 +886,7 @@ class _PageCreateAccountSignInWidgetState
                                                                     .bodyMedium
                                                                     .override(
                                                                       font: GoogleFonts
-                                                                          .inter(
+                                                                          .lexendDeca(
                                                                         fontWeight: FlutterFlowTheme.of(context)
                                                                             .bodyMedium
                                                                             .fontWeight,
@@ -947,9 +946,8 @@ class _PageCreateAccountSignInWidgetState
                                                                     .of(context)
                                                                 .labelMedium
                                                                 .override(
-                                                                  font:
-                                                                      GoogleFonts
-                                                                          .inter(
+                                                                  font: GoogleFonts
+                                                                      .lexendDeca(
                                                                     fontWeight: FlutterFlowTheme.of(
                                                                             context)
                                                                         .labelMedium
@@ -1034,6 +1032,13 @@ class _PageCreateAccountSignInWidgetState
                                                                               .routeName,
                                                                           context
                                                                               .mounted);
+
+                                                                      await currentUserReference!
+                                                                          .update(
+                                                                              createUsersRecordData(
+                                                                        lowercaseName:
+                                                                            functions.toLowerString(currentUserDisplayName),
+                                                                      ));
                                                                     } else {
                                                                       await showDialog(
                                                                         context:
@@ -1089,7 +1094,7 @@ class _PageCreateAccountSignInWidgetState
                                                                         .bodyMedium
                                                                         .override(
                                                                           font:
-                                                                              GoogleFonts.inter(
+                                                                              GoogleFonts.lexendDeca(
                                                                             fontWeight:
                                                                                 FontWeight.bold,
                                                                             fontStyle:
@@ -1168,7 +1173,7 @@ class _PageCreateAccountSignInWidgetState
                                                                           .bodyMedium
                                                                           .override(
                                                                             font:
-                                                                                GoogleFonts.inter(
+                                                                                GoogleFonts.lexendDeca(
                                                                               fontWeight: FontWeight.bold,
                                                                               fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                             ),
@@ -1233,9 +1238,8 @@ class _PageCreateAccountSignInWidgetState
                                                                   context)
                                                               .labelMedium
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .inter(
+                                                                font: GoogleFonts
+                                                                    .lexendDeca(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
                                                                       .labelMedium
@@ -1284,7 +1288,7 @@ class _PageCreateAccountSignInWidgetState
                                                                   .labelMedium
                                                                   .override(
                                                                     font: GoogleFonts
-                                                                        .inter(
+                                                                        .lexendDeca(
                                                                       fontWeight: FlutterFlowTheme.of(
                                                                               context)
                                                                           .labelMedium
@@ -1374,9 +1378,8 @@ class _PageCreateAccountSignInWidgetState
                                                                     context)
                                                                 .bodyMedium
                                                                 .override(
-                                                                  font:
-                                                                      GoogleFonts
-                                                                          .inter(
+                                                                  font: GoogleFonts
+                                                                      .lexendDeca(
                                                                     fontWeight: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -1438,7 +1441,7 @@ class _PageCreateAccountSignInWidgetState
                                                                   .labelMedium
                                                                   .override(
                                                                     font: GoogleFonts
-                                                                        .inter(
+                                                                        .lexendDeca(
                                                                       fontWeight: FlutterFlowTheme.of(
                                                                               context)
                                                                           .labelMedium
@@ -1551,9 +1554,8 @@ class _PageCreateAccountSignInWidgetState
                                                                     context)
                                                                 .bodyMedium
                                                                 .override(
-                                                                  font:
-                                                                      GoogleFonts
-                                                                          .inter(
+                                                                  font: GoogleFonts
+                                                                      .lexendDeca(
                                                                     fontWeight: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -1613,7 +1615,7 @@ class _PageCreateAccountSignInWidgetState
                                                                   .labelMedium
                                                                   .override(
                                                                     font: GoogleFonts
-                                                                        .inter(
+                                                                        .lexendDeca(
                                                                       fontWeight: FlutterFlowTheme.of(
                                                                               context)
                                                                           .labelMedium
@@ -1726,9 +1728,8 @@ class _PageCreateAccountSignInWidgetState
                                                                     context)
                                                                 .bodyMedium
                                                                 .override(
-                                                                  font:
-                                                                      GoogleFonts
-                                                                          .inter(
+                                                                  font: GoogleFonts
+                                                                      .lexendDeca(
                                                                     fontWeight: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -1872,7 +1873,7 @@ class _PageCreateAccountSignInWidgetState
                                                                   .titleSmall
                                                                   .override(
                                                                     font: GoogleFonts
-                                                                        .interTight(
+                                                                        .lexendDeca(
                                                                       fontWeight: FlutterFlowTheme.of(
                                                                               context)
                                                                           .titleSmall
@@ -1934,9 +1935,8 @@ class _PageCreateAccountSignInWidgetState
                                                                     .of(context)
                                                                 .labelMedium
                                                                 .override(
-                                                                  font:
-                                                                      GoogleFonts
-                                                                          .inter(
+                                                                  font: GoogleFonts
+                                                                      .lexendDeca(
                                                                     fontWeight: FlutterFlowTheme.of(
                                                                             context)
                                                                         .labelMedium
@@ -2076,7 +2076,7 @@ class _PageCreateAccountSignInWidgetState
                                                                         .bodyMedium
                                                                         .override(
                                                                           font:
-                                                                              GoogleFonts.inter(
+                                                                              GoogleFonts.lexendDeca(
                                                                             fontWeight:
                                                                                 FontWeight.bold,
                                                                             fontStyle:
@@ -2156,7 +2156,7 @@ class _PageCreateAccountSignInWidgetState
                                                                           .bodyMedium
                                                                           .override(
                                                                             font:
-                                                                                GoogleFonts.inter(
+                                                                                GoogleFonts.lexendDeca(
                                                                               fontWeight: FontWeight.bold,
                                                                               fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                             ),

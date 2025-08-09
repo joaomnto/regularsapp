@@ -83,15 +83,15 @@ class MatchesRecord extends FirestoreRecord {
   String get recurringId => _recurringId ?? '';
   bool hasRecurringId() => _recurringId != null;
 
-  // "createdFroRecurrence" field.
-  bool? _createdFroRecurrence;
-  bool get createdFroRecurrence => _createdFroRecurrence ?? false;
-  bool hasCreatedFroRecurrence() => _createdFroRecurrence != null;
-
   // "matchEndDate" field.
   DateTime? _matchEndDate;
   DateTime? get matchEndDate => _matchEndDate;
   bool hasMatchEndDate() => _matchEndDate != null;
+
+  // "createdFromRecurrence" field.
+  bool? _createdFromRecurrence;
+  bool get createdFromRecurrence => _createdFromRecurrence ?? false;
+  bool hasCreatedFromRecurrence() => _createdFromRecurrence != null;
 
   DocumentReference get parentReference => reference.parent.parent!;
 
@@ -120,8 +120,8 @@ class MatchesRecord extends FirestoreRecord {
     _attendanceUserRefs = getDataList(snapshotData['attendanceUserRefs']);
     _createdIn = snapshotData['createdIn'] as DateTime?;
     _recurringId = snapshotData['recurringId'] as String?;
-    _createdFroRecurrence = snapshotData['createdFroRecurrence'] as bool?;
     _matchEndDate = snapshotData['matchEndDate'] as DateTime?;
+    _createdFromRecurrence = snapshotData['createdFromRecurrence'] as bool?;
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -174,8 +174,8 @@ Map<String, dynamic> createMatchesRecordData({
   DocumentReference? groupRef,
   DateTime? createdIn,
   String? recurringId,
-  bool? createdFroRecurrence,
   DateTime? matchEndDate,
+  bool? createdFromRecurrence,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -189,8 +189,8 @@ Map<String, dynamic> createMatchesRecordData({
       'groupRef': groupRef,
       'createdIn': createdIn,
       'recurringId': recurringId,
-      'createdFroRecurrence': createdFroRecurrence,
       'matchEndDate': matchEndDate,
+      'createdFromRecurrence': createdFromRecurrence,
     }.withoutNulls,
   );
 
@@ -216,8 +216,8 @@ class MatchesRecordDocumentEquality implements Equality<MatchesRecord> {
         listEquality.equals(e1?.attendanceUserRefs, e2?.attendanceUserRefs) &&
         e1?.createdIn == e2?.createdIn &&
         e1?.recurringId == e2?.recurringId &&
-        e1?.createdFroRecurrence == e2?.createdFroRecurrence &&
-        e1?.matchEndDate == e2?.matchEndDate;
+        e1?.matchEndDate == e2?.matchEndDate &&
+        e1?.createdFromRecurrence == e2?.createdFromRecurrence;
   }
 
   @override
@@ -235,8 +235,8 @@ class MatchesRecordDocumentEquality implements Equality<MatchesRecord> {
         e?.attendanceUserRefs,
         e?.createdIn,
         e?.recurringId,
-        e?.createdFroRecurrence,
-        e?.matchEndDate
+        e?.matchEndDate,
+        e?.createdFromRecurrence
       ]);
 
   @override

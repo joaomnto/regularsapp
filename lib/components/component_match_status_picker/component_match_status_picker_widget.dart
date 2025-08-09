@@ -50,7 +50,7 @@ class _ComponentMatchStatusPickerWidgetState
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 260.0,
+      height: 290.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
         boxShadow: [
@@ -81,18 +81,18 @@ class _ComponentMatchStatusPickerWidgetState
               child: Text(
                 'Match Status',
                 textAlign: TextAlign.start,
-                style: FlutterFlowTheme.of(context).labelMedium.override(
+                style: FlutterFlowTheme.of(context).titleLarge.override(
                       font: GoogleFonts.lexendDeca(
-                        fontWeight: FontWeight.w500,
+                        fontWeight:
+                            FlutterFlowTheme.of(context).titleLarge.fontWeight,
                         fontStyle:
-                            FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                            FlutterFlowTheme.of(context).titleLarge.fontStyle,
                       ),
-                      color: FlutterFlowTheme.of(context).primaryText,
-                      fontSize: 14.0,
                       letterSpacing: 0.0,
-                      fontWeight: FontWeight.w500,
+                      fontWeight:
+                          FlutterFlowTheme.of(context).titleLarge.fontWeight,
                       fontStyle:
-                          FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                          FlutterFlowTheme.of(context).titleLarge.fontStyle,
                     ),
               ),
             ),
@@ -135,27 +135,27 @@ class _ComponentMatchStatusPickerWidgetState
                               FontAwesomeIcons.calendarCheck,
                               color: functions
                                   .colorForStatus(MatchStatus.Scheduled),
-                              size: 20.0,
+                              size: 22.0,
                             ),
                             Text(
                               'Scheduled',
                               style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
+                                  .labelLarge
                                   .override(
-                                    font: GoogleFonts.inter(
+                                    font: GoogleFonts.lexendDeca(
                                       fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyMedium
+                                          .labelLarge
                                           .fontWeight,
                                       fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
+                                          .labelLarge
                                           .fontStyle,
                                     ),
                                     letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelLarge
                                         .fontWeight,
                                     fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelLarge
                                         .fontStyle,
                                   ),
                             ),
@@ -182,27 +182,27 @@ class _ComponentMatchStatusPickerWidgetState
                               Icons.sports_soccer,
                               color:
                                   functions.colorForStatus(MatchStatus.Running),
-                              size: 20.0,
+                              size: 22.0,
                             ),
                             Text(
                               'Playing',
                               style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
+                                  .labelLarge
                                   .override(
-                                    font: GoogleFonts.inter(
+                                    font: GoogleFonts.lexendDeca(
                                       fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyMedium
+                                          .labelLarge
                                           .fontWeight,
                                       fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
+                                          .labelLarge
                                           .fontStyle,
                                     ),
                                     letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelLarge
                                         .fontWeight,
                                     fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelLarge
                                         .fontStyle,
                                   ),
                             ),
@@ -229,27 +229,27 @@ class _ComponentMatchStatusPickerWidgetState
                               FontAwesomeIcons.calendarTimes,
                               color: functions
                                   .colorForStatus(MatchStatus.Cancelled),
-                              size: 20.0,
+                              size: 22.0,
                             ),
                             Text(
                               'Canceled',
                               style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
+                                  .labelLarge
                                   .override(
-                                    font: GoogleFonts.inter(
+                                    font: GoogleFonts.lexendDeca(
                                       fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyMedium
+                                          .labelLarge
                                           .fontWeight,
                                       fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
+                                          .labelLarge
                                           .fontStyle,
                                     ),
                                     letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelLarge
                                         .fontWeight,
                                     fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelLarge
                                         .fontStyle,
                                   ),
                             ),
@@ -276,27 +276,27 @@ class _ComponentMatchStatusPickerWidgetState
                               Icons.timer_off,
                               color: functions
                                   .colorForStatus(MatchStatus.Finished),
-                              size: 20.0,
+                              size: 22.0,
                             ),
                             Text(
                               'Finished',
                               style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
+                                  .labelLarge
                                   .override(
-                                    font: GoogleFonts.inter(
+                                    font: GoogleFonts.lexendDeca(
                                       fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyMedium
+                                          .labelLarge
                                           .fontWeight,
                                       fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
+                                          .labelLarge
                                           .fontStyle,
                                     ),
                                     letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelLarge
                                         .fontWeight,
                                     fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelLarge
                                         .fontStyle,
                                   ),
                             ),

@@ -10,10 +10,13 @@ class ComponentMatchDetailWidget extends StatefulWidget {
     super.key,
     String? text,
     required this.icon,
-  }) : this.text = text ?? '';
+    bool? editMode,
+  })  : this.text = text ?? '',
+        this.editMode = editMode ?? false;
 
   final String text;
   final Widget? icon;
+  final bool editMode;
 
   @override
   State<ComponentMatchDetailWidget> createState() =>
@@ -50,7 +53,15 @@ class _ComponentMatchDetailWidgetState
     return Container(
       width: 80.0,
       height: 60.0,
-      decoration: BoxDecoration(),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        border: Border.all(
+          color: widget.editMode
+              ? FlutterFlowTheme.of(context).primaryBackground
+              : Color(0x00FFFFFF),
+        ),
+      ),
+      alignment: AlignmentDirectional(0.0, 0.0),
       child: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -60,7 +71,7 @@ class _ComponentMatchDetailWidgetState
             Text(
               widget.text,
               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                    font: GoogleFonts.inter(
+                    font: GoogleFonts.lexendDeca(
                       fontWeight:
                           FlutterFlowTheme.of(context).bodyMedium.fontWeight,
                       fontStyle:

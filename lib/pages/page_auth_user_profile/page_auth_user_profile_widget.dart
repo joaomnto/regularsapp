@@ -118,7 +118,7 @@ class _PageAuthUserProfileWidgetState extends State<PageAuthUserProfileWidget> {
                             24.0, 12.0, 24.0, 12.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Container(
                               width: 70.0,
@@ -163,7 +163,7 @@ class _PageAuthUserProfileWidgetState extends State<PageAuthUserProfileWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .headlineSmall
                                           .override(
-                                            font: GoogleFonts.interTight(
+                                            font: GoogleFonts.lexendDeca(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .headlineSmall
@@ -254,7 +254,7 @@ class _PageAuthUserProfileWidgetState extends State<PageAuthUserProfileWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        font: GoogleFonts.inter(
+                                        font: GoogleFonts.lexendDeca(
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
                                                   .bodyMedium
@@ -359,7 +359,7 @@ class _PageAuthUserProfileWidgetState extends State<PageAuthUserProfileWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        font: GoogleFonts.inter(
+                                        font: GoogleFonts.lexendDeca(
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
                                                   .bodyMedium
@@ -456,7 +456,7 @@ class _PageAuthUserProfileWidgetState extends State<PageAuthUserProfileWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(
-                                  font: GoogleFonts.inter(
+                                  font: GoogleFonts.lexendDeca(
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .fontWeight,
@@ -494,7 +494,7 @@ class _PageAuthUserProfileWidgetState extends State<PageAuthUserProfileWidget> {
                     child: Text(
                       'Privacy Policy and Terms of Use',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            font: GoogleFonts.inter(
+                            font: GoogleFonts.lexendDeca(
                               fontWeight: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .fontWeight,
@@ -629,7 +629,7 @@ class _PageAuthUserProfileWidgetState extends State<PageAuthUserProfileWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .labelMedium
                                       .override(
-                                        font: GoogleFonts.inter(
+                                        font: GoogleFonts.lexendDeca(
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
                                                   .labelMedium

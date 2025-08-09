@@ -46,7 +46,7 @@ class _ComponentEmptyListViewWidgetState
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60.0,
+      height: 80.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).accent4,
         borderRadius: BorderRadius.circular(8.0),
@@ -60,7 +60,7 @@ class _ComponentEmptyListViewWidgetState
             widget.emptyText,
             textAlign: TextAlign.center,
             style: FlutterFlowTheme.of(context).labelMedium.override(
-                  font: GoogleFonts.inter(
+                  font: GoogleFonts.lexendDeca(
                     fontWeight:
                         FlutterFlowTheme.of(context).labelMedium.fontWeight,
                     fontStyle:

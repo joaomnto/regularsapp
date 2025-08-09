@@ -184,6 +184,30 @@ List<MatchAttendanceStruct> updateAttendanceList(
   return updatedList;
 }
 
+MatchAttendanceStruct? getUserAttendanceFromMatchAttendanceListWithRefId(
+  List<MatchAttendanceStruct>? attendanceList,
+  DocumentReference? userRef,
+) {
+  print('🔍 getMyAttendance triggered');
+
+  if (attendanceList == null) {
+    return null;
+  }
+
+  if (userRef == null) {
+    return null;
+  }
+
+  if (attendanceList == null || userRef == null) return null;
+
+  for (final item in attendanceList) {
+    if (item.player?.userRefId == userRef) {
+      return item;
+    }
+  }
+  return null;
+}
+
 MatchAttendanceStruct? getUserAttendanceFromMatchAttendanceList(
   List<MatchAttendanceStruct>? attendanceList,
   DocumentReference? memberRef,
@@ -305,6 +329,9 @@ List<MatchAttendanceStruct>? attendanceByRemovingAttendant(
 ) {
   if (attendanceList == null) return [];
 
+  print('!!! Attendance: ${attendanceList}');
+  print('!!! memberRef: ${memberRef}');
+
   return attendanceList
       .where((a) => a.player?.memberRefId?.id != memberRef.id)
       .toList();
@@ -364,4 +391,11 @@ String? matchTimeStringForStartDate(DateTime? matchDate) {
 
   if (minutes < 0) return '0′'; // Match hasn’t started yet
   return '$minutes′';
+}
+
+String toLowerString(String? s) {
+  if (s == null) {
+    return '';
+  }
+  return s.toLowerCase();
 }

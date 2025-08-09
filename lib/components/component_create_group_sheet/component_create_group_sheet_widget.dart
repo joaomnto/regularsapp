@@ -72,19 +72,19 @@ class _ComponentCreateGroupSheetWidgetState
                 padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
                 child: Text(
                   'Create Group',
-                  style: FlutterFlowTheme.of(context).headlineSmall.override(
+                  style: FlutterFlowTheme.of(context).titleLarge.override(
                         font: GoogleFonts.lexendDeca(
-                          fontWeight: FontWeight.w500,
-                          fontStyle: FlutterFlowTheme.of(context)
-                              .headlineSmall
-                              .fontStyle,
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .titleLarge
+                              .fontWeight,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).titleLarge.fontStyle,
                         ),
-                        fontSize: 14.0,
                         letterSpacing: 0.0,
-                        fontWeight: FontWeight.w500,
-                        fontStyle: FlutterFlowTheme.of(context)
-                            .headlineSmall
-                            .fontStyle,
+                        fontWeight:
+                            FlutterFlowTheme.of(context).titleLarge.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).titleLarge.fontStyle,
                       ),
                 ),
               ),
@@ -121,18 +121,6 @@ class _ComponentCreateGroupSheetWidgetState
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Container(
-                        width: 60.0,
-                        height: 60.0,
-                        clipBehavior: Clip.antiAlias,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                        ),
-                        child: Image.asset(
-                          'assets/images/ChatGPT_Image_Jul_27_2025_Regulars.png',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
                       Expanded(
                         child: Container(
                           width: 200.0,
@@ -146,7 +134,7 @@ class _ComponentCreateGroupSheetWidgetState
                               labelStyle: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(
-                                    font: GoogleFonts.inter(
+                                    font: GoogleFonts.lexendDeca(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .fontWeight,
@@ -166,7 +154,7 @@ class _ComponentCreateGroupSheetWidgetState
                               hintStyle: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(
-                                    font: GoogleFonts.inter(
+                                    font: GoogleFonts.lexendDeca(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .fontWeight,
@@ -218,7 +206,7 @@ class _ComponentCreateGroupSheetWidgetState
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  font: GoogleFonts.inter(
+                                  font: GoogleFonts.lexendDeca(
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .fontWeight,
@@ -281,7 +269,9 @@ class _ComponentCreateGroupSheetWidgetState
                           }, groupsRecordReference);
 
                           var membersRecordReference = MembersRecord.createDoc(
-                              _model.creaatedGroup!.reference);
+                            _model.creaatedGroup!.reference,
+                            id: currentUserReference!.id,
+                          );
                           await membersRecordReference
                               .set(createMembersRecordData(
                             isAdmin: true,
@@ -336,7 +326,7 @@ class _ComponentCreateGroupSheetWidgetState
                           color: FlutterFlowTheme.of(context).primary,
                           textStyle:
                               FlutterFlowTheme.of(context).titleSmall.override(
-                                    font: GoogleFonts.interTight(
+                                    font: GoogleFonts.lexendDeca(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .fontWeight,

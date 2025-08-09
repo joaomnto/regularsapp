@@ -2,14 +2,11 @@ import '/components/component_match_detail/component_match_detail_widget.dart';
 import '/components/component_player_match_overview_row/component_player_match_overview_row_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
-import 'page_match_overview_widget.dart' show PageMatchOverviewWidget;
+import 'page_match_overview_copy_widget.dart' show PageMatchOverviewCopyWidget;
 import 'package:flutter/material.dart';
 
-class PageMatchOverviewModel extends FlutterFlowModel<PageMatchOverviewWidget> {
-  ///  Local state fields for this page.
-
-  bool editMode = false;
-
+class PageMatchOverviewCopyModel
+    extends FlutterFlowModel<PageMatchOverviewCopyWidget> {
   ///  State fields for stateful widgets in this page.
 
   // Model for ComponentMatchDetail component.

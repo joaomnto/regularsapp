@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
 
@@ -300,6 +301,40 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: PageCreateAccountSignInWidget.routeName,
           path: PageCreateAccountSignInWidget.routePath,
           builder: (context, params) => PageCreateAccountSignInWidget(),
+        ),
+        FFRoute(
+          name: PageMatchOverviewCopyWidget.routeName,
+          path: PageMatchOverviewCopyWidget.routePath,
+          asyncParams: {
+            'group': getDoc(['Groups'], GroupsRecord.fromSnapshot),
+            'match': getDoc(['Groups', 'Matches'], MatchesRecord.fromSnapshot),
+          },
+          builder: (context, params) => PageMatchOverviewCopyWidget(
+            group: params.getParam(
+              'group',
+              ParamType.Document,
+            ),
+            userIsAdmin: params.getParam(
+              'userIsAdmin',
+              ParamType.bool,
+            ),
+            groupRef: params.getParam(
+              'groupRef',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['Groups'],
+            ),
+            matchRef: params.getParam(
+              'matchRef',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['Groups', 'Matches'],
+            ),
+            match: params.getParam(
+              'match',
+              ParamType.Document,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -490,10 +525,9 @@ class FFRoute {
                   child: SizedBox(
                     width: 50.0,
                     height: 50.0,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        FlutterFlowTheme.of(context).primary,
-                      ),
+                    child: SpinKitRipple(
+                      color: FlutterFlowTheme.of(context).primary,
+                      size: 50.0,
                     ),
                   ),
                 )

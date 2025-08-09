@@ -3,8 +3,10 @@ import '/backend/backend.dart';
 import '/components/component_attendance_picker/component_attendance_picker_widget.dart';
 import '/components/component_group_add_player_picker/component_group_add_player_picker_widget.dart';
 import '/components/component_match_row/component_match_row_widget.dart';
+import '/components/component_match_row_loader/component_match_row_loader_widget.dart';
 import '/components/component_player_row/component_player_row_widget.dart';
 import '/components/empty_lists/component_empty_list_view/component_empty_list_view_widget.dart';
+import '/components/match_sheet_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -13,6 +15,7 @@ import 'dart:async';
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'page_group_overview_model.dart';
 export 'page_group_overview_model.dart';
@@ -76,10 +79,9 @@ class _PageGroupOverviewWidgetState extends State<PageGroupOverviewWidget>
               child: SizedBox(
                 width: 50.0,
                 height: 50.0,
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    FlutterFlowTheme.of(context).primary,
-                  ),
+                child: SpinKitRipple(
+                  color: FlutterFlowTheme.of(context).primary,
+                  size: 50.0,
                 ),
               ),
             ),
@@ -180,7 +182,7 @@ class _PageGroupOverviewWidgetState extends State<PageGroupOverviewWidget>
                     iconColor: FlutterFlowTheme.of(context).primaryText,
                     color: Color(0x004B39EF),
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          font: GoogleFonts.interTight(
+                          font: GoogleFonts.lexendDeca(
                             fontWeight: FlutterFlowTheme.of(context)
                                 .titleSmall
                                 .fontWeight,
@@ -223,7 +225,7 @@ class _PageGroupOverviewWidgetState extends State<PageGroupOverviewWidget>
                               FlutterFlowTheme.of(context).secondaryText,
                           labelStyle:
                               FlutterFlowTheme.of(context).titleMedium.override(
-                                    font: GoogleFonts.interTight(
+                                    font: GoogleFonts.lexendDeca(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .titleMedium
                                           .fontWeight,
@@ -241,7 +243,7 @@ class _PageGroupOverviewWidgetState extends State<PageGroupOverviewWidget>
                                   ),
                           unselectedLabelStyle:
                               FlutterFlowTheme.of(context).titleMedium.override(
-                                    font: GoogleFonts.interTight(
+                                    font: GoogleFonts.lexendDeca(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .titleMedium
                                           .fontWeight,
@@ -306,26 +308,27 @@ class _PageGroupOverviewWidgetState extends State<PageGroupOverviewWidget>
                                               Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
-                                                        0.0, 0.0, 0.0, 10.0),
+                                                        16.0, 0.0, 0.0, 10.0),
                                                 child: Text(
                                                   'Upcoming Matches',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
                                                       .override(
-                                                        font: GoogleFonts.inter(
+                                                        font: GoogleFonts
+                                                            .lexendDeca(
                                                           fontWeight:
-                                                              FontWeight.w600,
+                                                              FontWeight.w500,
                                                           fontStyle:
                                                               FlutterFlowTheme.of(
                                                                       context)
                                                                   .bodyMedium
                                                                   .fontStyle,
                                                         ),
-                                                        fontSize: 18.0,
+                                                        fontSize: 16.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FontWeight.w600,
+                                                            FontWeight.w500,
                                                         fontStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -360,22 +363,7 @@ class _PageGroupOverviewWidgetState extends State<PageGroupOverviewWidget>
                                                 builder: (context, snapshot) {
                                                   // Customize what your widget looks like when it's loading.
                                                   if (!snapshot.hasData) {
-                                                    return Center(
-                                                      child: SizedBox(
-                                                        width: 50.0,
-                                                        height: 50.0,
-                                                        child:
-                                                            CircularProgressIndicator(
-                                                          valueColor:
-                                                              AlwaysStoppedAnimation<
-                                                                  Color>(
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    );
+                                                    return ComponentMatchRowLoaderWidget();
                                                   }
                                                   List<MatchesRecord>
                                                       listViewMatchesRecordList =
@@ -413,61 +401,57 @@ class _PageGroupOverviewWidgetState extends State<PageGroupOverviewWidget>
                                                         highlightColor:
                                                             Colors.transparent,
                                                         onTap: () async {
-                                                          context.pushNamed(
-                                                            PageMatchOverviewWidget
-                                                                .routeName,
-                                                            queryParameters: {
-                                                              'match':
-                                                                  serializeParam(
-                                                                listViewMatchesRecord,
-                                                                ParamType
-                                                                    .Document,
-                                                              ),
-                                                              'group':
-                                                                  serializeParam(
-                                                                widget.group,
-                                                                ParamType
-                                                                    .Document,
-                                                              ),
-                                                              'userIsAdmin':
-                                                                  serializeParam(
-                                                                functions.userIsAdminInGroup(
-                                                                    currentUserReference,
-                                                                    pageGroupOverviewMembersRecordList
-                                                                        .toList()),
-                                                                ParamType.bool,
-                                                              ),
-                                                              'groupRef':
-                                                                  serializeParam(
-                                                                widget.group
-                                                                    ?.reference,
-                                                                ParamType
-                                                                    .DocumentReference,
-                                                              ),
-                                                              'matchRef':
-                                                                  serializeParam(
-                                                                listViewMatchesRecord
-                                                                    .reference,
-                                                                ParamType
-                                                                    .DocumentReference,
-                                                              ),
-                                                            }.withoutNulls,
-                                                            extra: <String,
-                                                                dynamic>{
-                                                              'match':
-                                                                  listViewMatchesRecord,
-                                                              'group':
-                                                                  widget.group,
-                                                              kTransitionInfoKey:
-                                                                  TransitionInfo(
-                                                                hasTransition:
-                                                                    true,
-                                                                transitionType:
-                                                                    PageTransitionType
-                                                                        .bottomToTop,
-                                                              ),
+                                                          await showModalBottomSheet(
+                                                            isScrollControlled:
+                                                                true,
+                                                            backgroundColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            isDismissible:
+                                                                false,
+                                                            context: context,
+                                                            builder: (context) {
+                                                              return GestureDetector(
+                                                                onTap: () {
+                                                                  FocusScope.of(
+                                                                          context)
+                                                                      .unfocus();
+                                                                  FocusManager
+                                                                      .instance
+                                                                      .primaryFocus
+                                                                      ?.unfocus();
+                                                                },
+                                                                child: Padding(
+                                                                  padding: MediaQuery
+                                                                      .viewInsetsOf(
+                                                                          context),
+                                                                  child:
+                                                                      Container(
+                                                                    height: MediaQuery.sizeOf(context)
+                                                                            .height *
+                                                                        0.94,
+                                                                    child:
+                                                                        MatchSheetWidget(
+                                                                      grouRef: widget
+                                                                          .group!
+                                                                          .reference,
+                                                                      matchRef:
+                                                                          listViewMatchesRecord
+                                                                              .reference,
+                                                                      group: widget
+                                                                          .group,
+                                                                      userIsAdmin: functions.userIsAdminInGroup(
+                                                                          currentUserReference,
+                                                                          pageGroupOverviewMembersRecordList
+                                                                              .toList()),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              );
                                                             },
-                                                          );
+                                                          ).then((value) =>
+                                                              safeSetState(
+                                                                  () {}));
                                                         },
                                                         onLongPress: () async {
                                                           await showModalBottomSheet(
@@ -495,19 +479,11 @@ class _PageGroupOverviewWidgetState extends State<PageGroupOverviewWidget>
                                                                           context),
                                                                   child:
                                                                       ComponentAttendancePickerWidget(
-                                                                    playerMatchAttendance: functions.getUserAttendanceFromMatchAttendanceList(
+                                                                    playerMatchAttendance: functions.getUserAttendanceFromMatchAttendanceListWithRefId(
                                                                         listViewMatchesRecord
                                                                             .attendance
                                                                             .toList(),
-                                                                        listViewMatchesRecord
-                                                                            .attendance
-                                                                            .where((e) =>
-                                                                                e.player.userRefId ==
-                                                                                currentUserReference)
-                                                                            .toList()
-                                                                            .firstOrNull
-                                                                            ?.player
-                                                                            .memberRefId)!,
+                                                                        currentUserReference)!,
                                                                     matchRef:
                                                                         listViewMatchesRecord
                                                                             .reference,
@@ -567,16 +543,17 @@ class _PageGroupOverviewWidgetState extends State<PageGroupOverviewWidget>
                                               Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
-                                                        0.0, 0.0, 0.0, 10.0),
+                                                        16.0, 0.0, 0.0, 0.0),
                                                 child: Text(
                                                   'Past Matches',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
                                                       .override(
-                                                        font: GoogleFonts.inter(
+                                                        font: GoogleFonts
+                                                            .lexendDeca(
                                                           fontWeight:
-                                                              FontWeight.w600,
+                                                              FontWeight.w500,
                                                           fontStyle:
                                                               FlutterFlowTheme.of(
                                                                       context)
@@ -586,11 +563,11 @@ class _PageGroupOverviewWidgetState extends State<PageGroupOverviewWidget>
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .secondaryText,
-                                                        fontSize: 18.0,
+                                                                .primaryText,
+                                                        fontSize: 16.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FontWeight.w600,
+                                                            FontWeight.w500,
                                                         fontStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -622,22 +599,7 @@ class _PageGroupOverviewWidgetState extends State<PageGroupOverviewWidget>
                                                 builder: (context, snapshot) {
                                                   // Customize what your widget looks like when it's loading.
                                                   if (!snapshot.hasData) {
-                                                    return Center(
-                                                      child: SizedBox(
-                                                        width: 50.0,
-                                                        height: 50.0,
-                                                        child:
-                                                            CircularProgressIndicator(
-                                                          valueColor:
-                                                              AlwaysStoppedAnimation<
-                                                                  Color>(
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    );
+                                                    return ComponentMatchRowLoaderWidget();
                                                   }
                                                   List<MatchesRecord>
                                                       listViewMatchesRecordList =
@@ -650,9 +612,7 @@ class _PageGroupOverviewWidgetState extends State<PageGroupOverviewWidget>
                                                   }
 
                                                   return ListView.separated(
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            vertical: 10.0),
+                                                    padding: EdgeInsets.zero,
                                                     primary: false,
                                                     shrinkWrap: true,
                                                     scrollDirection:
@@ -677,61 +637,56 @@ class _PageGroupOverviewWidgetState extends State<PageGroupOverviewWidget>
                                                         highlightColor:
                                                             Colors.transparent,
                                                         onTap: () async {
-                                                          context.pushNamed(
-                                                            PageMatchOverviewWidget
-                                                                .routeName,
-                                                            queryParameters: {
-                                                              'match':
-                                                                  serializeParam(
-                                                                listViewMatchesRecord,
-                                                                ParamType
-                                                                    .Document,
-                                                              ),
-                                                              'group':
-                                                                  serializeParam(
-                                                                widget.group,
-                                                                ParamType
-                                                                    .Document,
-                                                              ),
-                                                              'userIsAdmin':
-                                                                  serializeParam(
-                                                                functions.userIsAdminInGroup(
-                                                                    currentUserReference,
-                                                                    pageGroupOverviewMembersRecordList
-                                                                        .toList()),
-                                                                ParamType.bool,
-                                                              ),
-                                                              'groupRef':
-                                                                  serializeParam(
-                                                                widget.group
-                                                                    ?.reference,
-                                                                ParamType
-                                                                    .DocumentReference,
-                                                              ),
-                                                              'matchRef':
-                                                                  serializeParam(
-                                                                listViewMatchesRecord
-                                                                    .reference,
-                                                                ParamType
-                                                                    .DocumentReference,
-                                                              ),
-                                                            }.withoutNulls,
-                                                            extra: <String,
-                                                                dynamic>{
-                                                              'match':
-                                                                  listViewMatchesRecord,
-                                                              'group':
-                                                                  widget.group,
-                                                              kTransitionInfoKey:
-                                                                  TransitionInfo(
-                                                                hasTransition:
-                                                                    true,
-                                                                transitionType:
-                                                                    PageTransitionType
-                                                                        .bottomToTop,
-                                                              ),
+                                                          await showModalBottomSheet(
+                                                            isScrollControlled:
+                                                                true,
+                                                            backgroundColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            enableDrag: false,
+                                                            context: context,
+                                                            builder: (context) {
+                                                              return GestureDetector(
+                                                                onTap: () {
+                                                                  FocusScope.of(
+                                                                          context)
+                                                                      .unfocus();
+                                                                  FocusManager
+                                                                      .instance
+                                                                      .primaryFocus
+                                                                      ?.unfocus();
+                                                                },
+                                                                child: Padding(
+                                                                  padding: MediaQuery
+                                                                      .viewInsetsOf(
+                                                                          context),
+                                                                  child:
+                                                                      Container(
+                                                                    height: MediaQuery.sizeOf(context)
+                                                                            .height *
+                                                                        0.94,
+                                                                    child:
+                                                                        MatchSheetWidget(
+                                                                      grouRef:
+                                                                          listViewMatchesRecord
+                                                                              .groupRef!,
+                                                                      matchRef:
+                                                                          listViewMatchesRecord
+                                                                              .reference,
+                                                                      group: widget
+                                                                          .group,
+                                                                      userIsAdmin: functions.userIsAdminInGroup(
+                                                                          currentUserReference,
+                                                                          pageGroupOverviewMembersRecordList
+                                                                              .toList()),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              );
                                                             },
-                                                          );
+                                                          ).then((value) =>
+                                                              safeSetState(
+                                                                  () {}));
                                                         },
                                                         child:
                                                             ComponentMatchRowWidget(
@@ -761,7 +716,9 @@ class _PageGroupOverviewWidgetState extends State<PageGroupOverviewWidget>
                                                   );
                                                 },
                                               ),
-                                            ],
+                                            ]
+                                                .divide(SizedBox(height: 10.0))
+                                                .around(SizedBox(height: 10.0)),
                                           ),
                                         ),
                                       ],
@@ -964,79 +921,71 @@ class _PageGroupOverviewWidgetState extends State<PageGroupOverviewWidget>
                                       currentUserReference,
                                       pageGroupOverviewMembersRecordList
                                           .toList()))
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 20.0, 0.0, 0.0),
-                                      child: FFButtonWidget(
-                                        onPressed: () async {
-                                          await showModalBottomSheet(
-                                            isScrollControlled: true,
-                                            backgroundColor: Colors.transparent,
-                                            enableDrag: false,
-                                            context: context,
-                                            builder: (context) {
-                                              return GestureDetector(
-                                                onTap: () {
-                                                  FocusScope.of(context)
-                                                      .unfocus();
-                                                  FocusManager
-                                                      .instance.primaryFocus
-                                                      ?.unfocus();
-                                                },
-                                                child: Padding(
-                                                  padding:
-                                                      MediaQuery.viewInsetsOf(
-                                                          context),
-                                                  child:
-                                                      ComponentGroupAddPlayerPickerWidget(
-                                                    group: widget.group!,
-                                                  ),
+                                    FFButtonWidget(
+                                      onPressed: () async {
+                                        await showModalBottomSheet(
+                                          isScrollControlled: true,
+                                          backgroundColor: Colors.transparent,
+                                          enableDrag: false,
+                                          context: context,
+                                          builder: (context) {
+                                            return GestureDetector(
+                                              onTap: () {
+                                                FocusScope.of(context)
+                                                    .unfocus();
+                                                FocusManager
+                                                    .instance.primaryFocus
+                                                    ?.unfocus();
+                                              },
+                                              child: Padding(
+                                                padding:
+                                                    MediaQuery.viewInsetsOf(
+                                                        context),
+                                                child:
+                                                    ComponentGroupAddPlayerPickerWidget(
+                                                  group: widget.group!,
                                                 ),
-                                              );
-                                            },
-                                          ).then(
-                                              (value) => safeSetState(() {}));
-                                        },
-                                        text: 'Add Player',
-                                        options: FFButtonOptions(
-                                          width: 120.0,
-                                          height: 40.0,
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          iconPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                          textStyle: FlutterFlowTheme.of(
-                                                  context)
-                                              .bodySmall
-                                              .override(
-                                                font: GoogleFonts.lexendDeca(
-                                                  fontWeight: FontWeight.normal,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodySmall
-                                                          .fontStyle,
-                                                ),
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                                fontSize: 14.0,
-                                                letterSpacing: 0.0,
+                                              ),
+                                            );
+                                          },
+                                        ).then((value) => safeSetState(() {}));
+                                      },
+                                      text: 'Add Player',
+                                      options: FFButtonOptions(
+                                        width: 120.0,
+                                        height: 40.0,
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 0.0),
+                                        iconPadding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                0.0, 0.0, 0.0, 0.0),
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .bodySmall
+                                            .override(
+                                              font: GoogleFonts.lexendDeca(
                                                 fontWeight: FontWeight.normal,
                                                 fontStyle:
                                                     FlutterFlowTheme.of(context)
                                                         .bodySmall
                                                         .fontStyle,
                                               ),
-                                          elevation: 1.0,
-                                          borderSide: BorderSide(
-                                            color: Colors.transparent,
-                                            width: 1.0,
-                                          ),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              fontSize: 14.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.normal,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodySmall
+                                                      .fontStyle,
+                                            ),
+                                        elevation: 1.0,
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                          width: 1.0,
                                         ),
                                       ),
                                     ),

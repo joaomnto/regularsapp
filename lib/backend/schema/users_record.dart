@@ -50,6 +50,11 @@ class UsersRecord extends FirestoreRecord {
   List<DocumentReference> get membershipRefs => _membershipRefs ?? const [];
   bool hasMembershipRefs() => _membershipRefs != null;
 
+  // "lowercase_name" field.
+  String? _lowercaseName;
+  String get lowercaseName => _lowercaseName ?? '';
+  bool hasLowercaseName() => _lowercaseName != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -58,6 +63,7 @@ class UsersRecord extends FirestoreRecord {
     _createdTime = snapshotData['created_time'] as DateTime?;
     _phoneNumber = snapshotData['phone_number'] as String?;
     _membershipRefs = getDataList(snapshotData['membershipRefs']);
+    _lowercaseName = snapshotData['lowercase_name'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -100,6 +106,7 @@ Map<String, dynamic> createUsersRecordData({
   String? uid,
   DateTime? createdTime,
   String? phoneNumber,
+  String? lowercaseName,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -109,6 +116,7 @@ Map<String, dynamic> createUsersRecordData({
       'uid': uid,
       'created_time': createdTime,
       'phone_number': phoneNumber,
+      'lowercase_name': lowercaseName,
     }.withoutNulls,
   );
 
@@ -127,7 +135,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.uid == e2?.uid &&
         e1?.createdTime == e2?.createdTime &&
         e1?.phoneNumber == e2?.phoneNumber &&
-        listEquality.equals(e1?.membershipRefs, e2?.membershipRefs);
+        listEquality.equals(e1?.membershipRefs, e2?.membershipRefs) &&
+        e1?.lowercaseName == e2?.lowercaseName;
   }
 
   @override
@@ -138,7 +147,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.uid,
         e?.createdTime,
         e?.phoneNumber,
-        e?.membershipRefs
+        e?.membershipRefs,
+        e?.lowercaseName
       ]);
 
   @override

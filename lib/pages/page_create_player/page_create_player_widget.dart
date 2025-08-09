@@ -120,7 +120,7 @@ class _PageCreatePlayerWidgetState extends State<PageCreatePlayerWidget> {
                       'Here you can create a locar player to this group in case their not yet using Regulars',
                       textAlign: TextAlign.center,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            font: GoogleFonts.inter(
+                            font: GoogleFonts.lexendDeca(
                               fontWeight: FontWeight.w300,
                               fontStyle: FlutterFlowTheme.of(context)
                                   .bodyMedium

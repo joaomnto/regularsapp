@@ -1,9 +1,13 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/component_attendance_picker/component_attendance_picker_widget.dart';
 import '/components/component_create_group_sheet/component_create_group_sheet_widget.dart';
 import '/components/component_group_row/component_group_row_widget.dart';
+import '/components/component_group_row_loader/component_group_row_loader_widget.dart';
 import '/components/component_match_row/component_match_row_widget.dart';
+import '/components/component_match_row_loader/component_match_row_loader_widget.dart';
 import '/components/empty_lists/component_empty_list_view/component_empty_list_view_widget.dart';
+import '/components/match_sheet_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -180,399 +184,550 @@ class _PageDashboardWidgetState extends State<PageDashboardWidget> {
                 maxWidth: 600.0,
               ),
               decoration: BoxDecoration(),
-              child: ListView(
-                padding: EdgeInsets.zero,
-                scrollDirection: Axis.vertical,
+              child: Stack(
+                alignment: AlignmentDirectional(0.0, 1.0),
                 children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                  ListView(
+                    padding: EdgeInsets.zero,
+                    scrollDirection: Axis.vertical,
                     children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            16.0, 16.0, 16.0, 16.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  1.0, 0.0, 0.0, 0.0),
-                              child: Text(
-                                'Upcoming Matches',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      font: GoogleFonts.inter(
-                                        fontWeight: FontWeight.w500,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w500,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 10.0, 0.0, 0.0),
-                              child: StreamBuilder<List<MatchesRecord>>(
-                                stream: queryMatchesRecord(
-                                  queryBuilder: (matchesRecord) => matchesRecord
-                                      .where(
-                                        'attendanceUserRefs',
-                                        arrayContains: currentUserReference,
-                                      )
-                                      .where(
-                                        'matchEndDate',
-                                        isGreaterThanOrEqualTo:
-                                            getCurrentTimestamp,
-                                      )
-                                      .orderBy('matchEndDate')
-                                      .orderBy('matchDate'),
-                                  limit: 3,
-                                ),
-                                builder: (context, snapshot) {
-                                  // Customize what your widget looks like when it's loading.
-                                  if (!snapshot.hasData) {
-                                    return Center(
-                                      child: SizedBox(
-                                        width: 50.0,
-                                        height: 50.0,
-                                        child: CircularProgressIndicator(
-                                          valueColor:
-                                              AlwaysStoppedAnimation<Color>(
-                                            FlutterFlowTheme.of(context)
-                                                .primary,
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                  List<MatchesRecord>
-                                      listViewMatchesRecordList =
-                                      snapshot.data!;
-                                  if (listViewMatchesRecordList.isEmpty) {
-                                    return ComponentEmptyListViewWidget();
-                                  }
-
-                                  return ListView.separated(
-                                    padding: EdgeInsets.zero,
-                                    primary: false,
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.vertical,
-                                    itemCount: listViewMatchesRecordList.length,
-                                    separatorBuilder: (_, __) =>
-                                        SizedBox(height: 10.0),
-                                    itemBuilder: (context, listViewIndex) {
-                                      final listViewMatchesRecord =
-                                          listViewMatchesRecordList[
-                                              listViewIndex];
-                                      return InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          context.pushNamed(
-                                            PageMatchOverviewWidget.routeName,
-                                            queryParameters: {
-                                              'groupRef': serializeParam(
-                                                listViewMatchesRecord.groupRef,
-                                                ParamType.DocumentReference,
-                                              ),
-                                              'match': serializeParam(
-                                                listViewMatchesRecord,
-                                                ParamType.Document,
-                                              ),
-                                              'matchRef': serializeParam(
-                                                listViewMatchesRecord.reference,
-                                                ParamType.DocumentReference,
-                                              ),
-                                              'userIsAdmin': serializeParam(
-                                                false,
-                                                ParamType.bool,
-                                              ),
-                                            }.withoutNulls,
-                                            extra: <String, dynamic>{
-                                              'match': listViewMatchesRecord,
-                                              kTransitionInfoKey:
-                                                  TransitionInfo(
-                                                hasTransition: true,
-                                                transitionType:
-                                                    PageTransitionType
-                                                        .bottomToTop,
-                                              ),
-                                            },
-                                          );
-                                        },
-                                        onLongPress: () async {},
-                                        child: ComponentMatchRowWidget(
-                                          key: Key(
-                                              'Keyxpo_${listViewIndex}_of_${listViewMatchesRecordList.length}'),
-                                          showGroup: true,
-                                          matchStatus:
-                                              listViewMatchesRecord.status,
-                                          matchDate:
-                                              listViewMatchesRecord.matchDate,
-                                          kickofftime:
-                                              listViewMatchesRecord.matchDate,
-                                          match: listViewMatchesRecord,
-                                          playerAttendanceInMatch: functions
-                                              .authUserAttendanceForMatch(
-                                                  listViewMatchesRecord
-                                                      .attendance
-                                                      .toList(),
-                                                  currentUserReference)!,
-                                        ),
-                                      );
-                                    },
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(16.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                            borderRadius: BorderRadius.circular(12.0),
-                            shape: BoxShape.rectangle,
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(0.0),
-                                    bottomRight: Radius.circular(0.0),
-                                    topLeft: Radius.circular(12.0),
-                                    topRight: Radius.circular(12.0),
-                                  ),
-                                ),
-                                child: Padding(
+                      Stack(
+                        alignment: AlignmentDirectional(0.0, 1.0),
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 1.0, 0.0, 0.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      20.0, 4.0, 0.0, 4.0),
-                                  child: Row(
+                                      16.0, 16.0, 16.0, 16.0),
+                                  child: Column(
                                     mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
                                     children: [
-                                      Text(
-                                        'My Groups',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              font: GoogleFonts.inter(
-                                                fontWeight: FontWeight.w600,
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 16.0, 0.0, 0.0),
+                                        child: Text(
+                                          'Upcoming Matches',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                font: GoogleFonts.lexendDeca(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
+                                                fontSize: 16.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w500,
                                                 fontStyle:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
                                                         .fontStyle,
                                               ),
-                                              fontSize: 20.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w600,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
-                                            ),
-                                      ),
-                                      FFButtonWidget(
-                                        onPressed: () async {
-                                          showModalBottomSheet(
-                                            isScrollControlled: true,
-                                            backgroundColor: Colors.transparent,
-                                            enableDrag: false,
-                                            context: context,
-                                            builder: (context) {
-                                              return GestureDetector(
-                                                onTap: () {
-                                                  FocusScope.of(context)
-                                                      .unfocus();
-                                                  FocusManager
-                                                      .instance.primaryFocus
-                                                      ?.unfocus();
-                                                },
-                                                child: Padding(
-                                                  padding:
-                                                      MediaQuery.viewInsetsOf(
-                                                          context),
-                                                  child: Container(
-                                                    height: MediaQuery.sizeOf(
-                                                                context)
-                                                            .height *
-                                                        0.3,
-                                                    child:
-                                                        ComponentCreateGroupSheetWidget(),
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                          ).then(
-                                              (value) => safeSetState(() {}));
-                                        },
-                                        text: '',
-                                        icon: Icon(
-                                          Icons.add_circle,
-                                          size: 30.0,
                                         ),
-                                        options: FFButtonOptions(
-                                          width: 48.0,
-                                          height: 48.0,
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          iconPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          iconColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .primaryText,
-                                          color: Color(0x004B39EF),
-                                          textStyle: FlutterFlowTheme.of(
-                                                  context)
-                                              .titleSmall
-                                              .override(
-                                                font: GoogleFonts.interTight(
-                                                  fontWeight:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .titleSmall
-                                                          .fontWeight,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .titleSmall
-                                                          .fontStyle,
-                                                ),
-                                                color: Colors.white,
-                                                letterSpacing: 0.0,
-                                                fontWeight:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmall
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmall
-                                                        .fontStyle,
-                                              ),
-                                          elevation: 0.0,
-                                          borderRadius:
-                                              BorderRadius.circular(0.0),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 10.0, 0.0, 0.0),
+                                        child:
+                                            StreamBuilder<List<MatchesRecord>>(
+                                          stream: queryMatchesRecord(
+                                            queryBuilder: (matchesRecord) =>
+                                                matchesRecord
+                                                    .where(
+                                                      'attendanceUserRefs',
+                                                      arrayContains:
+                                                          currentUserReference,
+                                                    )
+                                                    .where(
+                                                      'matchEndDate',
+                                                      isGreaterThanOrEqualTo:
+                                                          getCurrentTimestamp,
+                                                    )
+                                                    .orderBy('matchEndDate')
+                                                    .orderBy('matchDate'),
+                                            limit: 3,
+                                          ),
+                                          builder: (context, snapshot) {
+                                            // Customize what your widget looks like when it's loading.
+                                            if (!snapshot.hasData) {
+                                              return ComponentMatchRowLoaderWidget();
+                                            }
+                                            List<MatchesRecord>
+                                                listViewMatchesRecordList =
+                                                snapshot.data!;
+                                            if (listViewMatchesRecordList
+                                                .isEmpty) {
+                                              return ComponentEmptyListViewWidget();
+                                            }
+
+                                            return ListView.separated(
+                                              padding: EdgeInsets.zero,
+                                              primary: false,
+                                              shrinkWrap: true,
+                                              scrollDirection: Axis.vertical,
+                                              itemCount:
+                                                  listViewMatchesRecordList
+                                                      .length,
+                                              separatorBuilder: (_, __) =>
+                                                  SizedBox(height: 10.0),
+                                              itemBuilder:
+                                                  (context, listViewIndex) {
+                                                final listViewMatchesRecord =
+                                                    listViewMatchesRecordList[
+                                                        listViewIndex];
+                                                return InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    await showModalBottomSheet(
+                                                      isScrollControlled: true,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      enableDrag: false,
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return GestureDetector(
+                                                          onTap: () {
+                                                            FocusScope.of(
+                                                                    context)
+                                                                .unfocus();
+                                                            FocusManager
+                                                                .instance
+                                                                .primaryFocus
+                                                                ?.unfocus();
+                                                          },
+                                                          child: Padding(
+                                                            padding: MediaQuery
+                                                                .viewInsetsOf(
+                                                                    context),
+                                                            child: Container(
+                                                              height: MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
+                                                                      .height *
+                                                                  0.94,
+                                                              child:
+                                                                  MatchSheetWidget(
+                                                                grouRef:
+                                                                    listViewMatchesRecord
+                                                                        .groupRef!,
+                                                                matchRef:
+                                                                    listViewMatchesRecord
+                                                                        .reference,
+                                                                userIsAdmin:
+                                                                    false,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                    ).then((value) =>
+                                                        safeSetState(() {}));
+                                                  },
+                                                  onLongPress: () async {
+                                                    await showModalBottomSheet(
+                                                      isScrollControlled: true,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      enableDrag: false,
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return GestureDetector(
+                                                          onTap: () {
+                                                            FocusScope.of(
+                                                                    context)
+                                                                .unfocus();
+                                                            FocusManager
+                                                                .instance
+                                                                .primaryFocus
+                                                                ?.unfocus();
+                                                          },
+                                                          child: Padding(
+                                                            padding: MediaQuery
+                                                                .viewInsetsOf(
+                                                                    context),
+                                                            child:
+                                                                ComponentAttendancePickerWidget(
+                                                              matchRef:
+                                                                  listViewMatchesRecord
+                                                                      .reference,
+                                                              matchAttendanceList:
+                                                                  listViewMatchesRecord
+                                                                      .attendance,
+                                                              playerMatchAttendance: functions.getUserAttendanceFromMatchAttendanceListWithRefId(
+                                                                  listViewMatchesRecord
+                                                                      .attendance
+                                                                      .toList(),
+                                                                  currentUserReference)!,
+                                                              isSelf: true,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                    ).then((value) =>
+                                                        safeSetState(() {}));
+                                                  },
+                                                  child:
+                                                      ComponentMatchRowWidget(
+                                                    key: Key(
+                                                        'Keyxpo_${listViewIndex}_of_${listViewMatchesRecordList.length}'),
+                                                    showGroup: true,
+                                                    matchStatus:
+                                                        listViewMatchesRecord
+                                                            .status,
+                                                    matchDate:
+                                                        listViewMatchesRecord
+                                                            .matchDate,
+                                                    kickofftime:
+                                                        listViewMatchesRecord
+                                                            .matchDate,
+                                                    match:
+                                                        listViewMatchesRecord,
+                                                    playerAttendanceInMatch: functions
+                                                        .authUserAttendanceForMatch(
+                                                            listViewMatchesRecord
+                                                                .attendance
+                                                                .toList(),
+                                                            currentUserReference)!,
+                                                  ),
+                                                );
+                                              },
+                                            );
+                                          },
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
-                              ),
-                              Container(
-                                height: 1.0,
-                                decoration: BoxDecoration(
-                                  color: Color(0x4014181B),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 0.0, 16.0, 0.0),
-                                child: StreamBuilder<List<GroupsRecord>>(
-                                  stream: queryGroupsRecord(
-                                    queryBuilder: (groupsRecord) =>
-                                        groupsRecord.where(
-                                      'membersUserIds',
-                                      arrayContains: currentUserReference,
-                                    ),
-                                  ),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                        child: SizedBox(
-                                          width: 50.0,
-                                          height: 50.0,
-                                          child: CircularProgressIndicator(
-                                            valueColor:
-                                                AlwaysStoppedAnimation<Color>(
-                                              FlutterFlowTheme.of(context)
-                                                  .primary,
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 16.0, 16.0, 0.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 0.0, 0.0, 0.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              'My Groups',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    font:
+                                                        GoogleFonts.lexendDeca(
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .fontStyle,
+                                                    ),
+                                                    fontSize: 16.0,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight: FontWeight.w500,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                  ),
                                             ),
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                    List<GroupsRecord>
-                                        listViewGroupsRecordList =
-                                        snapshot.data!;
-                                    if (listViewGroupsRecordList.isEmpty) {
-                                      return ComponentEmptyListViewWidget(
-                                        emptyText: 'No groups',
-                                      );
-                                    }
-
-                                    return ListView.separated(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 10.0),
-                                      primary: false,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      itemCount:
-                                          listViewGroupsRecordList.length,
-                                      separatorBuilder: (_, __) =>
-                                          SizedBox(height: 10.0),
-                                      itemBuilder: (context, listViewIndex) {
-                                        final listViewGroupsRecord =
-                                            listViewGroupsRecordList[
-                                                listViewIndex];
-                                        return InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            context.pushNamed(
-                                              PageGroupOverviewWidget.routeName,
-                                              queryParameters: {
-                                                'group': serializeParam(
-                                                  listViewGroupsRecord,
-                                                  ParamType.Document,
-                                                ),
-                                              }.withoutNulls,
-                                              extra: <String, dynamic>{
-                                                'group': listViewGroupsRecord,
+                                            FFButtonWidget(
+                                              onPressed: () async {
+                                                showModalBottomSheet(
+                                                  isScrollControlled: true,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  enableDrag: false,
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return GestureDetector(
+                                                      onTap: () {
+                                                        FocusScope.of(context)
+                                                            .unfocus();
+                                                        FocusManager.instance
+                                                            .primaryFocus
+                                                            ?.unfocus();
+                                                      },
+                                                      child: Padding(
+                                                        padding: MediaQuery
+                                                            .viewInsetsOf(
+                                                                context),
+                                                        child: Container(
+                                                          height:
+                                                              MediaQuery.sizeOf(
+                                                                          context)
+                                                                      .height *
+                                                                  0.3,
+                                                          child:
+                                                              ComponentCreateGroupSheetWidget(),
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                ).then((value) =>
+                                                    safeSetState(() {}));
                                               },
-                                            );
-                                          },
-                                          child: ComponentGroupRowWidget(
-                                            key: Key(
-                                                'Keyu7i_${listViewIndex}_of_${listViewGroupsRecordList.length}'),
-                                            group: listViewGroupsRecord,
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  },
+                                              text: '',
+                                              icon: Icon(
+                                                Icons.add,
+                                                size: 30.0,
+                                              ),
+                                              options: FFButtonOptions(
+                                                width: 48.0,
+                                                height: 48.0,
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 0.0, 0.0),
+                                                iconPadding:
+                                                    EdgeInsetsDirectional
+                                                        .fromSTEB(
+                                                            0.0, 0.0, 0.0, 0.0),
+                                                iconColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                color: Color(0x004B39EF),
+                                                textStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleSmall
+                                                        .override(
+                                                          font: GoogleFonts
+                                                              .lexendDeca(
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .fontStyle,
+                                                          ),
+                                                          color: Colors.white,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleSmall
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleSmall
+                                                                  .fontStyle,
+                                                        ),
+                                                elevation: 0.0,
+                                                borderRadius:
+                                                    BorderRadius.circular(0.0),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                          shape: BoxShape.rectangle,
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
+                                          children: [
+                                            Container(
+                                              height: 1.0,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      16.0, 16.0, 16.0, 16.0),
+                                              child: StreamBuilder<
+                                                  List<GroupsRecord>>(
+                                                stream: queryGroupsRecord(
+                                                  queryBuilder:
+                                                      (groupsRecord) =>
+                                                          groupsRecord.where(
+                                                    'membersUserIds',
+                                                    arrayContains:
+                                                        currentUserReference,
+                                                  ),
+                                                ),
+                                                builder: (context, snapshot) {
+                                                  // Customize what your widget looks like when it's loading.
+                                                  if (!snapshot.hasData) {
+                                                    return ComponentGroupRowLoaderWidget();
+                                                  }
+                                                  List<GroupsRecord>
+                                                      listViewGroupsRecordList =
+                                                      snapshot.data!;
+                                                  if (listViewGroupsRecordList
+                                                      .isEmpty) {
+                                                    return ComponentEmptyListViewWidget(
+                                                      emptyText: 'No groups',
+                                                    );
+                                                  }
+
+                                                  return ListView.separated(
+                                                    padding: EdgeInsets.zero,
+                                                    primary: false,
+                                                    shrinkWrap: true,
+                                                    scrollDirection:
+                                                        Axis.vertical,
+                                                    itemCount:
+                                                        listViewGroupsRecordList
+                                                            .length,
+                                                    separatorBuilder: (_, __) =>
+                                                        SizedBox(height: 10.0),
+                                                    itemBuilder: (context,
+                                                        listViewIndex) {
+                                                      final listViewGroupsRecord =
+                                                          listViewGroupsRecordList[
+                                                              listViewIndex];
+                                                      return InkWell(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        focusColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
+                                                        onTap: () async {
+                                                          context.pushNamed(
+                                                            PageGroupOverviewWidget
+                                                                .routeName,
+                                                            queryParameters: {
+                                                              'group':
+                                                                  serializeParam(
+                                                                listViewGroupsRecord,
+                                                                ParamType
+                                                                    .Document,
+                                                              ),
+                                                            }.withoutNulls,
+                                                            extra: <String,
+                                                                dynamic>{
+                                                              'group':
+                                                                  listViewGroupsRecord,
+                                                            },
+                                                          );
+                                                        },
+                                                        child:
+                                                            ComponentGroupRowWidget(
+                                                          key: Key(
+                                                              'Keyu7i_${listViewIndex}_of_${listViewGroupsRecordList.length}'),
+                                                          group:
+                                                              listViewGroupsRecord,
+                                                        ),
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
+                        ],
                       ),
                     ],
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(40.0, 0.0, 40.0, 50.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                          ),
+                        ),
+                        if (false)
+                          FFButtonWidget(
+                            onPressed: () {
+                              print('Button pressed ...');
+                            },
+                            text: '',
+                            icon: Icon(
+                              Icons.add,
+                              size: 40.0,
+                            ),
+                            options: FFButtonOptions(
+                              height: 60.0,
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 0.0, 16.0, 0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              iconColor: FlutterFlowTheme.of(context)
+                                  .primaryBackground,
+                              color: FlutterFlowTheme.of(context).primary,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    font: GoogleFonts.lexendDeca(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontStyle,
+                                    ),
+                                    color: Colors.white,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontStyle,
+                                  ),
+                              elevation: 2.0,
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
+                      ],
+                    ),
                   ),
                 ],
               ),

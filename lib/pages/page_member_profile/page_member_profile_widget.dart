@@ -293,7 +293,7 @@ class _PageMemberProfileWidgetState extends State<PageMemberProfileWidget>
                           style: FlutterFlowTheme.of(context)
                               .headlineSmall
                               .override(
-                                font: GoogleFonts.interTight(
+                                font: GoogleFonts.lexendDeca(
                                   fontWeight: FlutterFlowTheme.of(context)
                                       .headlineSmall
                                       .fontWeight,
@@ -322,7 +322,7 @@ class _PageMemberProfileWidgetState extends State<PageMemberProfileWidget>
                       child: Text(
                         'andrea@domainname.com',
                         style: FlutterFlowTheme.of(context).titleSmall.override(
-                              font: GoogleFonts.interTight(
+                              font: GoogleFonts.lexendDeca(
                                 fontWeight: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .fontWeight,
@@ -419,7 +419,7 @@ class _PageMemberProfileWidgetState extends State<PageMemberProfileWidget>
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
-                                                  font: GoogleFonts.inter(
+                                                  font: GoogleFonts.lexendDeca(
                                                     fontWeight:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -524,7 +524,7 @@ class _PageMemberProfileWidgetState extends State<PageMemberProfileWidget>
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                font: GoogleFonts.inter(
+                                                font: GoogleFonts.lexendDeca(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)

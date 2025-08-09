@@ -139,7 +139,7 @@ class _ComponentAddMemberWidgetState extends State<ComponentAddMemberWidget>
                           'User',
                         ),
                         style: FlutterFlowTheme.of(context).titleLarge.override(
-                              font: GoogleFonts.interTight(
+                              font: GoogleFonts.lexendDeca(
                                 fontWeight: FlutterFlowTheme.of(context)
                                     .titleLarge
                                     .fontWeight,
@@ -198,8 +198,10 @@ class _ComponentAddMemberWidgetState extends State<ComponentAddMemberWidget>
                           ) ??
                           false;
                       if (confirmDialogResponse) {
-                        var membersRecordReference =
-                            MembersRecord.createDoc(widget.group!.reference);
+                        var membersRecordReference = MembersRecord.createDoc(
+                          widget.group!.reference,
+                          id: widget.user!.reference.id,
+                        );
                         await membersRecordReference.set({
                           ...createMembersRecordData(
                             isAdmin: false,

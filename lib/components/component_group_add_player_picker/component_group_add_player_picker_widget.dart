@@ -49,7 +49,7 @@ class _ComponentGroupAddPlayerPickerWidgetState
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 232.0,
+      height: 250.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
         boxShadow: [
@@ -80,18 +80,18 @@ class _ComponentGroupAddPlayerPickerWidgetState
               child: Text(
                 'Add player',
                 textAlign: TextAlign.start,
-                style: FlutterFlowTheme.of(context).labelMedium.override(
+                style: FlutterFlowTheme.of(context).titleLarge.override(
                       font: GoogleFonts.lexendDeca(
-                        fontWeight: FontWeight.w500,
+                        fontWeight:
+                            FlutterFlowTheme.of(context).titleLarge.fontWeight,
                         fontStyle:
-                            FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                            FlutterFlowTheme.of(context).titleLarge.fontStyle,
                       ),
-                      color: FlutterFlowTheme.of(context).primaryText,
-                      fontSize: 14.0,
                       letterSpacing: 0.0,
-                      fontWeight: FontWeight.w500,
+                      fontWeight:
+                          FlutterFlowTheme.of(context).titleLarge.fontWeight,
                       fontStyle:
-                          FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                          FlutterFlowTheme.of(context).titleLarge.fontStyle,
                     ),
               ),
             ),
@@ -146,27 +146,27 @@ class _ComponentGroupAddPlayerPickerWidgetState
                             Icon(
                               Icons.person_search_rounded,
                               color: FlutterFlowTheme.of(context).primaryText,
-                              size: 20.0,
+                              size: 22.0,
                             ),
                             Text(
                               'Search for player',
                               style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
+                                  .labelLarge
                                   .override(
-                                    font: GoogleFonts.inter(
+                                    font: GoogleFonts.lexendDeca(
                                       fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyMedium
+                                          .labelLarge
                                           .fontWeight,
                                       fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
+                                          .labelLarge
                                           .fontStyle,
                                     ),
                                     letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelLarge
                                         .fontWeight,
                                     fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelLarge
                                         .fontStyle,
                                   ),
                             ),
@@ -209,27 +209,27 @@ class _ComponentGroupAddPlayerPickerWidgetState
                             Icon(
                               Icons.sports_soccer,
                               color: FlutterFlowTheme.of(context).primaryText,
-                              size: 20.0,
+                              size: 22.0,
                             ),
                             Text(
                               'Create local player',
                               style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
+                                  .labelLarge
                                   .override(
-                                    font: GoogleFonts.inter(
+                                    font: GoogleFonts.lexendDeca(
                                       fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyMedium
+                                          .labelLarge
                                           .fontWeight,
                                       fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
+                                          .labelLarge
                                           .fontStyle,
                                     ),
                                     letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelLarge
                                         .fontWeight,
                                     fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelLarge
                                         .fontStyle,
                                   ),
                             ),
@@ -245,27 +245,27 @@ class _ComponentGroupAddPlayerPickerWidgetState
                             Icon(
                               Icons.share,
                               color: FlutterFlowTheme.of(context).primaryText,
-                              size: 20.0,
+                              size: 22.0,
                             ),
                             Text(
                               'Share group',
                               style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
+                                  .labelLarge
                                   .override(
-                                    font: GoogleFonts.inter(
+                                    font: GoogleFonts.lexendDeca(
                                       fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyMedium
+                                          .labelLarge
                                           .fontWeight,
                                       fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
+                                          .labelLarge
                                           .fontStyle,
                                     ),
                                     letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelLarge
                                         .fontWeight,
                                     fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelLarge
                                         .fontStyle,
                                   ),
                             ),

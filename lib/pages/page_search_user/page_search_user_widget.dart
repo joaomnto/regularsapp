@@ -4,9 +4,9 @@ import '/components/component_add_member/component_add_member_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'page_search_user_model.dart';
 export 'page_search_user_model.dart';
@@ -118,7 +118,7 @@ class _PageSearchUserWidgetState extends State<PageSearchUserWidget> {
                         Expanded(
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 4.0, 16.0, 0.0),
+                                0.0, 4.0, 0.0, 0.0),
                             child: TextFormField(
                               controller: _model.textController,
                               focusNode: _model.textFieldFocusNode,
@@ -138,7 +138,7 @@ class _PageSearchUserWidgetState extends State<PageSearchUserWidget> {
                                 labelStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
-                                      font: GoogleFonts.inter(
+                                      font: GoogleFonts.lexendDeca(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .labelMedium
                                             .fontWeight,
@@ -195,7 +195,7 @@ class _PageSearchUserWidgetState extends State<PageSearchUserWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    font: GoogleFonts.inter(
+                                    font: GoogleFonts.lexendDeca(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
@@ -217,51 +217,19 @@ class _PageSearchUserWidgetState extends State<PageSearchUserWidget> {
                             ),
                           ),
                         ),
-                        FFButtonWidget(
-                          onPressed: () async {
-                            _model.searchQueryText = _model.textController.text;
-                            safeSetState(() {});
-                          },
-                          text: 'Search',
-                          options: FFButtonOptions(
-                            height: 40.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 0.0, 16.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context).alternate,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
-                                  font: GoogleFonts.interTight(
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .fontStyle,
-                                  ),
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .fontStyle,
-                                ),
-                            elevation: 0.0,
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
                       ],
                     ),
                     StreamBuilder<List<UsersRecord>>(
                       stream: queryUsersRecord(
                         queryBuilder: (usersRecord) => usersRecord.where(
-                          'email',
-                          isGreaterThanOrEqualTo: _model.searchQueryText,
+                          'lowercase_name',
+                          isGreaterThanOrEqualTo: _model.searchQueryText != ''
+                              ? _model.searchQueryText
+                              : null,
+                          isNull: (_model.searchQueryText != ''
+                                  ? _model.searchQueryText
+                                  : null) ==
+                              null,
                         ),
                         limit: 10,
                       ),
@@ -272,10 +240,9 @@ class _PageSearchUserWidgetState extends State<PageSearchUserWidget> {
                             child: SizedBox(
                               width: 50.0,
                               height: 50.0,
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  FlutterFlowTheme.of(context).primary,
-                                ),
+                              child: SpinKitRipple(
+                                color: FlutterFlowTheme.of(context).primary,
+                                size: 50.0,
                               ),
                             ),
                           );

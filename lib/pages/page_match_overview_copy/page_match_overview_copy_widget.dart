@@ -13,11 +13,11 @@ import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'page_match_overview_model.dart';
-export 'page_match_overview_model.dart';
+import 'page_match_overview_copy_model.dart';
+export 'page_match_overview_copy_model.dart';
 
-class PageMatchOverviewWidget extends StatefulWidget {
-  const PageMatchOverviewWidget({
+class PageMatchOverviewCopyWidget extends StatefulWidget {
+  const PageMatchOverviewCopyWidget({
     super.key,
     this.group,
     this.userIsAdmin,
@@ -32,23 +32,24 @@ class PageMatchOverviewWidget extends StatefulWidget {
   final DocumentReference? matchRef;
   final MatchesRecord? match;
 
-  static String routeName = 'PageMatchOverview';
-  static String routePath = '/pageMatchOverview';
+  static String routeName = 'PageMatchOverviewCopy';
+  static String routePath = '/pageMatchOverviewCopy';
 
   @override
-  State<PageMatchOverviewWidget> createState() =>
-      _PageMatchOverviewWidgetState();
+  State<PageMatchOverviewCopyWidget> createState() =>
+      _PageMatchOverviewCopyWidgetState();
 }
 
-class _PageMatchOverviewWidgetState extends State<PageMatchOverviewWidget> {
-  late PageMatchOverviewModel _model;
+class _PageMatchOverviewCopyWidgetState
+    extends State<PageMatchOverviewCopyWidget> {
+  late PageMatchOverviewCopyModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => PageMatchOverviewModel());
+    _model = createModel(context, () => PageMatchOverviewCopyModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -82,7 +83,7 @@ class _PageMatchOverviewWidgetState extends State<PageMatchOverviewWidget> {
           );
         }
 
-        final pageMatchOverviewMatchesRecord = snapshot.data!;
+        final pageMatchOverviewCopyMatchesRecord = snapshot.data!;
 
         return GestureDetector(
           onTap: () {
@@ -109,23 +110,6 @@ class _PageMatchOverviewWidgetState extends State<PageMatchOverviewWidget> {
                   context.pop();
                 },
               ),
-              title: Visibility(
-                visible: false,
-                child: FlutterFlowIconButton(
-                  borderRadius: 8.0,
-                  buttonSize: 40.0,
-                  fillColor: FlutterFlowTheme.of(context).primaryBackground,
-                  icon: Icon(
-                    Icons.edit,
-                    color: FlutterFlowTheme.of(context).primaryText,
-                    size: 24.0,
-                  ),
-                  onPressed: () async {
-                    _model.editMode = !_model.editMode;
-                    safeSetState(() {});
-                  },
-                ),
-              ),
               actions: [
                 Visibility(
                   visible: widget.userIsAdmin ?? true,
@@ -142,7 +126,7 @@ class _PageMatchOverviewWidgetState extends State<PageMatchOverviewWidget> {
                         PageCreateMatchWidget.routeName,
                         queryParameters: {
                           'groupReference': serializeParam(
-                            pageMatchOverviewMatchesRecord.groupRef,
+                            pageMatchOverviewCopyMatchesRecord.groupRef,
                             ParamType.DocumentReference,
                           ),
                           'group': serializeParam(
@@ -150,7 +134,8 @@ class _PageMatchOverviewWidgetState extends State<PageMatchOverviewWidget> {
                             ParamType.Document,
                           ),
                           'newMatchGroupMembers': serializeParam(
-                            pageMatchOverviewMatchesRecord.matchGroupMembers,
+                            pageMatchOverviewCopyMatchesRecord
+                                .matchGroupMembers,
                             ParamType.DocumentReference,
                             isList: true,
                           ),
@@ -305,7 +290,7 @@ class _PageMatchOverviewWidgetState extends State<PageMatchOverviewWidget> {
                                                     child: Text(
                                                       functions
                                                           .matchStatusDisplayStringForStatus(
-                                                              pageMatchOverviewMatchesRecord
+                                                              pageMatchOverviewCopyMatchesRecord
                                                                   .status!),
                                                       style: FlutterFlowTheme
                                                               .of(context)
@@ -326,7 +311,7 @@ class _PageMatchOverviewWidgetState extends State<PageMatchOverviewWidget> {
                                                                 valueOrDefault<
                                                                     Color>(
                                                               functions.colorForStatus(
-                                                                  pageMatchOverviewMatchesRecord
+                                                                  pageMatchOverviewCopyMatchesRecord
                                                                       .status),
                                                               Color(0xFF32A4F7),
                                                             ),
@@ -349,7 +334,7 @@ class _PageMatchOverviewWidgetState extends State<PageMatchOverviewWidget> {
                                           Text(
                                             valueOrDefault<String>(
                                               functions.smartDateFormat(
-                                                  pageMatchOverviewMatchesRecord
+                                                  pageMatchOverviewCopyMatchesRecord
                                                       .matchDate),
                                               '-',
                                             ),
@@ -394,16 +379,16 @@ class _PageMatchOverviewWidgetState extends State<PageMatchOverviewWidget> {
                                             children: [
                                               Expanded(
                                                 child: Text(
-                                                  pageMatchOverviewMatchesRecord
+                                                  pageMatchOverviewCopyMatchesRecord
                                                               .status ==
                                                           MatchStatus.Running
                                                       ? functions
                                                           .matchTimeStringForStartDate(
-                                                              pageMatchOverviewMatchesRecord
+                                                              pageMatchOverviewCopyMatchesRecord
                                                                   .matchDate)!
                                                       : 'Kick-off at ${dateTimeFormat(
                                                           "Hm",
-                                                          pageMatchOverviewMatchesRecord
+                                                          pageMatchOverviewCopyMatchesRecord
                                                               .matchDate,
                                                           locale:
                                                               FFLocalizations.of(
@@ -516,7 +501,7 @@ class _PageMatchOverviewWidgetState extends State<PageMatchOverviewWidget> {
                                                             String>(
                                                           dateTimeFormat(
                                                             "d/M/y",
-                                                            pageMatchOverviewMatchesRecord
+                                                            pageMatchOverviewCopyMatchesRecord
                                                                 .matchDate,
                                                             locale: FFLocalizations
                                                                     .of(context)
@@ -540,7 +525,7 @@ class _PageMatchOverviewWidgetState extends State<PageMatchOverviewWidget> {
                                                             String>(
                                                           dateTimeFormat(
                                                             "Hm",
-                                                            pageMatchOverviewMatchesRecord
+                                                            pageMatchOverviewCopyMatchesRecord
                                                                 .matchDate,
                                                             locale: FFLocalizations
                                                                     .of(context)
@@ -562,7 +547,7 @@ class _PageMatchOverviewWidgetState extends State<PageMatchOverviewWidget> {
                                                           ComponentMatchDetailWidget(
                                                         text: valueOrDefault<
                                                             String>(
-                                                          '${functions.doubleToIntString(pageMatchOverviewMatchesRecord.duration)} min',
+                                                          '${functions.doubleToIntString(pageMatchOverviewCopyMatchesRecord.duration)} min',
                                                           '-',
                                                         ),
                                                         icon: Icon(
@@ -590,7 +575,7 @@ class _PageMatchOverviewWidgetState extends State<PageMatchOverviewWidget> {
                                                             String>(
                                                           functions
                                                               .matchTypeToString(
-                                                                  pageMatchOverviewMatchesRecord
+                                                                  pageMatchOverviewCopyMatchesRecord
                                                                       .type),
                                                           '-',
                                                         ),
@@ -608,7 +593,7 @@ class _PageMatchOverviewWidgetState extends State<PageMatchOverviewWidget> {
                                                           ComponentMatchDetailWidget(
                                                         text: valueOrDefault<
                                                             String>(
-                                                          pageMatchOverviewMatchesRecord
+                                                          pageMatchOverviewCopyMatchesRecord
                                                               .venue?.name,
                                                           '-',
                                                         ),
@@ -627,7 +612,7 @@ class _PageMatchOverviewWidgetState extends State<PageMatchOverviewWidget> {
                                                           ComponentMatchDetailWidget(
                                                         text: valueOrDefault<
                                                             String>(
-                                                          pageMatchOverviewMatchesRecord
+                                                          pageMatchOverviewCopyMatchesRecord
                                                               .subs?.name,
                                                           '-',
                                                         ),
@@ -722,28 +707,28 @@ class _PageMatchOverviewWidgetState extends State<PageMatchOverviewWidget> {
                                                           .isAdmin,
                                                   playerAttendanceInMatch: functions
                                                       .getUserAttendanceFromMatchAttendanceListWithRefId(
-                                                          pageMatchOverviewMatchesRecord
+                                                          pageMatchOverviewCopyMatchesRecord
                                                               .attendance
                                                               .toList(),
                                                           currentUserReference),
                                                   attendanceStatus: functions
                                                       .getUserAttendanceFromMatchAttendanceListWithRefId(
-                                                          pageMatchOverviewMatchesRecord
+                                                          pageMatchOverviewCopyMatchesRecord
                                                               .attendance
                                                               .toList(),
                                                           currentUserReference)
                                                       ?.status,
                                                   attendanceList:
-                                                      pageMatchOverviewMatchesRecord
+                                                      pageMatchOverviewCopyMatchesRecord
                                                           .attendance,
                                                   matchRef:
-                                                      pageMatchOverviewMatchesRecord
+                                                      pageMatchOverviewCopyMatchesRecord
                                                           .reference,
                                                   playerUserRef:
                                                       currentUserReference,
                                                   matchIsInTheFuture:
                                                       functions.matchIsFuture(
-                                                          pageMatchOverviewMatchesRecord
+                                                          pageMatchOverviewCopyMatchesRecord
                                                               .matchEndDate!),
                                                   isSelf: true,
                                                   photoURL: currentUserPhoto,
@@ -770,7 +755,7 @@ class _PageMatchOverviewWidgetState extends State<PageMatchOverviewWidget> {
                                               ),
                                               Text(
                                                 valueOrDefault<String>(
-                                                  pageMatchOverviewMatchesRecord
+                                                  pageMatchOverviewCopyMatchesRecord
                                                       .attendance
                                                       .where((e) =>
                                                           e.status ==
@@ -825,7 +810,7 @@ class _PageMatchOverviewWidgetState extends State<PageMatchOverviewWidget> {
                                               ),
                                               Text(
                                                 valueOrDefault<String>(
-                                                  pageMatchOverviewMatchesRecord
+                                                  pageMatchOverviewCopyMatchesRecord
                                                       .attendance
                                                       .where((e) =>
                                                           e.status ==
@@ -880,7 +865,7 @@ class _PageMatchOverviewWidgetState extends State<PageMatchOverviewWidget> {
                                               ),
                                               Text(
                                                 valueOrDefault<String>(
-                                                  pageMatchOverviewMatchesRecord
+                                                  pageMatchOverviewCopyMatchesRecord
                                                       .attendance
                                                       .where((e) =>
                                                           e.status ==
@@ -929,7 +914,7 @@ class _PageMatchOverviewWidgetState extends State<PageMatchOverviewWidget> {
                                         builder: (context) {
                                           final attendance = functions
                                                   .filterOutAuthUserFromAttendance(
-                                                      pageMatchOverviewMatchesRecord
+                                                      pageMatchOverviewCopyMatchesRecord
                                                           .attendance
                                                           .toList(),
                                                       currentUserReference)
@@ -955,12 +940,12 @@ class _PageMatchOverviewWidgetState extends State<PageMatchOverviewWidget> {
                                                   attendance[attendanceIndex];
                                               return ComponentPlayerMatchOverviewRowWidget(
                                                 key: Key(
-                                                    'Key6p5_${attendanceIndex}_of_${attendance.length}'),
+                                                    'Keysbs_${attendanceIndex}_of_${attendance.length}'),
                                                 userIsAdmin:
                                                     columnMembersRecord!
                                                         .isAdmin,
                                                 playerAttendanceInMatch:
-                                                    pageMatchOverviewMatchesRecord
+                                                    pageMatchOverviewCopyMatchesRecord
                                                         .attendance
                                                         .where((e) =>
                                                             e.player
@@ -973,16 +958,16 @@ class _PageMatchOverviewWidgetState extends State<PageMatchOverviewWidget> {
                                                 attendanceStatus:
                                                     attendanceItem.status,
                                                 attendanceList:
-                                                    pageMatchOverviewMatchesRecord
+                                                    pageMatchOverviewCopyMatchesRecord
                                                         .attendance,
                                                 matchRef:
-                                                    pageMatchOverviewMatchesRecord
+                                                    pageMatchOverviewCopyMatchesRecord
                                                         .reference,
                                                 playerUserRef: attendanceItem
                                                     .player.userRefId,
                                                 matchIsInTheFuture:
                                                     functions.matchIsFuture(
-                                                        pageMatchOverviewMatchesRecord
+                                                        pageMatchOverviewCopyMatchesRecord
                                                             .matchEndDate!),
                                                 isSelf: false,
                                                 photoURL: attendanceItem

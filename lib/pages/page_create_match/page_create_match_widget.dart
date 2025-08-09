@@ -96,7 +96,7 @@ class _PageCreateMatchWidgetState extends State<PageCreateMatchWidget> {
                 child: Text(
                   widget.match != null ? 'Edit Match' : 'New Match',
                   style: FlutterFlowTheme.of(context).headlineMedium.override(
-                        font: GoogleFonts.interTight(
+                        font: GoogleFonts.lexendDeca(
                           fontWeight: FlutterFlowTheme.of(context)
                               .headlineMedium
                               .fontWeight,
@@ -197,7 +197,8 @@ class _PageCreateMatchWidgetState extends State<PageCreateMatchWidget> {
                                                           context)
                                                       .bodyMedium
                                                       .override(
-                                                        font: GoogleFonts.inter(
+                                                        font: GoogleFonts
+                                                            .lexendDeca(
                                                           fontWeight:
                                                               FlutterFlowTheme.of(
                                                                       context)
@@ -258,7 +259,7 @@ class _PageCreateMatchWidgetState extends State<PageCreateMatchWidget> {
                                                               .headlineLarge
                                                               .override(
                                                                 font: GoogleFonts
-                                                                    .interTight(
+                                                                    .lexendDeca(
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w600,
@@ -338,8 +339,8 @@ class _PageCreateMatchWidgetState extends State<PageCreateMatchWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
                                                         .override(
-                                                          font:
-                                                              GoogleFonts.inter(
+                                                          font: GoogleFonts
+                                                              .lexendDeca(
                                                             fontWeight:
                                                                 FlutterFlowTheme.of(
                                                                         context)
@@ -393,8 +394,8 @@ class _PageCreateMatchWidgetState extends State<PageCreateMatchWidget> {
                                                             context)
                                                         .bodyMedium
                                                         .override(
-                                                          font:
-                                                              GoogleFonts.inter(
+                                                          font: GoogleFonts
+                                                              .lexendDeca(
                                                             fontWeight:
                                                                 FlutterFlowTheme.of(
                                                                         context)
@@ -454,7 +455,7 @@ class _PageCreateMatchWidgetState extends State<PageCreateMatchWidget> {
                                                                 .headlineLarge
                                                                 .override(
                                                                   font: GoogleFonts
-                                                                      .interTight(
+                                                                      .lexendDeca(
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w600,
@@ -545,7 +546,8 @@ class _PageCreateMatchWidgetState extends State<PageCreateMatchWidget> {
                                                           context)
                                                       .bodyMedium
                                                       .override(
-                                                        font: GoogleFonts.inter(
+                                                        font: GoogleFonts
+                                                            .lexendDeca(
                                                           fontWeight:
                                                               FlutterFlowTheme.of(
                                                                       context)
@@ -631,9 +633,8 @@ class _PageCreateMatchWidgetState extends State<PageCreateMatchWidget> {
                                                                   .of(context)
                                                               .labelMedium
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .inter(
+                                                                font: GoogleFonts
+                                                                    .lexendDeca(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
                                                                       .labelMedium
@@ -643,6 +644,9 @@ class _PageCreateMatchWidgetState extends State<PageCreateMatchWidget> {
                                                                       .labelMedium
                                                                       .fontStyle,
                                                                 ),
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
                                                                 fontSize: 12.0,
                                                                 letterSpacing:
                                                                     0.0,
@@ -666,9 +670,8 @@ class _PageCreateMatchWidgetState extends State<PageCreateMatchWidget> {
                                                                   context)
                                                               .labelMedium
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .inter(
+                                                                font: GoogleFonts
+                                                                    .lexendDeca(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
                                                                       .labelMedium
@@ -766,9 +769,8 @@ class _PageCreateMatchWidgetState extends State<PageCreateMatchWidget> {
                                                                   context)
                                                               .labelMedium
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .inter(
+                                                                font: GoogleFonts
+                                                                    .lexendDeca(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
                                                                       .labelMedium
@@ -817,34 +819,36 @@ class _PageCreateMatchWidgetState extends State<PageCreateMatchWidget> {
                                                           val),
                                                   width: 200.0,
                                                   height: 40.0,
-                                                  textStyle: FlutterFlowTheme
-                                                          .of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        font: GoogleFonts.inter(
-                                                          fontWeight:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontStyle,
-                                                      ),
+                                                  textStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            font: GoogleFonts
+                                                                .lexendDeca(
+                                                              fontWeight:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontWeight,
+                                                              fontStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                            ),
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
                                                   hintText: 'Select',
                                                   icon: Icon(
                                                     Icons
@@ -902,9 +906,8 @@ class _PageCreateMatchWidgetState extends State<PageCreateMatchWidget> {
                                                                   context)
                                                               .labelMedium
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .inter(
+                                                                font: GoogleFonts
+                                                                    .lexendDeca(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
                                                                       .labelMedium
@@ -948,34 +951,36 @@ class _PageCreateMatchWidgetState extends State<PageCreateMatchWidget> {
                                                           val),
                                                   width: 200.0,
                                                   height: 40.0,
-                                                  textStyle: FlutterFlowTheme
-                                                          .of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        font: GoogleFonts.inter(
-                                                          fontWeight:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontStyle,
-                                                      ),
+                                                  textStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            font: GoogleFonts
+                                                                .lexendDeca(
+                                                              fontWeight:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontWeight,
+                                                              fontStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                            ),
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
                                                   hintText: 'Select',
                                                   icon: Icon(
                                                     Icons
@@ -1033,9 +1038,8 @@ class _PageCreateMatchWidgetState extends State<PageCreateMatchWidget> {
                                                                   context)
                                                               .labelMedium
                                                               .override(
-                                                                font:
-                                                                    GoogleFonts
-                                                                        .inter(
+                                                                font: GoogleFonts
+                                                                    .lexendDeca(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
                                                                       .labelMedium
@@ -1079,34 +1083,36 @@ class _PageCreateMatchWidgetState extends State<PageCreateMatchWidget> {
                                                           val),
                                                   width: 200.0,
                                                   height: 40.0,
-                                                  textStyle: FlutterFlowTheme
-                                                          .of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        font: GoogleFonts.inter(
-                                                          fontWeight:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontStyle,
-                                                      ),
+                                                  textStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            font: GoogleFonts
+                                                                .lexendDeca(
+                                                              fontWeight:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontWeight,
+                                                              fontStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                            ),
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
                                                   hintText: 'Select',
                                                   icon: Icon(
                                                     Icons

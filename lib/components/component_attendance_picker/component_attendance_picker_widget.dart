@@ -56,7 +56,7 @@ class _ComponentAttendancePickerWidgetState
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 220.0,
+      height: 240.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
         borderRadius: BorderRadius.only(
@@ -79,18 +79,18 @@ class _ComponentAttendancePickerWidgetState
                     ? 'Are you attending?'
                     : 'Is ${widget.playerMatchAttendance?.player.name} attending?',
                 textAlign: TextAlign.start,
-                style: FlutterFlowTheme.of(context).labelMedium.override(
+                style: FlutterFlowTheme.of(context).titleLarge.override(
                       font: GoogleFonts.lexendDeca(
-                        fontWeight: FontWeight.w500,
+                        fontWeight:
+                            FlutterFlowTheme.of(context).titleLarge.fontWeight,
                         fontStyle:
-                            FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                            FlutterFlowTheme.of(context).titleLarge.fontStyle,
                       ),
-                      color: FlutterFlowTheme.of(context).primaryText,
-                      fontSize: 14.0,
                       letterSpacing: 0.0,
-                      fontWeight: FontWeight.w500,
+                      fontWeight:
+                          FlutterFlowTheme.of(context).titleLarge.fontWeight,
                       fontStyle:
-                          FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                          FlutterFlowTheme.of(context).titleLarge.fontStyle,
                     ),
               ),
             ),
@@ -158,27 +158,27 @@ class _ComponentAttendancePickerWidgetState
                             Icon(
                               Icons.check_circle,
                               color: FlutterFlowTheme.of(context).success,
-                              size: 20.0,
+                              size: 24.0,
                             ),
                             Text(
                               'Attending',
                               style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
+                                  .labelLarge
                                   .override(
-                                    font: GoogleFonts.inter(
+                                    font: GoogleFonts.lexendDeca(
                                       fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyMedium
+                                          .labelLarge
                                           .fontWeight,
                                       fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
+                                          .labelLarge
                                           .fontStyle,
                                     ),
                                     letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelLarge
                                         .fontWeight,
                                     fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelLarge
                                         .fontStyle,
                                   ),
                             ),
@@ -230,27 +230,27 @@ class _ComponentAttendancePickerWidgetState
                             Icon(
                               Icons.cancel,
                               color: FlutterFlowTheme.of(context).error,
-                              size: 20.0,
+                              size: 24.0,
                             ),
                             Text(
                               'Not Attending',
                               style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
+                                  .labelLarge
                                   .override(
-                                    font: GoogleFonts.inter(
+                                    font: GoogleFonts.lexendDeca(
                                       fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyMedium
+                                          .labelLarge
                                           .fontWeight,
                                       fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
+                                          .labelLarge
                                           .fontStyle,
                                     ),
                                     letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelLarge
                                         .fontWeight,
                                     fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelLarge
                                         .fontStyle,
                                   ),
                             ),
@@ -302,27 +302,27 @@ class _ComponentAttendancePickerWidgetState
                             Icon(
                               Icons.question_mark,
                               color: FlutterFlowTheme.of(context).secondaryText,
-                              size: 20.0,
+                              size: 24.0,
                             ),
                             Text(
                               'Maybe',
                               style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
+                                  .labelLarge
                                   .override(
-                                    font: GoogleFonts.inter(
+                                    font: GoogleFonts.lexendDeca(
                                       fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyMedium
+                                          .labelLarge
                                           .fontWeight,
                                       fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
+                                          .labelLarge
                                           .fontStyle,
                                     ),
                                     letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelLarge
                                         .fontWeight,
                                     fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelLarge
                                         .fontStyle,
                                   ),
                             ),

@@ -91,7 +91,7 @@ class _PageMatchEditWidgetState extends State<PageMatchEditWidget> {
               Text(
                 'Edit Match',
                 style: FlutterFlowTheme.of(context).headlineMedium.override(
-                      font: GoogleFonts.interTight(
+                      font: GoogleFonts.lexendDeca(
                         fontWeight: FlutterFlowTheme.of(context)
                             .headlineMedium
                             .fontWeight,
@@ -169,7 +169,7 @@ class _PageMatchEditWidgetState extends State<PageMatchEditWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            font: GoogleFonts.inter(
+                                            font: GoogleFonts.lexendDeca(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -219,7 +219,7 @@ class _PageMatchEditWidgetState extends State<PageMatchEditWidget> {
                                                   .headlineLarge
                                                   .override(
                                                     font:
-                                                        GoogleFonts.interTight(
+                                                        GoogleFonts.lexendDeca(
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontStyle:
@@ -288,7 +288,7 @@ class _PageMatchEditWidgetState extends State<PageMatchEditWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              font: GoogleFonts.inter(
+                                              font: GoogleFonts.lexendDeca(
                                                 fontWeight:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
@@ -316,7 +316,7 @@ class _PageMatchEditWidgetState extends State<PageMatchEditWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            font: GoogleFonts.inter(
+                                            font: GoogleFonts.lexendDeca(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -364,7 +364,7 @@ class _PageMatchEditWidgetState extends State<PageMatchEditWidget> {
                                                   .headlineLarge
                                                   .override(
                                                     font:
-                                                        GoogleFonts.interTight(
+                                                        GoogleFonts.lexendDeca(
                                                       fontWeight:
                                                           FontWeight.w600,
                                                       fontStyle:
@@ -440,7 +440,7 @@ class _PageMatchEditWidgetState extends State<PageMatchEditWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              font: GoogleFonts.inter(
+                                              font: GoogleFonts.lexendDeca(
                                                 fontWeight:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
@@ -473,7 +473,7 @@ class _PageMatchEditWidgetState extends State<PageMatchEditWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                font: GoogleFonts.inter(
+                                                font: GoogleFonts.lexendDeca(
                                                   fontWeight: FontWeight.normal,
                                                   fontStyle:
                                                       FlutterFlowTheme.of(
@@ -524,7 +524,7 @@ class _PageMatchEditWidgetState extends State<PageMatchEditWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              font: GoogleFonts.inter(
+                                              font: GoogleFonts.lexendDeca(
                                                 fontWeight:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
@@ -573,7 +573,7 @@ class _PageMatchEditWidgetState extends State<PageMatchEditWidget> {
                                                   context)
                                               .titleSmall
                                               .override(
-                                                font: GoogleFonts.interTight(
+                                                font: GoogleFonts.lexendDeca(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -635,7 +635,7 @@ class _PageMatchEditWidgetState extends State<PageMatchEditWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .labelMedium
                                               .override(
-                                                font: GoogleFonts.inter(
+                                                font: GoogleFonts.lexendDeca(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -667,7 +667,7 @@ class _PageMatchEditWidgetState extends State<PageMatchEditWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .labelMedium
                                               .override(
-                                                font: GoogleFonts.inter(
+                                                font: GoogleFonts.lexendDeca(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -730,7 +730,7 @@ class _PageMatchEditWidgetState extends State<PageMatchEditWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
-                                            font: GoogleFonts.inter(
+                                            font: GoogleFonts.lexendDeca(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .labelMedium
@@ -767,7 +767,7 @@ class _PageMatchEditWidgetState extends State<PageMatchEditWidget> {
                                       textStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            font: GoogleFonts.inter(
+                                            font: GoogleFonts.lexendDeca(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -803,7 +803,7 @@ class _PageMatchEditWidgetState extends State<PageMatchEditWidget> {
                                       textStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            font: GoogleFonts.inter(
+                                            font: GoogleFonts.lexendDeca(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -861,7 +861,7 @@ class _PageMatchEditWidgetState extends State<PageMatchEditWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
-                                            font: GoogleFonts.inter(
+                                            font: GoogleFonts.lexendDeca(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .labelMedium
@@ -898,7 +898,7 @@ class _PageMatchEditWidgetState extends State<PageMatchEditWidget> {
                                       textStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            font: GoogleFonts.inter(
+                                            font: GoogleFonts.lexendDeca(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -934,7 +934,7 @@ class _PageMatchEditWidgetState extends State<PageMatchEditWidget> {
                                       textStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            font: GoogleFonts.inter(
+                                            font: GoogleFonts.lexendDeca(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -992,7 +992,7 @@ class _PageMatchEditWidgetState extends State<PageMatchEditWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
-                                            font: GoogleFonts.inter(
+                                            font: GoogleFonts.lexendDeca(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .labelMedium
@@ -1029,7 +1029,7 @@ class _PageMatchEditWidgetState extends State<PageMatchEditWidget> {
                                       textStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            font: GoogleFonts.inter(
+                                            font: GoogleFonts.lexendDeca(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -1065,7 +1065,7 @@ class _PageMatchEditWidgetState extends State<PageMatchEditWidget> {
                                       textStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            font: GoogleFonts.inter(
+                                            font: GoogleFonts.lexendDeca(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -1151,7 +1151,7 @@ class _PageMatchEditWidgetState extends State<PageMatchEditWidget> {
                                         textStyle: FlutterFlowTheme.of(context)
                                             .titleSmall
                                             .override(
-                                              font: GoogleFonts.interTight(
+                                              font: GoogleFonts.lexendDeca(
                                                 fontWeight:
                                                     FlutterFlowTheme.of(context)
                                                         .titleSmall

@@ -111,7 +111,7 @@ class _PageGroupSettingsWidgetState extends State<PageGroupSettingsWidget> {
               iconColor: FlutterFlowTheme.of(context).primaryText,
               color: Color(0x004B39EF),
               textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                    font: GoogleFonts.interTight(
+                    font: GoogleFonts.lexendDeca(
                       fontWeight:
                           FlutterFlowTheme.of(context).titleSmall.fontWeight,
                       fontStyle:
@@ -159,7 +159,7 @@ class _PageGroupSettingsWidgetState extends State<PageGroupSettingsWidget> {
                           'Name',
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
-                                    font: GoogleFonts.inter(
+                                    font: GoogleFonts.lexendDeca(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
@@ -200,7 +200,7 @@ class _PageGroupSettingsWidgetState extends State<PageGroupSettingsWidget> {
                               labelStyle: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(
-                                    font: GoogleFonts.inter(
+                                    font: GoogleFonts.lexendDeca(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .fontWeight,
@@ -221,7 +221,7 @@ class _PageGroupSettingsWidgetState extends State<PageGroupSettingsWidget> {
                               hintStyle: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(
-                                    font: GoogleFonts.inter(
+                                    font: GoogleFonts.lexendDeca(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .fontWeight,
@@ -273,7 +273,7 @@ class _PageGroupSettingsWidgetState extends State<PageGroupSettingsWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  font: GoogleFonts.inter(
+                                  font: GoogleFonts.lexendDeca(
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .fontWeight,
@@ -312,7 +312,7 @@ class _PageGroupSettingsWidgetState extends State<PageGroupSettingsWidget> {
                       title: Text(
                         'Payment Tracking',
                         style: FlutterFlowTheme.of(context).bodyLarge.override(
-                              font: GoogleFonts.inter(
+                              font: GoogleFonts.lexendDeca(
                                 fontWeight: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .fontWeight,
@@ -333,7 +333,7 @@ class _PageGroupSettingsWidgetState extends State<PageGroupSettingsWidget> {
                       subtitle: Text(
                         'Keep track of members payments',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              font: GoogleFonts.inter(
+                              font: GoogleFonts.lexendDeca(
                                 fontWeight: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .fontWeight,
