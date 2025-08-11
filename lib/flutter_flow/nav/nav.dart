@@ -1,13 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 import '/index.dart';
@@ -335,6 +333,23 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ParamType.Document,
             ),
           ),
+        ),
+        FFRoute(
+          name: PagePreviousMatchesWidget.routeName,
+          path: PagePreviousMatchesWidget.routePath,
+          asyncParams: {
+            'group': getDoc(['Groups'], GroupsRecord.fromSnapshot),
+          },
+          builder: (context, params) => PagePreviousMatchesWidget(
+            group: params.getParam(
+              'group',
+              ParamType.Document,
+            ),
+            userIsAdmin: params.getParam(
+              'userIsAdmin',
+              ParamType.bool,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -521,14 +536,11 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Center(
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
-                    child: SpinKitRipple(
-                      color: FlutterFlowTheme.of(context).primary,
-                      size: 50.0,
-                    ),
+              ? Container(
+                  color: Colors.transparent,
+                  child: Image.asset(
+                    'assets/images/Splash_Regulars.png',
+                    fit: BoxFit.cover,
                   ),
                 )
               : page;

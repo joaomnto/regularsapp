@@ -1027,18 +1027,18 @@ class _PageCreateAccountSignInWidgetState
                                                                     }
                                                                     if (currentUserReference !=
                                                                         null) {
-                                                                      context.goNamedAuth(
-                                                                          PageDashboardWidget
-                                                                              .routeName,
-                                                                          context
-                                                                              .mounted);
-
                                                                       await currentUserReference!
                                                                           .update(
                                                                               createUsersRecordData(
                                                                         lowercaseName:
                                                                             functions.toLowerString(currentUserDisplayName),
                                                                       ));
+
+                                                                      context.goNamedAuth(
+                                                                          PageDashboardWidget
+                                                                              .routeName,
+                                                                          context
+                                                                              .mounted);
                                                                     } else {
                                                                       await showDialog(
                                                                         context:

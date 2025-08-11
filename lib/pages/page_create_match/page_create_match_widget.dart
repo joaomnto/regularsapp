@@ -85,35 +85,30 @@ class _PageCreateMatchWidgetState extends State<PageCreateMatchWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
           title: Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Opacity(
-                opacity: 0.0,
-                child: Text(
+              Text(
+                valueOrDefault<String>(
                   widget.match != null ? 'Edit Match' : 'New Match',
-                  style: FlutterFlowTheme.of(context).headlineMedium.override(
-                        font: GoogleFonts.lexendDeca(
-                          fontWeight: FlutterFlowTheme.of(context)
-                              .headlineMedium
-                              .fontWeight,
-                          fontStyle: FlutterFlowTheme.of(context)
-                              .headlineMedium
-                              .fontStyle,
-                        ),
-                        fontSize: 22.0,
-                        letterSpacing: 0.0,
-                        fontWeight: FlutterFlowTheme.of(context)
-                            .headlineMedium
-                            .fontWeight,
-                        fontStyle: FlutterFlowTheme.of(context)
-                            .headlineMedium
-                            .fontStyle,
-                      ),
+                  'Edit Match',
                 ),
+                style: FlutterFlowTheme.of(context).titleLarge.override(
+                      font: GoogleFonts.lexendDeca(
+                        fontWeight: FontWeight.w300,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).titleLarge.fontStyle,
+                      ),
+                      color: FlutterFlowTheme.of(context).navText,
+                      fontSize: 22.0,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.w300,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).titleLarge.fontStyle,
+                    ),
               ),
             ].divide(SizedBox(height: 4.0)),
           ),
@@ -126,8 +121,8 @@ class _PageCreateMatchWidgetState extends State<PageCreateMatchWidget> {
                 buttonSize: 40.0,
                 icon: Icon(
                   Icons.close_rounded,
-                  color: FlutterFlowTheme.of(context).primaryText,
-                  size: 24.0,
+                  color: FlutterFlowTheme.of(context).backButtons,
+                  size: 30.0,
                 ),
                 onPressed: () async {
                   context.safePop();
@@ -135,7 +130,7 @@ class _PageCreateMatchWidgetState extends State<PageCreateMatchWidget> {
               ),
             ),
           ],
-          centerTitle: false,
+          centerTitle: true,
           elevation: 0.0,
         ),
         body: SafeArea(
@@ -1325,7 +1320,7 @@ class _PageCreateMatchWidgetState extends State<PageCreateMatchWidget> {
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 0.0),
                                           color: FlutterFlowTheme.of(context)
-                                              .success,
+                                              .primary,
                                           textStyle: FlutterFlowTheme.of(
                                                   context)
                                               .titleSmall

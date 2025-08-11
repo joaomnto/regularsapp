@@ -1,5 +1,5 @@
-import '/components/component_match_detail/component_match_detail_widget.dart';
-import '/components/component_player_match_overview_row/component_player_match_overview_row_widget.dart';
+import '/components/rows/component_match_detail/component_match_detail_widget.dart';
+import '/components/rows/row_match_overview_player/row_match_overview_player_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
 import 'page_match_overview_widget.dart' show PageMatchOverviewWidget;
@@ -24,9 +24,8 @@ class PageMatchOverviewModel extends FlutterFlowModel<PageMatchOverviewWidget> {
   late ComponentMatchDetailModel componentMatchDetailModel5;
   // Model for ComponentMatchDetail component.
   late ComponentMatchDetailModel componentMatchDetailModel6;
-  // Model for ComponentPlayerMatchOverviewRow component.
-  late ComponentPlayerMatchOverviewRowModel
-      componentPlayerMatchOverviewRowModel1;
+  // Model for RowMatchOverviewPlayer component.
+  late RowMatchOverviewPlayerModel rowMatchOverviewPlayerModel1;
 
   @override
   void initState(BuildContext context) {
@@ -42,8 +41,8 @@ class PageMatchOverviewModel extends FlutterFlowModel<PageMatchOverviewWidget> {
         createModel(context, () => ComponentMatchDetailModel());
     componentMatchDetailModel6 =
         createModel(context, () => ComponentMatchDetailModel());
-    componentPlayerMatchOverviewRowModel1 =
-        createModel(context, () => ComponentPlayerMatchOverviewRowModel());
+    rowMatchOverviewPlayerModel1 =
+        createModel(context, () => RowMatchOverviewPlayerModel());
   }
 
   @override
@@ -54,6 +53,6 @@ class PageMatchOverviewModel extends FlutterFlowModel<PageMatchOverviewWidget> {
     componentMatchDetailModel4.dispose();
     componentMatchDetailModel5.dispose();
     componentMatchDetailModel6.dispose();
-    componentPlayerMatchOverviewRowModel1.dispose();
+    rowMatchOverviewPlayerModel1.dispose();
   }
 }

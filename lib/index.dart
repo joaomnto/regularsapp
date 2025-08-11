@@ -23,3 +23,5 @@ export '/pages/page_create_account_sign_in/page_create_account_sign_in_widget.da
     show PageCreateAccountSignInWidget;
 export '/pages/page_match_overview_copy/page_match_overview_copy_widget.dart'
     show PageMatchOverviewCopyWidget;
+export '/pages/page_previous_matches/page_previous_matches_widget.dart'
+    show PagePreviousMatchesWidget;

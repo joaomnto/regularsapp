@@ -399,3 +399,17 @@ String toLowerString(String? s) {
   }
   return s.toLowerCase();
 }
+
+String? normalizeGoogleAvatar(String? url) {
+  if (url == null) return "";
+  if (!url.contains('googleusercontent.com')) return url;
+  if (url.contains('=s')) {
+    return url.replaceAll(RegExp(r'=s\d+-c'), '=s200-c');
+  }
+  final uri = Uri.parse(url);
+  if (uri.queryParameters.containsKey('sz')) {
+    return uri.replace(
+        queryParameters: {...uri.queryParameters, 'sz': '200'}).toString();
+  }
+  return url;
+}

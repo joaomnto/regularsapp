@@ -64,7 +64,7 @@ class _PageCreatePlayerWidgetState extends State<PageCreatePlayerWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
           title: Text(
             'Create Player',
@@ -74,7 +74,7 @@ class _PageCreatePlayerWidgetState extends State<PageCreatePlayerWidget> {
                     fontStyle:
                         FlutterFlowTheme.of(context).titleLarge.fontStyle,
                   ),
-                  color: FlutterFlowTheme.of(context).primaryText,
+                  color: FlutterFlowTheme.of(context).navText,
                   fontSize: 22.0,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.w300,
@@ -89,7 +89,7 @@ class _PageCreatePlayerWidgetState extends State<PageCreatePlayerWidget> {
                 buttonSize: 40.0,
                 icon: Icon(
                   Icons.close,
-                  color: FlutterFlowTheme.of(context).primaryText,
+                  color: FlutterFlowTheme.of(context).backButtons,
                   size: 24.0,
                 ),
                 onPressed: () async {
@@ -334,7 +334,7 @@ class _PageCreatePlayerWidgetState extends State<PageCreatePlayerWidget> {
                             24.0, 0.0, 24.0, 0.0),
                         iconPadding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).success,
+                        color: FlutterFlowTheme.of(context).accent1,
                         textStyle:
                             FlutterFlowTheme.of(context).titleMedium.override(
                                   font: GoogleFonts.lexendDeca(

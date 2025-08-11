@@ -1,10 +1,10 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
-import '/components/component_match_detail/component_match_detail_widget.dart';
-import '/components/component_match_status_picker/component_match_status_picker_widget.dart';
-import '/components/component_player_match_overview_row/component_player_match_overview_row_widget.dart';
 import '/components/empty_lists/component_empty_list_view/component_empty_list_view_widget.dart';
+import '/components/pickers/picker_match_status/picker_match_status_widget.dart';
+import '/components/rows/component_match_detail/component_match_detail_widget.dart';
+import '/components/rows/row_match_overview_player/row_match_overview_player_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -258,7 +258,7 @@ class _PageMatchOverviewCopyWidgetState
                                                             .viewInsetsOf(
                                                                 context),
                                                         child:
-                                                            ComponentMatchStatusPickerWidget(
+                                                            PickerMatchStatusWidget(
                                                           matchRef:
                                                               widget.matchRef!,
                                                         ),
@@ -697,11 +697,11 @@ class _PageMatchOverviewCopyWidgetState
                                               builder: (context) =>
                                                   wrapWithModel(
                                                 model: _model
-                                                    .componentPlayerMatchOverviewRowModel1,
+                                                    .rowMatchOverviewPlayerModel1,
                                                 updateCallback: () =>
                                                     safeSetState(() {}),
                                                 child:
-                                                    ComponentPlayerMatchOverviewRowWidget(
+                                                    RowMatchOverviewPlayerWidget(
                                                   userIsAdmin:
                                                       columnMembersRecord!
                                                           .isAdmin,
@@ -938,7 +938,7 @@ class _PageMatchOverviewCopyWidgetState
                                                 (context, attendanceIndex) {
                                               final attendanceItem =
                                                   attendance[attendanceIndex];
-                                              return ComponentPlayerMatchOverviewRowWidget(
+                                              return RowMatchOverviewPlayerWidget(
                                                 key: Key(
                                                     'Keysbs_${attendanceIndex}_of_${attendance.length}'),
                                                 userIsAdmin:

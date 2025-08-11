@@ -1,6 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components/component_add_member/component_add_member_widget.dart';
+import '/components/rows/row_add_member/row_add_member_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -60,7 +60,7 @@ class _PageSearchUserWidgetState extends State<PageSearchUserWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
           title: Text(
             'Search Player',
@@ -70,7 +70,7 @@ class _PageSearchUserWidgetState extends State<PageSearchUserWidget> {
                     fontStyle:
                         FlutterFlowTheme.of(context).titleLarge.fontStyle,
                   ),
-                  color: FlutterFlowTheme.of(context).primaryText,
+                  color: FlutterFlowTheme.of(context).navText,
                   fontSize: 22.0,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.w300,
@@ -85,7 +85,7 @@ class _PageSearchUserWidgetState extends State<PageSearchUserWidget> {
                 buttonSize: 40.0,
                 icon: Icon(
                   Icons.close,
-                  color: FlutterFlowTheme.of(context).primaryText,
+                  color: FlutterFlowTheme.of(context).backButtons,
                   size: 24.0,
                 ),
                 onPressed: () async {
@@ -261,7 +261,7 @@ class _PageSearchUserWidgetState extends State<PageSearchUserWidget> {
                           itemBuilder: (context, listViewIndex) {
                             final listViewUsersRecord =
                                 listViewUsersRecordList[listViewIndex];
-                            return ComponentAddMemberWidget(
+                            return RowAddMemberWidget(
                               key: Key(
                                   'Keyhjd_${listViewIndex}_of_${listViewUsersRecordList.length}'),
                               user: listViewUsersRecord,

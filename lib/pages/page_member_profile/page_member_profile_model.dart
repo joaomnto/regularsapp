@@ -10,8 +10,14 @@ class PageMemberProfileModel extends FlutterFlowModel<PageMemberProfileWidget> {
 
   bool isAdmin = false;
 
+  bool editMode = false;
+
   ///  State fields for stateful widgets in this page.
 
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode;
+  TextEditingController? textController;
+  String? Function(BuildContext, String?)? textControllerValidator;
   // State field(s) for SwitchListTile widget.
   bool? switchListTileValue1;
   // State field(s) for SwitchListTile widget.
@@ -23,5 +29,8 @@ class PageMemberProfileModel extends FlutterFlowModel<PageMemberProfileWidget> {
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {}
+  void dispose() {
+    textFieldFocusNode?.dispose();
+    textController?.dispose();
+  }
 }

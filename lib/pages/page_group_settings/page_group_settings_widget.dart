@@ -63,7 +63,7 @@ class _PageGroupSettingsWidgetState extends State<PageGroupSettingsWidget> {
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: FlutterFlowTheme.of(context).primary,
         automaticallyImplyLeading: false,
         leading: FlutterFlowIconButton(
           borderColor: Colors.transparent,
@@ -71,7 +71,7 @@ class _PageGroupSettingsWidgetState extends State<PageGroupSettingsWidget> {
           buttonSize: 46.0,
           icon: Icon(
             Icons.close,
-            color: FlutterFlowTheme.of(context).primaryText,
+            color: FlutterFlowTheme.of(context).backButtons,
             size: 30.0,
           ),
           onPressed: () async {
@@ -86,6 +86,7 @@ class _PageGroupSettingsWidgetState extends State<PageGroupSettingsWidget> {
                   fontStyle:
                       FlutterFlowTheme.of(context).headlineSmall.fontStyle,
                 ),
+                color: FlutterFlowTheme.of(context).navText,
                 fontSize: 22.0,
                 letterSpacing: 0.0,
                 fontWeight: FontWeight.w300,
@@ -108,8 +109,8 @@ class _PageGroupSettingsWidgetState extends State<PageGroupSettingsWidget> {
             options: FFButtonOptions(
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
               iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-              iconColor: FlutterFlowTheme.of(context).primaryText,
-              color: Color(0x004B39EF),
+              iconColor: FlutterFlowTheme.of(context).backButtons,
+              color: Color(0x00FF6700),
               textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                     font: GoogleFonts.lexendDeca(
                       fontWeight:
@@ -460,7 +461,7 @@ class _PageGroupSettingsWidgetState extends State<PageGroupSettingsWidget> {
                                     .bodySmall
                                     .fontStyle,
                               ),
-                      elevation: 1.0,
+                      elevation: 0.0,
                       borderSide: BorderSide(
                         color: Colors.transparent,
                         width: 1.0,
@@ -532,7 +533,7 @@ class _PageGroupSettingsWidgetState extends State<PageGroupSettingsWidget> {
                                       .bodySmall
                                       .fontStyle,
                                 ),
-                        elevation: 1.0,
+                        elevation: 0.0,
                         borderSide: BorderSide(
                           color: Colors.transparent,
                           width: 1.0,
