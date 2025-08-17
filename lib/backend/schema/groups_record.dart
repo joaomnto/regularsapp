@@ -50,6 +50,11 @@ class GroupsRecord extends FirestoreRecord {
   Color? get colour => _colour;
   bool hasColour() => _colour != null;
 
+  // "adminUserIds" field.
+  List<DocumentReference>? _adminUserIds;
+  List<DocumentReference> get adminUserIds => _adminUserIds ?? const [];
+  bool hasAdminUserIds() => _adminUserIds != null;
+
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
     _createdBy = snapshotData['createdBy'] as DocumentReference?;
@@ -58,6 +63,7 @@ class GroupsRecord extends FirestoreRecord {
     _membersUserIds = getDataList(snapshotData['membersUserIds']);
     _createdIn = snapshotData['createdIn'] as DateTime?;
     _colour = getSchemaColor(snapshotData['colour']);
+    _adminUserIds = getDataList(snapshotData['adminUserIds']);
   }
 
   static CollectionReference get collection =>
@@ -123,7 +129,8 @@ class GroupsRecordDocumentEquality implements Equality<GroupsRecord> {
         listEquality.equals(e1?.members, e2?.members) &&
         listEquality.equals(e1?.membersUserIds, e2?.membersUserIds) &&
         e1?.createdIn == e2?.createdIn &&
-        e1?.colour == e2?.colour;
+        e1?.colour == e2?.colour &&
+        listEquality.equals(e1?.adminUserIds, e2?.adminUserIds);
   }
 
   @override
@@ -134,7 +141,8 @@ class GroupsRecordDocumentEquality implements Equality<GroupsRecord> {
         e?.members,
         e?.membersUserIds,
         e?.createdIn,
-        e?.colour
+        e?.colour,
+        e?.adminUserIds
       ]);
 
   @override

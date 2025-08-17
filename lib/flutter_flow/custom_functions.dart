@@ -14,25 +14,6 @@ import '/backend/schema/structs/index.dart';
 import '/backend/schema/enums/enums.dart';
 import '/auth/firebase_auth/auth_util.dart';
 
-String? formatMatchStatus(int? status) {
-  throw Exception("Test iOS crash");
-
-  switch (status) {
-    case 0:
-      return 'Scheduled';
-    case 1:
-      return 'Now Playing';
-    case 2:
-      return 'Cancelled';
-    case 3:
-      return 'Postponed';
-    case 4:
-      return 'Finished';
-    default:
-      return 'Scheduled';
-  }
-}
-
 AttendanceStatus? memberAttendanceForMatch(MatchAttendanceStruct? attendance) {
   return attendance?.status;
 }
@@ -52,41 +33,6 @@ Color colorForStatus(MatchStatus? matchStatus) {
     default:
       return Color(0xFF9E9E9E);
   }
-}
-
-AttendanceStatus? authUserAttendanceForMatch(
-  List<MatchAttendanceStruct>? matchAttendanceList,
-  DocumentReference? currentUser,
-) {
-  if (matchAttendanceList == null || currentUser == null) return null;
-
-  for (final attendance in matchAttendanceList) {
-    final playerRef = attendance.player?.userRefId;
-
-    if (playerRef != null && playerRef == currentUser) {
-      return attendance.status;
-    }
-  }
-  return AttendanceStatus.noReply; // Not found
-}
-
-SubsType? stringToSubsType(String? subsTypeString) {
-  if (subsTypeString == null || subsTypeString.isEmpty) return null;
-
-  return SubsType.values.firstWhere((e) => e.name == subsTypeString);
-}
-
-MatchType? stringToMatchType(String? matchTypeString) {
-  if (matchTypeString == null ||
-      matchTypeString.isEmpty ||
-      matchTypeString == 'Undefined') return null;
-
-  return MatchType.values.firstWhere((e) => e.name == matchTypeString);
-}
-
-VenueType? stringToVenueType(String? venueTypeString) {
-  if (venueTypeString == null || venueTypeString.isEmpty) return null;
-  return VenueType.values.firstWhere((e) => e.name == venueTypeString);
 }
 
 bool hasNotAttendingPlayer(List<MatchAttendanceStruct>? attendanceList) {
@@ -134,6 +80,109 @@ String smartDateFormat(DateTime? date) {
   } else {
     return DateFormat('EEE, MMM d').format(date); // e.g. "Fri, Aug 8"
   }
+}
+
+bool matchIsFuture(DateTime matchDate) {
+  final now = DateTime.now();
+  return matchDate.isAtSameMomentAs(now) || matchDate.isAfter(now);
+}
+
+List<DocumentReference>? removeMemberFromList(
+  List<DocumentReference>? members,
+  DocumentReference memberToRemove,
+) {
+  if (members == null) return [];
+  return members.where((ref) => ref.id != memberToRemove.id).toList();
+}
+
+bool hasUserInAttendanceList(
+  List<MatchAttendanceStruct>? attendanceList,
+  DocumentReference? userRef,
+) {
+  if (attendanceList == null || userRef == null) return false;
+
+  for (final attendance in attendanceList) {
+    final playerUserRef = attendance.player.userRefId;
+    if (playerUserRef != null && playerUserRef == userRef) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+List<DocumentReference> memberRefsFromAttendance(
+    List<MatchAttendanceStruct>? attendanceList) {
+  if (attendanceList == null) return [];
+
+  return attendanceList
+      .map((a) => a.player?.memberRefId)
+      .whereType<DocumentReference>()
+      .toList();
+}
+
+List<DocumentReference>? userRefsFromAttendanceList(
+    List<MatchAttendanceStruct>? attendanceList) {
+  if (attendanceList == null) return [];
+
+  return attendanceList
+      .map((a) => a.player?.userRefId) // assuming refId is the userRef
+      .whereType<DocumentReference>()
+      .toList();
+}
+
+String? formatMatchStatus(int? status) {
+  throw Exception("Test iOS crash");
+
+  switch (status) {
+    case 0:
+      return 'Scheduled';
+    case 1:
+      return 'Now Playing';
+    case 2:
+      return 'Cancelled';
+    case 3:
+      return 'Postponed';
+    case 4:
+      return 'Finished';
+    default:
+      return 'Scheduled';
+  }
+}
+
+AttendanceStatus? authUserAttendanceForMatch(
+  List<MatchAttendanceStruct>? matchAttendanceList,
+  DocumentReference? currentUser,
+) {
+  if (matchAttendanceList == null || currentUser == null) return null;
+
+  for (final attendance in matchAttendanceList) {
+    final playerRef = attendance.player?.userRefId;
+
+    if (playerRef != null && playerRef == currentUser) {
+      return attendance.status;
+    }
+  }
+  return AttendanceStatus.noReply; // Not found
+}
+
+SubsType? stringToSubsType(String? subsTypeString) {
+  if (subsTypeString == null || subsTypeString.isEmpty) return null;
+
+  return SubsType.values.firstWhere((e) => e.name == subsTypeString);
+}
+
+MatchType? stringToMatchType(String? matchTypeString) {
+  if (matchTypeString == null ||
+      matchTypeString.isEmpty ||
+      matchTypeString == 'Undefined') return null;
+
+  return MatchType.values.firstWhere((e) => e.name == matchTypeString);
+}
+
+VenueType? stringToVenueType(String? venueTypeString) {
+  if (venueTypeString == null || venueTypeString.isEmpty) return null;
+  return VenueType.values.firstWhere((e) => e.name == venueTypeString);
 }
 
 bool userIsAdminInGroup(
@@ -208,35 +257,6 @@ MatchAttendanceStruct? getUserAttendanceFromMatchAttendanceListWithRefId(
   return null;
 }
 
-MatchAttendanceStruct? getUserAttendanceFromMatchAttendanceList(
-  List<MatchAttendanceStruct>? attendanceList,
-  DocumentReference? memberRef,
-) {
-  print('🔍 getMyAttendance triggered');
-
-  if (attendanceList == null) {
-    return null;
-  }
-
-  if (memberRef == null) {
-    return null;
-  }
-
-  if (attendanceList == null || memberRef == null) return null;
-
-  for (final item in attendanceList) {
-    if (item.player?.memberRefId == memberRef) {
-      return item;
-    }
-  }
-  return null;
-}
-
-bool matchIsFuture(DateTime matchDate) {
-  final now = DateTime.now();
-  return matchDate.isAtSameMomentAs(now) || matchDate.isAfter(now);
-}
-
 String? matchTypeToString(MatchType? matchType) {
   switch (matchType) {
     case MatchType.Five:
@@ -279,50 +299,6 @@ List<MatchAttendanceStruct>? filterOutAuthUserFromAttendance(
   return filtered;
 }
 
-List<DocumentReference>? removeMemberFromList(
-  List<DocumentReference>? members,
-  DocumentReference memberToRemove,
-) {
-  if (members == null) return [];
-  return members.where((ref) => ref.id != memberToRemove.id).toList();
-}
-
-bool hasUserInAttendanceList(
-  List<MatchAttendanceStruct>? attendanceList,
-  DocumentReference? userRef,
-) {
-  if (attendanceList == null || userRef == null) return false;
-
-  for (final attendance in attendanceList) {
-    final playerUserRef = attendance.player.userRefId;
-    if (playerUserRef != null && playerUserRef == userRef) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
-List<DocumentReference> memberRefsFromAttendance(
-    List<MatchAttendanceStruct>? attendanceList) {
-  if (attendanceList == null) return [];
-
-  return attendanceList
-      .map((a) => a.player?.memberRefId)
-      .whereType<DocumentReference>()
-      .toList();
-}
-
-List<DocumentReference>? userRefsFromAttendanceList(
-    List<MatchAttendanceStruct>? attendanceList) {
-  if (attendanceList == null) return [];
-
-  return attendanceList
-      .map((a) => a.player?.userRefId) // assuming refId is the userRef
-      .whereType<DocumentReference>()
-      .toList();
-}
-
 List<MatchAttendanceStruct>? attendanceByRemovingAttendant(
   DocumentReference memberRef,
   List<MatchAttendanceStruct>? attendanceList,
@@ -335,6 +311,30 @@ List<MatchAttendanceStruct>? attendanceByRemovingAttendant(
   return attendanceList
       .where((a) => a.player?.memberRefId?.id != memberRef.id)
       .toList();
+}
+
+MatchAttendanceStruct? getUserAttendanceFromMatchAttendanceList(
+  List<MatchAttendanceStruct>? attendanceList,
+  DocumentReference? memberRef,
+) {
+  print('🔍 getMyAttendance triggered');
+
+  if (attendanceList == null) {
+    return null;
+  }
+
+  if (memberRef == null) {
+    return null;
+  }
+
+  if (attendanceList == null || memberRef == null) return null;
+
+  for (final item in attendanceList) {
+    if (item.player?.memberRefId == memberRef) {
+      return item;
+    }
+  }
+  return null;
 }
 
 List<String> matchTypeDisplayStrings(List<MatchType> matchTypes) {
@@ -412,4 +412,23 @@ String? normalizeGoogleAvatar(String? url) {
         queryParameters: {...uri.queryParameters, 'sz': '200'}).toString();
   }
   return url;
+}
+
+bool isMatchToday(DateTime? matchDate) {
+  if (matchDate == null) return false;
+
+  // both .toDate() from Firestore and DateTime.now() are in device local time
+  final now = DateTime.now();
+  final today = DateTime(now.year, now.month, now.day);
+
+  final localMatch = matchDate.toLocal();
+  final matchDay = DateTime(localMatch.year, localMatch.month, localMatch.day);
+
+  return today == matchDay;
+}
+
+List<MatchesRecord>? upcomingMatchesBySkippingFirst(
+    List<MatchesRecord>? matches) {
+  if (matches == null || matches.length <= 1) return [];
+  return matches.sublist(1);
 }

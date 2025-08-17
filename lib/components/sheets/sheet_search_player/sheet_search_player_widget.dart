@@ -92,11 +92,11 @@ class _SheetSearchPlayerWidgetState extends State<SheetSearchPlayerWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                 child: FlutterFlowIconButton(
                   borderRadius: 8.0,
-                  buttonSize: 40.0,
+                  buttonSize: 60.0,
                   icon: Icon(
                     Icons.close,
                     color: FlutterFlowTheme.of(context).backButtons,
-                    size: 24.0,
+                    size: 30.0,
                   ),
                   onPressed: () async {
                     Navigator.pop(context);
@@ -143,7 +143,7 @@ class _SheetSearchPlayerWidgetState extends State<SheetSearchPlayerWidget> {
                                   labelStyle: FlutterFlowTheme.of(context)
                                       .labelMedium
                                       .override(
-                                        font: GoogleFonts.lexendDeca(
+                                        font: GoogleFonts.figtree(
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
                                                   .labelMedium
@@ -203,7 +203,7 @@ class _SheetSearchPlayerWidgetState extends State<SheetSearchPlayerWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      font: GoogleFonts.lexendDeca(
+                                      font: GoogleFonts.figtree(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .fontWeight,

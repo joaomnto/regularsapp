@@ -1,8 +1,10 @@
 import '/backend/backend.dart';
+import '/components/dialog_group_invite_code/dialog_group_invite_code_widget.dart';
 import '/components/sheets/sheet_create_player/sheet_create_player_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'picker_add_player_model.dart';
@@ -80,7 +82,7 @@ class _PickerAddPlayerWidgetState extends State<PickerAddPlayerWidget> {
               'Add player',
               textAlign: TextAlign.start,
               style: FlutterFlowTheme.of(context).titleLarge.override(
-                    font: GoogleFonts.lexendDeca(
+                    font: GoogleFonts.figtree(
                       fontWeight:
                           FlutterFlowTheme.of(context).titleLarge.fontWeight,
                       fontStyle:
@@ -148,7 +150,7 @@ class _PickerAddPlayerWidgetState extends State<PickerAddPlayerWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .labelLarge
                                 .override(
-                                  font: GoogleFonts.lexendDeca(
+                                  font: GoogleFonts.figtree(
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .labelLarge
                                         .fontWeight,
@@ -205,7 +207,7 @@ class _PickerAddPlayerWidgetState extends State<PickerAddPlayerWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .labelLarge
                                 .override(
-                                  font: GoogleFonts.lexendDeca(
+                                  font: GoogleFonts.figtree(
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .labelLarge
                                         .fontWeight,
@@ -225,23 +227,85 @@ class _PickerAddPlayerWidgetState extends State<PickerAddPlayerWidget> {
                         ].divide(SizedBox(width: 10.0)),
                       ),
                     ),
-                    Opacity(
-                      opacity: 0.3,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Icon(
-                            Icons.share,
-                            color: FlutterFlowTheme.of(context).primaryText,
-                            size: 22.0,
-                          ),
-                          Text(
-                            'Share group',
-                            style: FlutterFlowTheme.of(context)
-                                .labelLarge
-                                .override(
-                                  font: GoogleFonts.lexendDeca(
+                    Builder(
+                      builder: (context) => InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          Navigator.pop(context);
+                          _model.fetchedGroupJoinCode =
+                              await queryGroupJoinCodesRecordOnce(
+                            queryBuilder: (groupJoinCodesRecord) =>
+                                groupJoinCodesRecord.where(
+                              'groupReference',
+                              isEqualTo: widget.group?.reference,
+                            ),
+                            singleRecord: true,
+                          ).then((s) => s.firstOrNull);
+                          if (_model.fetchedGroupJoinCode != null) {
+                            await showDialog(
+                              barrierDismissible: false,
+                              context: context,
+                              builder: (dialogContext) {
+                                return Dialog(
+                                  elevation: 0,
+                                  insetPadding: EdgeInsets.zero,
+                                  backgroundColor: Colors.transparent,
+                                  alignment: AlignmentDirectional(0.0, 0.0)
+                                      .resolve(Directionality.of(context)),
+                                  child: DialogGroupInviteCodeWidget(
+                                    groupJoinCode: _model.fetchedGroupJoinCode!,
+                                  ),
+                                );
+                              },
+                            );
+                          } else {
+                            await showDialog(
+                              context: context,
+                              builder: (alertDialogContext) {
+                                return AlertDialog(
+                                  title: Text('Invitation code'),
+                                  content: Text(
+                                      'Failed to request code. Please try again.'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(alertDialogContext),
+                                      child: Text('Ok'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
+
+                          safeSetState(() {});
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.share,
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              size: 22.0,
+                            ),
+                            Text(
+                              'Share group',
+                              style: FlutterFlowTheme.of(context)
+                                  .labelLarge
+                                  .override(
+                                    font: GoogleFonts.figtree(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelLarge
+                                          .fontStyle,
+                                    ),
+                                    letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .labelLarge
                                         .fontWeight,
@@ -249,16 +313,9 @@ class _PickerAddPlayerWidgetState extends State<PickerAddPlayerWidget> {
                                         .labelLarge
                                         .fontStyle,
                                   ),
-                                  letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .labelLarge
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .labelLarge
-                                      .fontStyle,
-                                ),
-                          ),
-                        ].divide(SizedBox(width: 10.0)),
+                            ),
+                          ].divide(SizedBox(width: 10.0)),
+                        ),
                       ),
                     ),
                   ].divide(SizedBox(height: 30.0)),

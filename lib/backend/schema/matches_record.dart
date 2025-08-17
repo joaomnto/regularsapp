@@ -93,6 +93,26 @@ class MatchesRecord extends FirestoreRecord {
   bool get createdFromRecurrence => _createdFromRecurrence ?? false;
   bool hasCreatedFromRecurrence() => _createdFromRecurrence != null;
 
+  // "location" field.
+  LatLng? _location;
+  LatLng? get location => _location;
+  bool hasLocation() => _location != null;
+
+  // "locationName" field.
+  String? _locationName;
+  String get locationName => _locationName ?? '';
+  bool hasLocationName() => _locationName != null;
+
+  // "groupName" field.
+  String? _groupName;
+  String get groupName => _groupName ?? '';
+  bool hasGroupName() => _groupName != null;
+
+  // "surfaceType" field.
+  SurfaceType? _surfaceType;
+  SurfaceType? get surfaceType => _surfaceType;
+  bool hasSurfaceType() => _surfaceType != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -122,6 +142,12 @@ class MatchesRecord extends FirestoreRecord {
     _recurringId = snapshotData['recurringId'] as String?;
     _matchEndDate = snapshotData['matchEndDate'] as DateTime?;
     _createdFromRecurrence = snapshotData['createdFromRecurrence'] as bool?;
+    _location = snapshotData['location'] as LatLng?;
+    _locationName = snapshotData['locationName'] as String?;
+    _groupName = snapshotData['groupName'] as String?;
+    _surfaceType = snapshotData['surfaceType'] is SurfaceType
+        ? snapshotData['surfaceType']
+        : deserializeEnum<SurfaceType>(snapshotData['surfaceType']);
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -176,6 +202,10 @@ Map<String, dynamic> createMatchesRecordData({
   String? recurringId,
   DateTime? matchEndDate,
   bool? createdFromRecurrence,
+  LatLng? location,
+  String? locationName,
+  String? groupName,
+  SurfaceType? surfaceType,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -191,6 +221,10 @@ Map<String, dynamic> createMatchesRecordData({
       'recurringId': recurringId,
       'matchEndDate': matchEndDate,
       'createdFromRecurrence': createdFromRecurrence,
+      'location': location,
+      'locationName': locationName,
+      'groupName': groupName,
+      'surfaceType': surfaceType,
     }.withoutNulls,
   );
 
@@ -217,7 +251,11 @@ class MatchesRecordDocumentEquality implements Equality<MatchesRecord> {
         e1?.createdIn == e2?.createdIn &&
         e1?.recurringId == e2?.recurringId &&
         e1?.matchEndDate == e2?.matchEndDate &&
-        e1?.createdFromRecurrence == e2?.createdFromRecurrence;
+        e1?.createdFromRecurrence == e2?.createdFromRecurrence &&
+        e1?.location == e2?.location &&
+        e1?.locationName == e2?.locationName &&
+        e1?.groupName == e2?.groupName &&
+        e1?.surfaceType == e2?.surfaceType;
   }
 
   @override
@@ -236,7 +274,11 @@ class MatchesRecordDocumentEquality implements Equality<MatchesRecord> {
         e?.createdIn,
         e?.recurringId,
         e?.matchEndDate,
-        e?.createdFromRecurrence
+        e?.createdFromRecurrence,
+        e?.location,
+        e?.locationName,
+        e?.groupName,
+        e?.surfaceType
       ]);
 
   @override

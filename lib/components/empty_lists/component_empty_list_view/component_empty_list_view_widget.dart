@@ -60,7 +60,7 @@ class _ComponentEmptyListViewWidgetState
             widget.emptyText,
             textAlign: TextAlign.center,
             style: FlutterFlowTheme.of(context).labelMedium.override(
-                  font: GoogleFonts.lexendDeca(
+                  font: GoogleFonts.figtree(
                     fontWeight:
                         FlutterFlowTheme.of(context).labelMedium.fontWeight,
                     fontStyle:

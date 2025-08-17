@@ -81,7 +81,7 @@ class _PickerMatchStatusWidgetState extends State<PickerMatchStatusWidget> {
               'Match Status',
               textAlign: TextAlign.start,
               style: FlutterFlowTheme.of(context).titleLarge.override(
-                    font: GoogleFonts.lexendDeca(
+                    font: GoogleFonts.figtree(
                       fontWeight:
                           FlutterFlowTheme.of(context).titleLarge.fontWeight,
                       fontStyle:
@@ -140,7 +140,7 @@ class _PickerMatchStatusWidgetState extends State<PickerMatchStatusWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .labelLarge
                                 .override(
-                                  font: GoogleFonts.lexendDeca(
+                                  font: GoogleFonts.figtree(
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .labelLarge
                                         .fontWeight,
@@ -186,7 +186,7 @@ class _PickerMatchStatusWidgetState extends State<PickerMatchStatusWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .labelLarge
                                 .override(
-                                  font: GoogleFonts.lexendDeca(
+                                  font: GoogleFonts.figtree(
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .labelLarge
                                         .fontWeight,
@@ -232,7 +232,7 @@ class _PickerMatchStatusWidgetState extends State<PickerMatchStatusWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .labelLarge
                                 .override(
-                                  font: GoogleFonts.lexendDeca(
+                                  font: GoogleFonts.figtree(
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .labelLarge
                                         .fontWeight,
@@ -278,7 +278,7 @@ class _PickerMatchStatusWidgetState extends State<PickerMatchStatusWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .labelLarge
                                 .override(
-                                  font: GoogleFonts.lexendDeca(
+                                  font: GoogleFonts.figtree(
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .labelLarge
                                         .fontWeight,

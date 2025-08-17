@@ -2,9 +2,9 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/pickers/picker_attendance/picker_attendance_widget.dart';
+import '/components/row_attendance_indicator/row_attendance_indicator_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -125,20 +125,27 @@ class _RowMatchOverviewPlayerWidgetState
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(40.0),
-                    child: CachedNetworkImage(
-                      fadeInDuration: Duration(milliseconds: 500),
-                      fadeOutDuration: Duration(milliseconds: 500),
-                      imageUrl: widget.photoURL!,
-                      width: 25.0,
-                      height: 25.0,
-                      fit: BoxFit.fill,
-                      errorWidget: (context, error, stackTrace) => Image.asset(
-                        'assets/images/error_image.png',
+                  Opacity(
+                    opacity: widget.attendanceStatus ==
+                            AttendanceStatus.notAttending
+                        ? 0.5
+                        : 1.0,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(40.0),
+                      child: CachedNetworkImage(
+                        fadeInDuration: Duration(milliseconds: 500),
+                        fadeOutDuration: Duration(milliseconds: 500),
+                        imageUrl: widget.photoURL!,
                         width: 25.0,
                         height: 25.0,
                         fit: BoxFit.fill,
+                        errorWidget: (context, error, stackTrace) =>
+                            Image.asset(
+                          'assets/images/error_image.png',
+                          width: 25.0,
+                          height: 25.0,
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ),
                   ),
@@ -148,18 +155,37 @@ class _RowMatchOverviewPlayerWidgetState
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              12.0, 0.0, 0.0, 0.0),
-                          child: Text(
-                            valueOrDefault<String>(
-                              widget.playerAttendanceInMatch?.player.name,
-                              'Player',
-                            ),
-                            style: FlutterFlowTheme.of(context)
-                                .titleMedium
-                                .override(
-                                  font: GoogleFonts.lexendDeca(
+                        Opacity(
+                          opacity: widget.attendanceStatus ==
+                                  AttendanceStatus.notAttending
+                              ? 0.5
+                              : 1.0,
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                12.0, 0.0, 0.0, 0.0),
+                            child: Text(
+                              valueOrDefault<String>(
+                                widget.playerAttendanceInMatch?.player.name,
+                                'Player',
+                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .titleMedium
+                                  .override(
+                                    font: GoogleFonts.figtree(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .titleMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleMedium
+                                          .fontStyle,
+                                    ),
+                                    color: widget.attendanceStatus ==
+                                            AttendanceStatus.attending
+                                        ? FlutterFlowTheme.of(context)
+                                            .textMatchingPrimary
+                                        : FlutterFlowTheme.of(context)
+                                            .textMatchingPrimary,
+                                    letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .titleMedium
                                         .fontWeight,
@@ -167,71 +193,28 @@ class _RowMatchOverviewPlayerWidgetState
                                         .titleMedium
                                         .fontStyle,
                                   ),
-                                  color: FlutterFlowTheme.of(context)
-                                      .textMatchingPrimary,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .titleMedium
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .titleMedium
-                                      .fontStyle,
-                                ),
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  Stack(
-                    children: [
-                      if (functions.memberAttendanceForMatch(
-                              widget.playerAttendanceInMatch) ==
-                          AttendanceStatus.attending)
-                        Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
-                          child: Icon(
-                            Icons.check_circle,
-                            color: FlutterFlowTheme.of(context).success,
-                            size: 22.0,
-                          ),
-                        ),
-                      if (functions.memberAttendanceForMatch(
-                              widget.playerAttendanceInMatch) ==
-                          AttendanceStatus.notAttending)
-                        Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
-                          child: Icon(
-                            Icons.cancel_sharp,
-                            color: FlutterFlowTheme.of(context).error,
-                            size: 22.0,
-                          ),
-                        ),
-                      if (functions.memberAttendanceForMatch(
-                              widget.playerAttendanceInMatch) ==
-                          AttendanceStatus.noReply)
-                        Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
-                          child: Icon(
-                            Icons.question_mark,
-                            color:
-                                FlutterFlowTheme.of(context).primaryBackground,
-                            size: 22.0,
-                          ),
-                        ),
-                    ],
+                  wrapWithModel(
+                    model: _model.rowAttendanceIndicatorModel,
+                    updateCallback: () => safeSetState(() {}),
+                    child: RowAttendanceIndicatorWidget(
+                      attendance: widget.attendanceStatus,
+                    ),
                   ),
                 ],
               ),
             ),
             if (!widget.isLastItem)
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(28.0, 0.0, 28.0, 0.0),
-                child: Container(
-                  width: double.infinity,
-                  height: 1.0,
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).listRowSeparator,
-                  ),
+              Container(
+                width: double.infinity,
+                height: 1.0,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).primaryBackground,
                 ),
               ),
           ],

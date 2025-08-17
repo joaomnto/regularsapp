@@ -52,41 +52,31 @@ class _ComponentMatchDetailWidgetState
   Widget build(BuildContext context) {
     return Container(
       width: 80.0,
-      height: 60.0,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
-        border: Border.all(
-          color: widget.editMode
-              ? FlutterFlowTheme.of(context).primaryBackground
-              : Color(0x00FFFFFF),
-        ),
       ),
       alignment: AlignmentDirectional(0.0, 0.0),
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            widget.icon!,
-            Text(
-              widget.text,
-              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                    font: GoogleFonts.lexendDeca(
-                      fontWeight:
-                          FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                      fontStyle:
-                          FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                    ),
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
-                    letterSpacing: 0.0,
-                    fontWeight:
-                        FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          widget.icon!,
+          Text(
+            widget.text,
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  font: GoogleFonts.figtree(
+                    fontWeight: FontWeight.w300,
                     fontStyle:
                         FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                   ),
-            ),
-          ].divide(SizedBox(height: 6.0)),
-        ),
+                  color: Colors.white,
+                  fontSize: 12.0,
+                  letterSpacing: 0.0,
+                  fontWeight: FontWeight.w300,
+                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                ),
+          ),
+        ].divide(SizedBox(height: 4.0)),
       ),
     );
   }

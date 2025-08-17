@@ -94,7 +94,7 @@ class _RowPlayerWidgetState extends State<RowPlayerWidget> {
                           ),
                           style:
                               FlutterFlowTheme.of(context).titleMedium.override(
-                                    font: GoogleFonts.lexendDeca(
+                                    font: GoogleFonts.figtree(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .titleMedium
                                           .fontWeight,
@@ -125,7 +125,7 @@ class _RowPlayerWidgetState extends State<RowPlayerWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodySmall
                                   .override(
-                                    font: GoogleFonts.lexendDeca(
+                                    font: GoogleFonts.figtree(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .bodySmall
                                           .fontWeight,
@@ -150,7 +150,7 @@ class _RowPlayerWidgetState extends State<RowPlayerWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodySmall
                                     .override(
-                                      font: GoogleFonts.lexendDeca(
+                                      font: GoogleFonts.figtree(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .bodySmall
                                             .fontWeight,

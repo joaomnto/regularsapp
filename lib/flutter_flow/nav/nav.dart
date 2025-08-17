@@ -87,113 +87,19 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               : PageCreateAccountSignInWidget(),
         ),
         FFRoute(
-          name: PageMatchOverviewWidget.routeName,
-          path: PageMatchOverviewWidget.routePath,
-          asyncParams: {
-            'group': getDoc(['Groups'], GroupsRecord.fromSnapshot),
-            'match': getDoc(['Groups', 'Matches'], MatchesRecord.fromSnapshot),
-          },
-          builder: (context, params) => PageMatchOverviewWidget(
-            group: params.getParam(
-              'group',
-              ParamType.Document,
-            ),
-            userIsAdmin: params.getParam(
-              'userIsAdmin',
-              ParamType.bool,
-            ),
-            groupRef: params.getParam(
-              'groupRef',
-              ParamType.DocumentReference,
-              isList: false,
-              collectionNamePath: ['Groups'],
-            ),
-            matchRef: params.getParam(
-              'matchRef',
-              ParamType.DocumentReference,
-              isList: false,
-              collectionNamePath: ['Groups', 'Matches'],
-            ),
-            match: params.getParam(
-              'match',
-              ParamType.Document,
-            ),
-          ),
+          name: PageNotificationsWidget.routeName,
+          path: PageNotificationsWidget.routePath,
+          builder: (context, params) => PageNotificationsWidget(),
         ),
         FFRoute(
-          name: PageGroupOverviewWidget.routeName,
-          path: PageGroupOverviewWidget.routePath,
+          name: PagePreviousMatchesWidget.routeName,
+          path: PagePreviousMatchesWidget.routePath,
           asyncParams: {
             'group': getDoc(['Groups'], GroupsRecord.fromSnapshot),
           },
-          builder: (context, params) => PageGroupOverviewWidget(
+          builder: (context, params) => PagePreviousMatchesWidget(
             group: params.getParam(
               'group',
-              ParamType.Document,
-            ),
-          ),
-        ),
-        FFRoute(
-          name: PageSearchUserWidget.routeName,
-          path: PageSearchUserWidget.routePath,
-          asyncParams: {
-            'group': getDoc(['Groups'], GroupsRecord.fromSnapshot),
-          },
-          builder: (context, params) => PageSearchUserWidget(
-            group: params.getParam(
-              'group',
-              ParamType.Document,
-            ),
-          ),
-        ),
-        FFRoute(
-          name: PageMemberProfileWidget.routeName,
-          path: PageMemberProfileWidget.routePath,
-          asyncParams: {
-            'member': getDoc(['Groups', 'Members'], MembersRecord.fromSnapshot),
-            'group': getDoc(['Groups'], GroupsRecord.fromSnapshot),
-          },
-          builder: (context, params) => PageMemberProfileWidget(
-            member: params.getParam(
-              'member',
-              ParamType.Document,
-            ),
-            userIsAdmin: params.getParam(
-              'userIsAdmin',
-              ParamType.bool,
-            ),
-            group: params.getParam(
-              'group',
-              ParamType.Document,
-            ),
-          ),
-        ),
-        FFRoute(
-          name: PageCreateMatchWidget.routeName,
-          path: PageCreateMatchWidget.routePath,
-          asyncParams: {
-            'group': getDoc(['Groups'], GroupsRecord.fromSnapshot),
-            'match': getDoc(['Groups', 'Matches'], MatchesRecord.fromSnapshot),
-          },
-          builder: (context, params) => PageCreateMatchWidget(
-            groupReference: params.getParam(
-              'groupReference',
-              ParamType.DocumentReference,
-              isList: false,
-              collectionNamePath: ['Groups'],
-            ),
-            group: params.getParam(
-              'group',
-              ParamType.Document,
-            ),
-            newMatchGroupMembers: params.getParam<DocumentReference>(
-              'newMatchGroupMembers',
-              ParamType.DocumentReference,
-              isList: true,
-              collectionNamePath: ['Groups', 'Members'],
-            ),
-            match: params.getParam(
-              'match',
               ParamType.Document,
             ),
             userIsAdmin: params.getParam(
@@ -226,72 +132,15 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: PageAuthUserProfileWidget.routeName,
-          path: PageAuthUserProfileWidget.routePath,
-          builder: (context, params) => PageAuthUserProfileWidget(),
-        ),
-        FFRoute(
-          name: PageDashboardWidget.routeName,
-          path: PageDashboardWidget.routePath,
-          builder: (context, params) => PageDashboardWidget(
-            matchGroupMembers: params.getParam(
-              'matchGroupMembers',
-              ParamType.DocumentReference,
-              isList: false,
-              collectionNamePath: ['Groups', 'Members'],
-            ),
-          ),
-        ),
-        FFRoute(
-          name: PageMatchEditWidget.routeName,
-          path: PageMatchEditWidget.routePath,
-          asyncParams: {
-            'group': getDoc(['Groups'], GroupsRecord.fromSnapshot),
-            'match': getDoc(['Groups', 'Matches'], MatchesRecord.fromSnapshot),
-          },
-          builder: (context, params) => PageMatchEditWidget(
-            groupReference: params.getParam(
-              'groupReference',
-              ParamType.DocumentReference,
-              isList: false,
-              collectionNamePath: ['Groups'],
-            ),
-            group: params.getParam(
-              'group',
-              ParamType.Document,
-            ),
-            match: params.getParam(
-              'match',
-              ParamType.Document,
-            ),
-            userIsAdmin: params.getParam(
-              'userIsAdmin',
-              ParamType.bool,
-            ),
-          ),
-        ),
-        FFRoute(
-          name: PageCreatePlayerWidget.routeName,
-          path: PageCreatePlayerWidget.routePath,
+          name: PageSearchUserWidget.routeName,
+          path: PageSearchUserWidget.routePath,
           asyncParams: {
             'group': getDoc(['Groups'], GroupsRecord.fromSnapshot),
           },
-          builder: (context, params) => PageCreatePlayerWidget(
-            groupRef: params.getParam(
-              'groupRef',
-              ParamType.DocumentReference,
-              isList: false,
-              collectionNamePath: ['Groups'],
-            ),
+          builder: (context, params) => PageSearchUserWidget(
             group: params.getParam(
               'group',
               ParamType.Document,
-            ),
-            newMember: params.getParam(
-              'newMember',
-              ParamType.DocumentReference,
-              isList: false,
-              collectionNamePath: ['Users'],
             ),
           ),
         ),
@@ -301,20 +150,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => PageCreateAccountSignInWidget(),
         ),
         FFRoute(
-          name: PageMatchOverviewCopyWidget.routeName,
-          path: PageMatchOverviewCopyWidget.routePath,
+          name: PageGroupOverviewWidget.routeName,
+          path: PageGroupOverviewWidget.routePath,
           asyncParams: {
+            'membership':
+                getDoc(['Groups', 'Members'], MembersRecord.fromSnapshot),
             'group': getDoc(['Groups'], GroupsRecord.fromSnapshot),
-            'match': getDoc(['Groups', 'Matches'], MatchesRecord.fromSnapshot),
           },
-          builder: (context, params) => PageMatchOverviewCopyWidget(
-            group: params.getParam(
-              'group',
+          builder: (context, params) => PageGroupOverviewWidget(
+            membership: params.getParam(
+              'membership',
               ParamType.Document,
-            ),
-            userIsAdmin: params.getParam(
-              'userIsAdmin',
-              ParamType.bool,
             ),
             groupRef: params.getParam(
               'groupRef',
@@ -322,11 +168,24 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               isList: false,
               collectionNamePath: ['Groups'],
             ),
-            matchRef: params.getParam(
-              'matchRef',
+            group: params.getParam(
+              'group',
+              ParamType.Document,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: PageDashboardWidget.routeName,
+          path: PageDashboardWidget.routePath,
+          asyncParams: {
+            'match': getDoc(['Groups', 'Matches'], MatchesRecord.fromSnapshot),
+          },
+          builder: (context, params) => PageDashboardWidget(
+            matchGroupMembers: params.getParam(
+              'matchGroupMembers',
               ParamType.DocumentReference,
               isList: false,
-              collectionNamePath: ['Groups', 'Matches'],
+              collectionNamePath: ['Groups', 'Members'],
             ),
             match: params.getParam(
               'match',
@@ -335,12 +194,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: PagePreviousMatchesWidget.routeName,
-          path: PagePreviousMatchesWidget.routePath,
+          name: PageAuthUserProfileWidget.routeName,
+          path: PageAuthUserProfileWidget.routePath,
+          builder: (context, params) => PageAuthUserProfileWidget(),
+        ),
+        FFRoute(
+          name: PageGroupMembersOverviewWidget.routeName,
+          path: PageGroupMembersOverviewWidget.routePath,
           asyncParams: {
             'group': getDoc(['Groups'], GroupsRecord.fromSnapshot),
           },
-          builder: (context, params) => PagePreviousMatchesWidget(
+          builder: (context, params) => PageGroupMembersOverviewWidget(
             group: params.getParam(
               'group',
               ParamType.Document,

@@ -61,6 +61,7 @@ abstract class FlutterFlowTheme {
   late Color backButtons;
   late Color listRowSeparator;
   late Color rowStroke;
+  late Color notAttending;
 
   @Deprecated('Use displaySmallFamily instead')
   String get title1Family => displaySmallFamily;
@@ -149,7 +150,7 @@ class LightModeTheme extends FlutterFlowTheme {
   Color get tertiaryColor => tertiary;
 
   late Color primary = const Color(0xFF4709A4);
-  late Color secondary = const Color(0xFF39D2C0);
+  late Color secondary = const Color(0xFFA37FD6);
   late Color tertiary = const Color(0xFFEE8B60);
   late Color alternate = const Color(0xFFE0E3E7);
   late Color primaryText = const Color(0xFF14181B);
@@ -167,9 +168,10 @@ class LightModeTheme extends FlutterFlowTheme {
 
   late Color textMatchingPrimary = const Color(0xFF4709A4);
   late Color navText = const Color(0xFFF9F9F9);
-  late Color backButtons = const Color(0xFFA384D1);
+  late Color backButtons = const Color(0xFFA37FD6);
   late Color listRowSeparator = const Color(0xFFEBEAEA);
   late Color rowStroke = const Color(0xFFDADADA);
+  late Color notAttending = const Color(0xFF4709A4);
 }
 
 abstract class Typography {
@@ -225,107 +227,107 @@ class ThemeTypography extends Typography {
 
   final FlutterFlowTheme theme;
 
-  String get displayLargeFamily => 'Lexend Deca';
+  String get displayLargeFamily => 'Figtree';
   bool get displayLargeIsCustom => false;
-  TextStyle get displayLarge => GoogleFonts.lexendDeca(
+  TextStyle get displayLarge => GoogleFonts.figtree(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 64.0,
       );
-  String get displayMediumFamily => 'Lexend Deca';
+  String get displayMediumFamily => 'Figtree';
   bool get displayMediumIsCustom => false;
-  TextStyle get displayMedium => GoogleFonts.lexendDeca(
+  TextStyle get displayMedium => GoogleFonts.figtree(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 44.0,
       );
-  String get displaySmallFamily => 'Lexend Deca';
+  String get displaySmallFamily => 'Figtree';
   bool get displaySmallIsCustom => false;
-  TextStyle get displaySmall => GoogleFonts.lexendDeca(
+  TextStyle get displaySmall => GoogleFonts.figtree(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 36.0,
       );
-  String get headlineLargeFamily => 'Lexend Deca';
+  String get headlineLargeFamily => 'Figtree';
   bool get headlineLargeIsCustom => false;
-  TextStyle get headlineLarge => GoogleFonts.lexendDeca(
+  TextStyle get headlineLarge => GoogleFonts.figtree(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 32.0,
       );
-  String get headlineMediumFamily => 'Lexend Deca';
+  String get headlineMediumFamily => 'Figtree';
   bool get headlineMediumIsCustom => false;
-  TextStyle get headlineMedium => GoogleFonts.lexendDeca(
+  TextStyle get headlineMedium => GoogleFonts.figtree(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 28.0,
       );
-  String get headlineSmallFamily => 'Lexend Deca';
+  String get headlineSmallFamily => 'Figtree';
   bool get headlineSmallIsCustom => false;
-  TextStyle get headlineSmall => GoogleFonts.lexendDeca(
+  TextStyle get headlineSmall => GoogleFonts.figtree(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 24.0,
       );
-  String get titleLargeFamily => 'Lexend Deca';
+  String get titleLargeFamily => 'Figtree';
   bool get titleLargeIsCustom => false;
-  TextStyle get titleLarge => GoogleFonts.lexendDeca(
+  TextStyle get titleLarge => GoogleFonts.figtree(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 20.0,
       );
-  String get titleMediumFamily => 'Lexend Deca';
+  String get titleMediumFamily => 'Figtree';
   bool get titleMediumIsCustom => false;
-  TextStyle get titleMedium => GoogleFonts.lexendDeca(
+  TextStyle get titleMedium => GoogleFonts.figtree(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 18.0,
       );
-  String get titleSmallFamily => 'Lexend Deca';
+  String get titleSmallFamily => 'Figtree';
   bool get titleSmallIsCustom => false;
-  TextStyle get titleSmall => GoogleFonts.lexendDeca(
+  TextStyle get titleSmall => GoogleFonts.figtree(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 16.0,
       );
-  String get labelLargeFamily => 'Lexend Deca';
+  String get labelLargeFamily => 'Figtree';
   bool get labelLargeIsCustom => false;
-  TextStyle get labelLarge => GoogleFonts.lexendDeca(
+  TextStyle get labelLarge => GoogleFonts.figtree(
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 16.0,
       );
-  String get labelMediumFamily => 'Lexend Deca';
+  String get labelMediumFamily => 'Figtree';
   bool get labelMediumIsCustom => false;
-  TextStyle get labelMedium => GoogleFonts.lexendDeca(
+  TextStyle get labelMedium => GoogleFonts.figtree(
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 14.0,
       );
-  String get labelSmallFamily => 'Lexend Deca';
+  String get labelSmallFamily => 'Figtree';
   bool get labelSmallIsCustom => false;
-  TextStyle get labelSmall => GoogleFonts.lexendDeca(
+  TextStyle get labelSmall => GoogleFonts.figtree(
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 12.0,
       );
-  String get bodyLargeFamily => 'Lexend Deca';
+  String get bodyLargeFamily => 'Figtree';
   bool get bodyLargeIsCustom => false;
-  TextStyle get bodyLarge => GoogleFonts.lexendDeca(
+  TextStyle get bodyLarge => GoogleFonts.figtree(
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 16.0,
       );
-  String get bodyMediumFamily => 'Lexend Deca';
+  String get bodyMediumFamily => 'Figtree';
   bool get bodyMediumIsCustom => false;
-  TextStyle get bodyMedium => GoogleFonts.lexendDeca(
+  TextStyle get bodyMedium => GoogleFonts.figtree(
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 14.0,
       );
-  String get bodySmallFamily => 'Lexend Deca';
+  String get bodySmallFamily => 'Figtree';
   bool get bodySmallIsCustom => false;
-  TextStyle get bodySmall => GoogleFonts.lexendDeca(
+  TextStyle get bodySmall => GoogleFonts.figtree(
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 12.0,
@@ -341,7 +343,7 @@ class DarkModeTheme extends FlutterFlowTheme {
   Color get tertiaryColor => tertiary;
 
   late Color primary = const Color(0xFF4709A4);
-  late Color secondary = const Color(0xFF39D2C0);
+  late Color secondary = const Color(0xFFA37FD6);
   late Color tertiary = const Color(0xFFEE8B60);
   late Color alternate = const Color(0xFF262D34);
   late Color primaryText = const Color(0xFFFFFFFF);
@@ -362,6 +364,7 @@ class DarkModeTheme extends FlutterFlowTheme {
   late Color backButtons = const Color(0xFFA384D1);
   late Color listRowSeparator = const Color(0xFF3F3F3F);
   late Color rowStroke = const Color(0xFF3F3F3F);
+  late Color notAttending = const Color(0xFF4709A4);
 }
 
 extension TextStyleHelper on TextStyle {

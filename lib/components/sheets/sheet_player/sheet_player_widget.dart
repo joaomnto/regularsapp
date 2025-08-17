@@ -199,6 +199,7 @@ class _SheetPlayerWidgetState extends State<SheetPlayerWidget>
                     children: [
                       Column(
                         mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Card(
@@ -229,8 +230,9 @@ class _SheetPlayerWidgetState extends State<SheetPlayerWidget>
                             ),
                           ).animateOnPageLoad(
                               animationsMap['cardOnPageLoadAnimation']!),
-                          Container(
-                            width: 200.0,
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
                             child: TextFormField(
                               controller: _model.textController,
                               focusNode: _model.textFieldFocusNode,
@@ -242,7 +244,7 @@ class _SheetPlayerWidgetState extends State<SheetPlayerWidget>
                                 labelStyle: FlutterFlowTheme.of(context)
                                     .headlineSmall
                                     .override(
-                                      font: GoogleFonts.lexendDeca(
+                                      font: GoogleFonts.figtree(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .headlineSmall
                                             .fontWeight,
@@ -262,7 +264,7 @@ class _SheetPlayerWidgetState extends State<SheetPlayerWidget>
                                 hintStyle: FlutterFlowTheme.of(context)
                                     .headlineSmall
                                     .override(
-                                      font: GoogleFonts.lexendDeca(
+                                      font: GoogleFonts.figtree(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .headlineSmall
                                             .fontWeight,
@@ -313,7 +315,7 @@ class _SheetPlayerWidgetState extends State<SheetPlayerWidget>
                               style: FlutterFlowTheme.of(context)
                                   .headlineSmall
                                   .override(
-                                    font: GoogleFonts.lexendDeca(
+                                    font: GoogleFonts.figtree(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .headlineSmall
                                           .fontWeight,
@@ -387,9 +389,7 @@ class _SheetPlayerWidgetState extends State<SheetPlayerWidget>
                               ).animateOnPageLoad(
                                   animationsMap['buttonOnPageLoadAnimation']!),
                             ),
-                        ]
-                            .addToStart(SizedBox(height: 20.0))
-                            .addToEnd(SizedBox(height: 10.0)),
+                        ].addToStart(SizedBox(height: 16.0)),
                       ),
                       if (widget.userIsAdmin)
                         Column(
@@ -397,7 +397,7 @@ class _SheetPlayerWidgetState extends State<SheetPlayerWidget>
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Divider(
-                              height: 44.0,
+                              height: 20.0,
                               thickness: 1.0,
                               indent: 24.0,
                               endIndent: 24.0,
@@ -453,7 +453,22 @@ class _SheetPlayerWidgetState extends State<SheetPlayerWidget>
                                                           createMembersRecordData(
                                                     isAdmin:
                                                         _model.adminSwitchValue,
+                                                    isPlayer: false,
                                                   ));
+
+                                                  await widget.group!.reference
+                                                      .update({
+                                                    ...mapToFirestore(
+                                                      {
+                                                        'adminUserIds':
+                                                            FieldValue
+                                                                .arrayUnion([
+                                                          widget
+                                                              .member?.userRef
+                                                        ]),
+                                                      },
+                                                    ),
+                                                  });
                                                 } else {
                                                   await widget
                                                       .member!.reference
@@ -462,39 +477,52 @@ class _SheetPlayerWidgetState extends State<SheetPlayerWidget>
                                                     isAdmin:
                                                         _model.adminSwitchValue,
                                                   ));
+
+                                                  await widget.group!.reference
+                                                      .update({
+                                                    ...mapToFirestore(
+                                                      {
+                                                        'adminUserIds':
+                                                            FieldValue
+                                                                .arrayRemove([
+                                                          widget
+                                                              .member?.userRef
+                                                        ]),
+                                                      },
+                                                    ),
+                                                  });
                                                 }
                                               },
                                               title: Text(
                                                 'Admin',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          font: GoogleFonts
-                                                              .lexendDeca(
-                                                            fontWeight:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontWeight,
-                                                            fontStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontStyle,
-                                                          ),
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      font: GoogleFonts.figtree(
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                      ),
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .fontStyle,
+                                                    ),
                                               ),
                                               tileColor:
                                                   FlutterFlowTheme.of(context)
@@ -576,35 +604,35 @@ class _SheetPlayerWidgetState extends State<SheetPlayerWidget>
                                             },
                                             title: Text(
                                               'Player',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    font:
-                                                        GoogleFonts.lexendDeca(
-                                                      fontWeight:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontStyle,
-                                                    ),
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontStyle,
-                                                  ),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        font:
+                                                            GoogleFonts.figtree(
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                      ),
                                             ),
                                             tileColor:
                                                 FlutterFlowTheme.of(context)
@@ -668,6 +696,9 @@ class _SheetPlayerWidgetState extends State<SheetPlayerWidget>
                                             'members': FieldValue.arrayRemove(
                                                 [widget.member?.reference]),
                                             'membersUserIds':
+                                                FieldValue.arrayRemove(
+                                                    [widget.member?.userRef]),
+                                            'adminUserIds':
                                                 FieldValue.arrayRemove(
                                                     [widget.member?.userRef]),
                                           },

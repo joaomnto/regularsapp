@@ -85,8 +85,8 @@ class _SheetCreatePlayerWidgetState extends State<SheetCreatePlayerWidget> {
                         fontStyle:
                             FlutterFlowTheme.of(context).titleLarge.fontStyle,
                       ),
-                      color: FlutterFlowTheme.of(context).navText,
-                      fontSize: 22.0,
+                      color: FlutterFlowTheme.of(context).backButtons,
+                      fontSize: 20.0,
                       letterSpacing: 0.0,
                       fontWeight: FontWeight.w300,
                       fontStyle:
@@ -94,20 +94,17 @@ class _SheetCreatePlayerWidgetState extends State<SheetCreatePlayerWidget> {
                     ),
               ),
               actions: [
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                  child: FlutterFlowIconButton(
-                    borderRadius: 8.0,
-                    buttonSize: 40.0,
-                    icon: Icon(
-                      Icons.close,
-                      color: FlutterFlowTheme.of(context).backButtons,
-                      size: 24.0,
-                    ),
-                    onPressed: () async {
-                      Navigator.pop(context);
-                    },
+                FlutterFlowIconButton(
+                  borderRadius: 8.0,
+                  buttonSize: 60.0,
+                  icon: Icon(
+                    Icons.close,
+                    color: FlutterFlowTheme.of(context).backButtons,
+                    size: 30.0,
                   ),
+                  onPressed: () async {
+                    Navigator.pop(context);
+                  },
                 ),
               ],
               centerTitle: true,
@@ -140,7 +137,7 @@ class _SheetCreatePlayerWidgetState extends State<SheetCreatePlayerWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  font: GoogleFonts.lexendDeca(
+                                  font: GoogleFonts.figtree(
                                     fontWeight: FontWeight.w300,
                                     fontStyle: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -351,7 +348,7 @@ class _SheetCreatePlayerWidgetState extends State<SheetCreatePlayerWidget> {
                                   ),
                                   duration: Duration(milliseconds: 4000),
                                   backgroundColor:
-                                      FlutterFlowTheme.of(context).secondary,
+                                      FlutterFlowTheme.of(context).success,
                                 ),
                               );
 
@@ -365,7 +362,7 @@ class _SheetCreatePlayerWidgetState extends State<SheetCreatePlayerWidget> {
                                   24.0, 0.0, 24.0, 0.0),
                               iconPadding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
-                              color: FlutterFlowTheme.of(context).accent1,
+                              color: FlutterFlowTheme.of(context).success,
                               textStyle: FlutterFlowTheme.of(context)
                                   .titleMedium
                                   .override(
@@ -375,8 +372,7 @@ class _SheetCreatePlayerWidgetState extends State<SheetCreatePlayerWidget> {
                                           .titleMedium
                                           .fontStyle,
                                     ),
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
+                                    color: FlutterFlowTheme.of(context).primary,
                                     fontSize: 14.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.normal,

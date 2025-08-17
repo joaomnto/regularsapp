@@ -34,12 +34,6 @@ enum MemberStatus {
   Declined,
 }
 
-enum MatchType {
-  Five,
-  Seven,
-  Eleven,
-}
-
 enum SubsType {
   NoSubs,
   Max3,
@@ -49,6 +43,30 @@ enum SubsType {
 enum VenueType {
   Outdoors,
   Indoors,
+}
+
+enum MatchType {
+  Five,
+  Seven,
+  Eleven,
+}
+
+enum JoinCodeStatus {
+  Active,
+  Expired,
+}
+
+enum JoinRequestStatus {
+  Pending,
+  Approved,
+  Rejected,
+  Expired,
+}
+
+enum SurfaceType {
+  naturalGrass,
+  syntethicTurf,
+  indoorCourt,
 }
 
 extension FFEnumExtensions<T extends Enum> on T {
@@ -70,12 +88,18 @@ T? deserializeEnum<T>(String? value) {
       return AttendanceStatus.values.deserialize(value) as T?;
     case (MemberStatus):
       return MemberStatus.values.deserialize(value) as T?;
-    case (MatchType):
-      return MatchType.values.deserialize(value) as T?;
     case (SubsType):
       return SubsType.values.deserialize(value) as T?;
     case (VenueType):
       return VenueType.values.deserialize(value) as T?;
+    case (MatchType):
+      return MatchType.values.deserialize(value) as T?;
+    case (JoinCodeStatus):
+      return JoinCodeStatus.values.deserialize(value) as T?;
+    case (JoinRequestStatus):
+      return JoinRequestStatus.values.deserialize(value) as T?;
+    case (SurfaceType):
+      return SurfaceType.values.deserialize(value) as T?;
     default:
       return null;
   }

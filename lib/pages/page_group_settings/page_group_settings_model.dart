@@ -17,6 +17,8 @@ class PageGroupSettingsModel extends FlutterFlowModel<PageGroupSettingsWidget> {
   // State field(s) for SwitchListTile widget.
   bool? switchListTileValue;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  GroupJoinCodesRecord? fetchedGroupJoinCode;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   List<MatchesRecord>? matchesToRemoveUserFrom;
 
   @override

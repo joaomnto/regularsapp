@@ -1,9 +1,12 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/dialog_group_invite_code/dialog_group_invite_code_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:collection/collection.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -67,10 +70,10 @@ class _PageGroupSettingsWidgetState extends State<PageGroupSettingsWidget> {
         automaticallyImplyLeading: false,
         leading: FlutterFlowIconButton(
           borderColor: Colors.transparent,
-          borderRadius: 30.0,
-          buttonSize: 46.0,
+          borderRadius: 8.0,
+          buttonSize: 60.0,
           icon: Icon(
-            Icons.close,
+            Icons.arrow_back_sharp,
             color: FlutterFlowTheme.of(context).backButtons,
             size: 30.0,
           ),
@@ -86,48 +89,28 @@ class _PageGroupSettingsWidgetState extends State<PageGroupSettingsWidget> {
                   fontStyle:
                       FlutterFlowTheme.of(context).headlineSmall.fontStyle,
                 ),
-                color: FlutterFlowTheme.of(context).navText,
-                fontSize: 22.0,
+                color: FlutterFlowTheme.of(context).backButtons,
+                fontSize: 20.0,
                 letterSpacing: 0.0,
                 fontWeight: FontWeight.w300,
                 fontStyle: FlutterFlowTheme.of(context).headlineSmall.fontStyle,
               ),
         ),
         actions: [
-          FFButtonWidget(
+          FlutterFlowIconButton(
+            borderRadius: 8.0,
+            buttonSize: 60.0,
+            icon: Icon(
+              Icons.check,
+              color: FlutterFlowTheme.of(context).backButtons,
+              size: 30.0,
+            ),
             onPressed: () async {
               await widget.group!.reference.update(createGroupsRecordData(
                 name: _model.textController.text,
               ));
               context.safePop();
             },
-            text: '',
-            icon: Icon(
-              Icons.check_sharp,
-              size: 30.0,
-            ),
-            options: FFButtonOptions(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-              iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-              iconColor: FlutterFlowTheme.of(context).backButtons,
-              color: Color(0x00FF6700),
-              textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                    font: GoogleFonts.lexendDeca(
-                      fontWeight:
-                          FlutterFlowTheme.of(context).titleSmall.fontWeight,
-                      fontStyle:
-                          FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                    ),
-                    color: Colors.white,
-                    letterSpacing: 0.0,
-                    fontWeight:
-                        FlutterFlowTheme.of(context).titleSmall.fontWeight,
-                    fontStyle:
-                        FlutterFlowTheme.of(context).titleSmall.fontStyle,
-                  ),
-              elevation: 0.0,
-              borderRadius: BorderRadius.circular(0.0),
-            ),
           ),
         ],
         centerTitle: true,
@@ -141,7 +124,7 @@ class _PageGroupSettingsWidgetState extends State<PageGroupSettingsWidget> {
           ),
           decoration: BoxDecoration(),
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(0.0, 2.0, 0.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -160,7 +143,7 @@ class _PageGroupSettingsWidgetState extends State<PageGroupSettingsWidget> {
                           'Name',
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
-                                    font: GoogleFonts.lexendDeca(
+                                    font: GoogleFonts.figtree(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
@@ -201,7 +184,7 @@ class _PageGroupSettingsWidgetState extends State<PageGroupSettingsWidget> {
                               labelStyle: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(
-                                    font: GoogleFonts.lexendDeca(
+                                    font: GoogleFonts.figtree(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .fontWeight,
@@ -222,7 +205,7 @@ class _PageGroupSettingsWidgetState extends State<PageGroupSettingsWidget> {
                               hintStyle: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(
-                                    font: GoogleFonts.lexendDeca(
+                                    font: GoogleFonts.figtree(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .fontWeight,
@@ -274,7 +257,7 @@ class _PageGroupSettingsWidgetState extends State<PageGroupSettingsWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  font: GoogleFonts.lexendDeca(
+                                  font: GoogleFonts.figtree(
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .fontWeight,
@@ -313,7 +296,7 @@ class _PageGroupSettingsWidgetState extends State<PageGroupSettingsWidget> {
                       title: Text(
                         'Payment Tracking',
                         style: FlutterFlowTheme.of(context).bodyLarge.override(
-                              font: GoogleFonts.lexendDeca(
+                              font: GoogleFonts.figtree(
                                 fontWeight: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .fontWeight,
@@ -334,7 +317,7 @@ class _PageGroupSettingsWidgetState extends State<PageGroupSettingsWidget> {
                       subtitle: Text(
                         'Keep track of members payments',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              font: GoogleFonts.lexendDeca(
+                              font: GoogleFonts.figtree(
                                 fontWeight: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .fontWeight,
@@ -363,185 +346,326 @@ class _PageGroupSettingsWidgetState extends State<PageGroupSettingsWidget> {
                   ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                  child: FFButtonWidget(
-                    onPressed: () async {
-                      var confirmDialogResponse = await showDialog<bool>(
-                            context: context,
-                            builder: (alertDialogContext) {
-                              return AlertDialog(
-                                title: Text('Leave group'),
-                                content: Text(
-                                    'Are you sure you want to leave ${widget.group?.name}?'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () => Navigator.pop(
-                                        alertDialogContext, false),
-                                    child: Text('Cancel'),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      if (widget.userIsAdmin ?? true)
+                        Expanded(
+                          child: Builder(
+                            builder: (context) => FFButtonWidget(
+                              onPressed: () async {
+                                _model.fetchedGroupJoinCode =
+                                    await queryGroupJoinCodesRecordOnce(
+                                  queryBuilder: (groupJoinCodesRecord) =>
+                                      groupJoinCodesRecord.where(
+                                    'groupReference',
+                                    isEqualTo: widget.group?.reference,
                                   ),
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(alertDialogContext, true),
-                                    child: Text('Confirm'),
-                                  ),
-                                ],
-                              );
-                            },
-                          ) ??
-                          false;
-                      if (confirmDialogResponse) {
-                        await widget.group!.reference.update({
-                          ...mapToFirestore(
-                            {
-                              'members': FieldValue.arrayRemove(
-                                  [widget.membership?.reference]),
-                              'membersUserIds': FieldValue.arrayRemove(
-                                  [widget.membership?.userRef]),
-                            },
-                          ),
-                        });
-                        _model.matchesToRemoveUserFrom =
-                            await queryMatchesRecordOnce(
-                          parent: widget.group?.reference,
-                          queryBuilder: (matchesRecord) => matchesRecord.where(
-                            'matchDate',
-                            isGreaterThan: getCurrentTimestamp,
-                          ),
-                        );
-                        for (int loop1Index = 0;
-                            loop1Index < _model.matchesToRemoveUserFrom!.length;
-                            loop1Index++) {
-                          final currentLoop1Item =
-                              _model.matchesToRemoveUserFrom![loop1Index];
+                                  singleRecord: true,
+                                ).then((s) => s.firstOrNull);
+                                if (_model.fetchedGroupJoinCode != null) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (dialogContext) {
+                                      return Dialog(
+                                        elevation: 0,
+                                        insetPadding: EdgeInsets.zero,
+                                        backgroundColor: Colors.transparent,
+                                        alignment:
+                                            AlignmentDirectional(0.0, 0.0)
+                                                .resolve(
+                                                    Directionality.of(context)),
+                                        child: DialogGroupInviteCodeWidget(
+                                          groupJoinCode:
+                                              _model.fetchedGroupJoinCode!,
+                                        ),
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: Text('Invitation code'),
+                                        content: Text(
+                                            'Failed to request code. Please try again.'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: Text('Ok'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
 
-                          await currentLoop1Item.reference.update({
-                            ...mapToFirestore(
-                              {
-                                'matchGroupMembers': FieldValue.arrayRemove(
-                                    [widget.membership?.reference]),
-                                'attendanceUserRefs': FieldValue.arrayRemove(
-                                    [widget.membership?.userRef]),
-                                'attendance':
-                                    getMatchAttendanceListFirestoreData(
-                                  functions.attendanceByRemovingAttendant(
-                                      widget.membership!.reference,
-                                      currentLoop1Item.attendance.toList()),
-                                ),
+                                safeSetState(() {});
                               },
-                            ),
-                          });
-                        }
-                        await widget.membership!.reference.delete();
-                        context.safePop();
-                        context.safePop();
-                      }
-
-                      safeSetState(() {});
-                    },
-                    text: 'Leave Group',
-                    options: FFButtonOptions(
-                      width: 120.0,
-                      height: 40.0,
-                      padding: EdgeInsets.all(0.0),
-                      iconPadding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      textStyle:
-                          FlutterFlowTheme.of(context).bodySmall.override(
-                                font: GoogleFonts.lexendDeca(
-                                  fontWeight: FontWeight.normal,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodySmall
-                                      .fontStyle,
-                                ),
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                fontSize: 14.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.normal,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .bodySmall
-                                    .fontStyle,
+                              text: 'Share group code',
+                              icon: Icon(
+                                Icons.qr_code,
+                                size: 26.0,
                               ),
-                      elevation: 0.0,
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
+                              options: FFButtonOptions(
+                                width: 120.0,
+                                height: 50.0,
+                                padding: EdgeInsets.all(0.0),
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                color: FlutterFlowTheme.of(context).success,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .override(
+                                      font: GoogleFonts.figtree(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .fontStyle,
+                                      ),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
+                                elevation: 0.0,
+                                borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1.0,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
                 ),
-                if (widget.userIsAdmin ?? true)
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                    child: FFButtonWidget(
-                      onPressed: () async {
-                        var confirmDialogResponse = await showDialog<bool>(
-                              context: context,
-                              builder: (alertDialogContext) {
-                                return AlertDialog(
-                                  title: Text('Delete group'),
-                                  content: Text(
-                                      'Are you sure you want to delete ${widget.group?.name}?'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () => Navigator.pop(
-                                          alertDialogContext, false),
-                                      child: Text('Cancel'),
-                                    ),
-                                    TextButton(
-                                      onPressed: () => Navigator.pop(
-                                          alertDialogContext, true),
-                                      child: Text('Confirm'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            ) ??
-                            false;
-                        if (confirmDialogResponse) {
-                          await widget.group!.reference.delete();
-                          context.safePop();
-                          context.safePop();
-                        } else {
-                          return;
-                        }
-                      },
-                      text: 'Delete Group',
-                      options: FFButtonOptions(
-                        width: 120.0,
-                        height: 40.0,
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).error,
-                        textStyle:
-                            FlutterFlowTheme.of(context).bodySmall.override(
-                                  font: GoogleFonts.lexendDeca(
-                                    fontWeight: FontWeight.normal,
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            var confirmDialogResponse = await showDialog<bool>(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: Text('Leave group'),
+                                      content: Text(
+                                          'Are you sure you want to leave ${widget.group?.name}?'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () => Navigator.pop(
+                                              alertDialogContext, false),
+                                          child: Text('Cancel'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () => Navigator.pop(
+                                              alertDialogContext, true),
+                                          child: Text('Confirm'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ) ??
+                                false;
+                            if (confirmDialogResponse) {
+                              await widget.group!.reference.update({
+                                ...mapToFirestore(
+                                  {
+                                    'members': FieldValue.arrayRemove(
+                                        [widget.membership?.reference]),
+                                    'membersUserIds': FieldValue.arrayRemove(
+                                        [widget.membership?.userRef]),
+                                    'adminUserIds': FieldValue.arrayRemove(
+                                        [currentUserReference]),
+                                  },
+                                ),
+                              });
+                              _model.matchesToRemoveUserFrom =
+                                  await queryMatchesRecordOnce(
+                                parent: widget.group?.reference,
+                                queryBuilder: (matchesRecord) =>
+                                    matchesRecord.where(
+                                  'matchDate',
+                                  isGreaterThan: getCurrentTimestamp,
+                                ),
+                              );
+                              for (int loop1Index = 0;
+                                  loop1Index <
+                                      _model.matchesToRemoveUserFrom!.length;
+                                  loop1Index++) {
+                                final currentLoop1Item =
+                                    _model.matchesToRemoveUserFrom![loop1Index];
+
+                                await currentLoop1Item.reference.update({
+                                  ...mapToFirestore(
+                                    {
+                                      'matchGroupMembers':
+                                          FieldValue.arrayRemove(
+                                              [widget.membership?.reference]),
+                                      'attendanceUserRefs':
+                                          FieldValue.arrayRemove(
+                                              [widget.membership?.userRef]),
+                                      'attendance':
+                                          getMatchAttendanceListFirestoreData(
+                                        functions.attendanceByRemovingAttendant(
+                                            widget.membership!.reference,
+                                            currentLoop1Item.attendance
+                                                .toList()),
+                                      ),
+                                    },
+                                  ),
+                                });
+                              }
+                              await widget.membership!.reference.delete();
+                              context.safePop();
+                              context.safePop();
+                            }
+
+                            safeSetState(() {});
+                          },
+                          text: 'Leave group',
+                          icon: Icon(
+                            Icons.west_rounded,
+                            size: 26.0,
+                          ),
+                          options: FFButtonOptions(
+                            width: 120.0,
+                            height: 50.0,
+                            padding: EdgeInsets.all(0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: FlutterFlowTheme.of(context).primary,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  font: GoogleFonts.figtree(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontWeight,
                                     fontStyle: FlutterFlowTheme.of(context)
-                                        .bodySmall
+                                        .labelMedium
                                         .fontStyle,
                                   ),
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
-                                  fontSize: 14.0,
+                                  color: Colors.white,
                                   letterSpacing: 0.0,
-                                  fontWeight: FontWeight.normal,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .fontWeight,
                                   fontStyle: FlutterFlowTheme.of(context)
-                                      .bodySmall
+                                      .labelMedium
                                       .fontStyle,
                                 ),
-                        elevation: 0.0,
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1.0,
+                            elevation: 0.0,
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
                         ),
                       ),
-                    ),
+                      if (widget.userIsAdmin ?? true)
+                        Expanded(
+                          child: FFButtonWidget(
+                            onPressed: () async {
+                              var confirmDialogResponse =
+                                  await showDialog<bool>(
+                                        context: context,
+                                        builder: (alertDialogContext) {
+                                          return AlertDialog(
+                                            title: Text('Delete group'),
+                                            content: Text(
+                                                'Are you sure you want to delete ${widget.group?.name}?'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    alertDialogContext, false),
+                                                child: Text('Cancel'),
+                                              ),
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    alertDialogContext, true),
+                                                child: Text('Confirm'),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      ) ??
+                                      false;
+                              if (confirmDialogResponse) {
+                                await Future.wait([
+                                  Future(() async {}),
+                                ]);
+                                await widget.group!.reference.delete();
+                                context.safePop();
+                                context.safePop();
+                              } else {
+                                return;
+                              }
+                            },
+                            text: 'Delete group',
+                            icon: Icon(
+                              Icons.delete_forever,
+                              size: 26.0,
+                            ),
+                            options: FFButtonOptions(
+                              height: 50.0,
+                              padding: EdgeInsets.all(0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: FlutterFlowTheme.of(context).error,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .override(
+                                    font: GoogleFonts.figtree(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
+                                    color: Colors.white,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontStyle,
+                                  ),
+                              elevation: 0.0,
+                              borderSide: BorderSide(
+                                color: Colors.transparent,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
+                        ),
+                    ].divide(
+                        SizedBox(width: widget.userIsAdmin! ? 10.0 : 0.0)),
                   ),
-              ].divide(SizedBox(height: 16.0)),
+                ),
+              ]
+                  .divide(SizedBox(height: 16.0))
+                  .addToStart(SizedBox(height: 20.0))
+                  .addToEnd(SizedBox(height: 20.0)),
             ),
           ),
         ),

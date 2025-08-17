@@ -70,8 +70,8 @@ class _PageAuthUserProfileWidgetState extends State<PageAuthUserProfileWidget> {
                   fontStyle:
                       FlutterFlowTheme.of(context).displaySmall.fontStyle,
                 ),
-                color: FlutterFlowTheme.of(context).navText,
-                fontSize: 22.0,
+                color: FlutterFlowTheme.of(context).backButtons,
+                fontSize: 20.0,
                 letterSpacing: 0.0,
                 fontWeight: FontWeight.w300,
                 fontStyle: FlutterFlowTheme.of(context).displaySmall.fontStyle,
@@ -164,7 +164,7 @@ class _PageAuthUserProfileWidgetState extends State<PageAuthUserProfileWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .headlineSmall
                                           .override(
-                                            font: GoogleFonts.lexendDeca(
+                                            font: GoogleFonts.figtree(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .headlineSmall
@@ -255,7 +255,7 @@ class _PageAuthUserProfileWidgetState extends State<PageAuthUserProfileWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        font: GoogleFonts.lexendDeca(
+                                        font: GoogleFonts.figtree(
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
                                                   .bodyMedium
@@ -360,7 +360,7 @@ class _PageAuthUserProfileWidgetState extends State<PageAuthUserProfileWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        font: GoogleFonts.lexendDeca(
+                                        font: GoogleFonts.figtree(
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
                                                   .bodyMedium
@@ -457,7 +457,7 @@ class _PageAuthUserProfileWidgetState extends State<PageAuthUserProfileWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(
-                                  font: GoogleFonts.lexendDeca(
+                                  font: GoogleFonts.figtree(
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .fontWeight,
@@ -495,7 +495,7 @@ class _PageAuthUserProfileWidgetState extends State<PageAuthUserProfileWidget> {
                     child: Text(
                       'Privacy Policy and Terms of Use',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            font: GoogleFonts.lexendDeca(
+                            font: GoogleFonts.figtree(
                               fontWeight: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .fontWeight,
@@ -630,7 +630,7 @@ class _PageAuthUserProfileWidgetState extends State<PageAuthUserProfileWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .labelMedium
                                       .override(
-                                        font: GoogleFonts.lexendDeca(
+                                        font: GoogleFonts.figtree(
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
                                                   .labelMedium

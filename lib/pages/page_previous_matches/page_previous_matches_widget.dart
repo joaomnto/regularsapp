@@ -87,8 +87,8 @@ class _PagePreviousMatchesWidgetState extends State<PagePreviousMatchesWidget> {
                     fontStyle:
                         FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                   ),
-                  color: FlutterFlowTheme.of(context).navText,
-                  fontSize: 22.0,
+                  color: FlutterFlowTheme.of(context).backButtons,
+                  fontSize: 20.0,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.w300,
                   fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -98,107 +98,100 @@ class _PagePreviousMatchesWidgetState extends State<PagePreviousMatchesWidget> {
           centerTitle: true,
           elevation: 2.0,
         ),
-        body: SafeArea(
-          top: true,
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                  child: PagedListView<DocumentSnapshot<Object?>?,
-                      MatchesRecord>.separated(
-                    pagingController: _model.setListViewController(
-                        MatchesRecord.collection(widget.group?.reference)
-                            .where(
-                              'matchEndDate',
-                              isLessThan: functions.dateTimePlusMinutes(
-                                  -15.0, getCurrentTimestamp),
-                            )
-                            .orderBy('matchEndDate', descending: true),
-                        parent: widget.group?.reference),
-                    padding: EdgeInsets.fromLTRB(
-                      0,
-                      30.0,
-                      0,
-                      40.0,
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                child: PagedListView<DocumentSnapshot<Object?>?,
+                    MatchesRecord>.separated(
+                  pagingController: _model.setListViewController(
+                      MatchesRecord.collection(widget.group?.reference)
+                          .where(
+                            'matchEndDate',
+                            isLessThan: functions.dateTimePlusMinutes(
+                                -15.0, getCurrentTimestamp),
+                          )
+                          .orderBy('matchEndDate', descending: true),
+                      parent: widget.group?.reference),
+                  padding: EdgeInsets.fromLTRB(
+                    0,
+                    30.0,
+                    0,
+                    40.0,
+                  ),
+                  primary: false,
+                  shrinkWrap: true,
+                  reverse: false,
+                  scrollDirection: Axis.vertical,
+                  separatorBuilder: (_, __) => SizedBox(height: 10.0),
+                  builderDelegate: PagedChildBuilderDelegate<MatchesRecord>(
+                    // Customize what your widget looks like when it's loading the first page.
+                    firstPageProgressIndicatorBuilder: (_) =>
+                        LoaderMatchRowWidget(),
+                    // Customize what your widget looks like when it's loading another page.
+                    newPageProgressIndicatorBuilder: (_) =>
+                        LoaderMatchRowWidget(),
+                    noItemsFoundIndicatorBuilder: (_) =>
+                        ComponentEmptyListViewWidget(
+                      emptyText: 'No matches',
                     ),
-                    primary: false,
-                    shrinkWrap: true,
-                    reverse: false,
-                    scrollDirection: Axis.vertical,
-                    separatorBuilder: (_, __) => SizedBox(height: 10.0),
-                    builderDelegate: PagedChildBuilderDelegate<MatchesRecord>(
-                      // Customize what your widget looks like when it's loading the first page.
-                      firstPageProgressIndicatorBuilder: (_) =>
-                          LoaderMatchRowWidget(),
-                      // Customize what your widget looks like when it's loading another page.
-                      newPageProgressIndicatorBuilder: (_) =>
-                          LoaderMatchRowWidget(),
-                      noItemsFoundIndicatorBuilder: (_) =>
-                          ComponentEmptyListViewWidget(
-                        emptyText: 'No matches',
-                      ),
-                      itemBuilder: (context, _, listViewIndex) {
-                        final listViewMatchesRecord = _model
-                            .listViewPagingController!.itemList![listViewIndex];
-                        return InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            await showModalBottomSheet(
-                              isScrollControlled: true,
-                              backgroundColor: Colors.transparent,
-                              context: context,
-                              builder: (context) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    FocusScope.of(context).unfocus();
-                                    FocusManager.instance.primaryFocus
-                                        ?.unfocus();
-                                  },
-                                  child: Padding(
-                                    padding: MediaQuery.viewInsetsOf(context),
-                                    child: Container(
-                                      height:
-                                          MediaQuery.sizeOf(context).height *
-                                              0.94,
-                                      child: SheetMatchWidget(
-                                        grouRef:
-                                            listViewMatchesRecord.groupRef!,
-                                        matchRef:
-                                            listViewMatchesRecord.reference,
-                                        group: widget.group,
-                                        userIsAdmin: widget.userIsAdmin,
-                                      ),
+                    itemBuilder: (context, _, listViewIndex) {
+                      final listViewMatchesRecord = _model
+                          .listViewPagingController!.itemList![listViewIndex];
+                      return InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          await showModalBottomSheet(
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            context: context,
+                            builder: (context) {
+                              return GestureDetector(
+                                onTap: () {
+                                  FocusScope.of(context).unfocus();
+                                  FocusManager.instance.primaryFocus?.unfocus();
+                                },
+                                child: Padding(
+                                  padding: MediaQuery.viewInsetsOf(context),
+                                  child: Container(
+                                    height: MediaQuery.sizeOf(context).height *
+                                        0.94,
+                                    child: SheetMatchWidget(
+                                      grouRef: listViewMatchesRecord.groupRef!,
+                                      matchRef: listViewMatchesRecord.reference,
+                                      group: widget.group,
+                                      userIsAdmin: widget.userIsAdmin,
                                     ),
                                   ),
-                                );
-                              },
-                            ).then((value) => safeSetState(() {}));
-                          },
-                          child: RowMatchWidget(
-                            key: Key(
-                                'Key1dp_${listViewIndex}_of_${_model.listViewPagingController!.itemList!.length}'),
-                            matchStatus: listViewMatchesRecord.status,
-                            matchDate: listViewMatchesRecord.matchDate,
-                            kickofftime: listViewMatchesRecord.matchDate,
-                            match: listViewMatchesRecord,
-                            showGroup: false,
-                            playerAttendanceInMatch:
-                                functions.authUserAttendanceForMatch(
-                                    listViewMatchesRecord.attendance.toList(),
-                                    currentUserReference)!,
-                          ),
-                        );
-                      },
-                    ),
+                                ),
+                              );
+                            },
+                          ).then((value) => safeSetState(() {}));
+                        },
+                        child: RowMatchWidget(
+                          key: Key(
+                              'Key1dp_${listViewIndex}_of_${_model.listViewPagingController!.itemList!.length}'),
+                          matchStatus: listViewMatchesRecord.status,
+                          matchDate: listViewMatchesRecord.matchDate,
+                          kickofftime: listViewMatchesRecord.matchDate,
+                          match: listViewMatchesRecord,
+                          showGroup: false,
+                          playerAttendanceInMatch:
+                              functions.authUserAttendanceForMatch(
+                                  listViewMatchesRecord.attendance.toList(),
+                                  currentUserReference)!,
+                        ),
+                      );
+                    },
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

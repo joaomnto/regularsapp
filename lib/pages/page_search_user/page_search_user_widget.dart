@@ -62,6 +62,19 @@ class _PageSearchUserWidgetState extends State<PageSearchUserWidget> {
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
+          leading: FlutterFlowIconButton(
+            borderRadius: 8.0,
+            buttonSize: 60.0,
+            fillColor: FlutterFlowTheme.of(context).primary,
+            icon: Icon(
+              Icons.arrow_back,
+              color: FlutterFlowTheme.of(context).backButtons,
+              size: 30.0,
+            ),
+            onPressed: () async {
+              context.safePop();
+            },
+          ),
           title: Text(
             'Search Player',
             style: FlutterFlowTheme.of(context).titleLarge.override(
@@ -70,30 +83,14 @@ class _PageSearchUserWidgetState extends State<PageSearchUserWidget> {
                     fontStyle:
                         FlutterFlowTheme.of(context).titleLarge.fontStyle,
                   ),
-                  color: FlutterFlowTheme.of(context).navText,
-                  fontSize: 22.0,
+                  color: FlutterFlowTheme.of(context).backButtons,
+                  fontSize: 20.0,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.w300,
                   fontStyle: FlutterFlowTheme.of(context).titleLarge.fontStyle,
                 ),
           ),
-          actions: [
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
-              child: FlutterFlowIconButton(
-                borderRadius: 8.0,
-                buttonSize: 40.0,
-                icon: Icon(
-                  Icons.close,
-                  color: FlutterFlowTheme.of(context).backButtons,
-                  size: 24.0,
-                ),
-                onPressed: () async {
-                  context.safePop();
-                },
-              ),
-            ),
-          ],
+          actions: [],
           centerTitle: true,
           elevation: 0.0,
         ),
@@ -118,7 +115,7 @@ class _PageSearchUserWidgetState extends State<PageSearchUserWidget> {
                         Expanded(
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 4.0, 0.0, 0.0),
+                                0.0, 20.0, 0.0, 0.0),
                             child: TextFormField(
                               controller: _model.textController,
                               focusNode: _model.textFieldFocusNode,
@@ -138,7 +135,7 @@ class _PageSearchUserWidgetState extends State<PageSearchUserWidget> {
                                 labelStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
-                                      font: GoogleFonts.lexendDeca(
+                                      font: GoogleFonts.figtree(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .labelMedium
                                             .fontWeight,
@@ -195,7 +192,7 @@ class _PageSearchUserWidgetState extends State<PageSearchUserWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    font: GoogleFonts.lexendDeca(
+                                    font: GoogleFonts.figtree(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,

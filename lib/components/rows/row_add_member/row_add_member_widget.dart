@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -138,7 +139,7 @@ class _RowAddMemberWidgetState extends State<RowAddMemberWidget>
                           'User',
                         ),
                         style: FlutterFlowTheme.of(context).titleLarge.override(
-                              font: GoogleFonts.lexendDeca(
+                              font: GoogleFonts.figtree(
                                 fontWeight: FlutterFlowTheme.of(context)
                                     .titleLarge
                                     .fontWeight,
@@ -172,9 +173,15 @@ class _RowAddMemberWidgetState extends State<RowAddMemberWidget>
                     size: 30.0,
                   ),
                   onPressed: () async {
-                    var _shouldSetState = false;
-                    if (!widget.group!.membersUserIds
-                        .contains(widget.user?.reference)) {
+                    _model.foundMember = await queryMembersRecordOnce(
+                      parent: widget.group?.reference,
+                      queryBuilder: (membersRecord) => membersRecord.where(
+                        'userRef',
+                        isEqualTo: widget.user?.reference,
+                      ),
+                      singleRecord: true,
+                    ).then((s) => s.firstOrNull);
+                    if (!(_model.foundMember != null)) {
                       var confirmDialogResponse = await showDialog<bool>(
                             context: context,
                             builder: (alertDialogContext) {
@@ -213,6 +220,8 @@ class _RowAddMemberWidgetState extends State<RowAddMemberWidget>
                             userRef: widget.user?.reference,
                             groupRef: widget.group?.reference,
                             addedBy: currentUserReference,
+                            groupName: widget.group?.name,
+                            groupColor: widget.group?.colour,
                           ),
                           ...mapToFirestore(
                             {
@@ -231,6 +240,8 @@ class _RowAddMemberWidgetState extends State<RowAddMemberWidget>
                             userRef: widget.user?.reference,
                             groupRef: widget.group?.reference,
                             addedBy: currentUserReference,
+                            groupName: widget.group?.name,
+                            groupColor: widget.group?.colour,
                           ),
                           ...mapToFirestore(
                             {
@@ -238,7 +249,6 @@ class _RowAddMemberWidgetState extends State<RowAddMemberWidget>
                             },
                           ),
                         }, membersRecordReference);
-                        _shouldSetState = true;
 
                         await widget.group!.reference.update({
                           ...mapToFirestore(
@@ -258,7 +268,6 @@ class _RowAddMemberWidgetState extends State<RowAddMemberWidget>
                             isGreaterThanOrEqualTo: getCurrentTimestamp,
                           ),
                         );
-                        _shouldSetState = true;
                         for (int loop1Index = 0;
                             loop1Index < _model.futureMatchesInGroup!.length;
                             loop1Index++) {
@@ -303,7 +312,7 @@ class _RowAddMemberWidgetState extends State<RowAddMemberWidget>
                           return AlertDialog(
                             title: Text('User already added'),
                             content: Text(
-                                '${widget.user?.displayName} is already in the group'),
+                                '${widget.user?.displayName} is already added to ${widget.group?.name}'),
                             actions: [
                               TextButton(
                                 onPressed: () =>
@@ -314,11 +323,9 @@ class _RowAddMemberWidgetState extends State<RowAddMemberWidget>
                           );
                         },
                       );
-                      if (_shouldSetState) safeSetState(() {});
-                      return;
                     }
 
-                    if (_shouldSetState) safeSetState(() {});
+                    safeSetState(() {});
                   },
                 ),
               ),

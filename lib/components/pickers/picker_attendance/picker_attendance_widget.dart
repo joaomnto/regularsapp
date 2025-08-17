@@ -78,7 +78,7 @@ class _PickerAttendanceWidgetState extends State<PickerAttendanceWidget> {
                   : 'Is ${widget.playerMatchAttendance?.player.name} attending?',
               textAlign: TextAlign.start,
               style: FlutterFlowTheme.of(context).titleLarge.override(
-                    font: GoogleFonts.lexendDeca(
+                    font: GoogleFonts.figtree(
                       fontWeight:
                           FlutterFlowTheme.of(context).titleLarge.fontWeight,
                       fontStyle:
@@ -158,7 +158,7 @@ class _PickerAttendanceWidgetState extends State<PickerAttendanceWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .labelLarge
                                 .override(
-                                  font: GoogleFonts.lexendDeca(
+                                  font: GoogleFonts.figtree(
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .labelLarge
                                         .fontWeight,
@@ -217,7 +217,7 @@ class _PickerAttendanceWidgetState extends State<PickerAttendanceWidget> {
                         children: [
                           Icon(
                             Icons.cancel,
-                            color: FlutterFlowTheme.of(context).error,
+                            color: FlutterFlowTheme.of(context).notAttending,
                             size: 24.0,
                           ),
                           Text(
@@ -225,7 +225,7 @@ class _PickerAttendanceWidgetState extends State<PickerAttendanceWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .labelLarge
                                 .override(
-                                  font: GoogleFonts.lexendDeca(
+                                  font: GoogleFonts.figtree(
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .labelLarge
                                         .fontWeight,
@@ -292,7 +292,7 @@ class _PickerAttendanceWidgetState extends State<PickerAttendanceWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .labelLarge
                                 .override(
-                                  font: GoogleFonts.lexendDeca(
+                                  font: GoogleFonts.figtree(
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .labelLarge
                                         .fontWeight,

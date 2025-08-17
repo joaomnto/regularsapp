@@ -67,6 +67,16 @@ class MembersRecord extends FirestoreRecord {
   DocumentReference? get addedBy => _addedBy;
   bool hasAddedBy() => _addedBy != null;
 
+  // "groupName" field.
+  String? _groupName;
+  String get groupName => _groupName ?? '';
+  bool hasGroupName() => _groupName != null;
+
+  // "groupColor" field.
+  Color? _groupColor;
+  Color? get groupColor => _groupColor;
+  bool hasGroupColor() => _groupColor != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -82,6 +92,8 @@ class MembersRecord extends FirestoreRecord {
     _userRef = snapshotData['userRef'] as DocumentReference?;
     _groupRef = snapshotData['groupRef'] as DocumentReference?;
     _addedBy = snapshotData['addedBy'] as DocumentReference?;
+    _groupName = snapshotData['groupName'] as String?;
+    _groupColor = getSchemaColor(snapshotData['groupColor']);
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -134,6 +146,8 @@ Map<String, dynamic> createMembersRecordData({
   DocumentReference? userRef,
   DocumentReference? groupRef,
   DocumentReference? addedBy,
+  String? groupName,
+  Color? groupColor,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -147,6 +161,8 @@ Map<String, dynamic> createMembersRecordData({
       'userRef': userRef,
       'groupRef': groupRef,
       'addedBy': addedBy,
+      'groupName': groupName,
+      'groupColor': groupColor,
     }.withoutNulls,
   );
 
@@ -167,7 +183,9 @@ class MembersRecordDocumentEquality implements Equality<MembersRecord> {
         e1?.acceptedIn == e2?.acceptedIn &&
         e1?.userRef == e2?.userRef &&
         e1?.groupRef == e2?.groupRef &&
-        e1?.addedBy == e2?.addedBy;
+        e1?.addedBy == e2?.addedBy &&
+        e1?.groupName == e2?.groupName &&
+        e1?.groupColor == e2?.groupColor;
   }
 
   @override
@@ -181,7 +199,9 @@ class MembersRecordDocumentEquality implements Equality<MembersRecord> {
         e?.acceptedIn,
         e?.userRef,
         e?.groupRef,
-        e?.addedBy
+        e?.addedBy,
+        e?.groupName,
+        e?.groupColor
       ]);
 
   @override

@@ -15,6 +15,8 @@ class SheetCreateGroupModel extends FlutterFlowModel<SheetCreateGroupWidget> {
   GroupsRecord? creaatedGroup;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
   MembersRecord? createdMember;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  GroupJoinCodesRecord? createdGroupJoinDoc;
 
   @override
   void initState(BuildContext context) {}

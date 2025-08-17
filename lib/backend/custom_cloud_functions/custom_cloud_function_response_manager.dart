@@ -1,6 +1,6 @@
 
-class SetUserLowercaseNameCloudFunctionCallResponse {
-  SetUserLowercaseNameCloudFunctionCallResponse({
+class AddmessageCloudFunctionCallResponse {
+  AddmessageCloudFunctionCallResponse({
     this.errorCode,
     this.succeeded,
     this.jsonBody,

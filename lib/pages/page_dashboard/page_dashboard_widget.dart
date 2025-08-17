@@ -1,20 +1,22 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/empty_lists/component_empty_list_view/component_empty_list_view_widget.dart';
-import '/components/loaders/loader_group_row/loader_group_row_widget.dart';
-import '/components/loaders/loader_match_row/loader_match_row_widget.dart';
+import '/components/groups_list/groups_list_widget.dart';
+import '/components/pickers/picker_add_or_join_group/picker_add_or_join_group_widget.dart';
 import '/components/pickers/picker_attendance/picker_attendance_widget.dart';
-import '/components/rows/row_group/row_group_widget.dart';
 import '/components/rows/row_match/row_match_widget.dart';
-import '/components/sheets/sheet_create_group/sheet_create_group_widget.dart';
+import '/components/rows/row_match_day/row_match_day_widget.dart';
 import '/components/sheets/sheet_match/sheet_match_widget.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:async';
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'page_dashboard_model.dart';
 export 'page_dashboard_model.dart';
@@ -23,9 +25,11 @@ class PageDashboardWidget extends StatefulWidget {
   const PageDashboardWidget({
     super.key,
     this.matchGroupMembers,
+    this.match,
   });
 
   final DocumentReference? matchGroupMembers;
+  final MatchesRecord? match;
 
   static String routeName = 'PageDashboard';
   static String routePath = '/pageDashboard';
@@ -43,25 +47,6 @@ class _PageDashboardWidgetState extends State<PageDashboardWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => PageDashboardModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.membersForUser = await queryMembersRecordOnce(
-        queryBuilder: (membersRecord) => membersRecord.where(
-          'userRef',
-          isEqualTo: currentUserReference,
-        ),
-      );
-      _model.matchesForUser = await queryMatchesRecordOnce(
-        queryBuilder: (matchesRecord) => matchesRecord
-            .where(
-              'matchGroupMembers',
-              arrayContains: widget.matchGroupMembers,
-            )
-            .orderBy('matchDate'),
-        limit: 3,
-      );
-    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -86,6 +71,27 @@ class _PageDashboardWidgetState extends State<PageDashboardWidget> {
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
+          leading: FlutterFlowIconButton(
+            borderRadius: 8.0,
+            buttonSize: 60.0,
+            fillColor: FlutterFlowTheme.of(context).primary,
+            icon: Icon(
+              Icons.notifications_sharp,
+              color: FlutterFlowTheme.of(context).backButtons,
+              size: 30.0,
+            ),
+            onPressed: () async {
+              context.pushNamed(
+                PageNotificationsWidget.routeName,
+                extra: <String, dynamic>{
+                  kTransitionInfoKey: TransitionInfo(
+                    hasTransition: true,
+                    transitionType: PageTransitionType.leftToRight,
+                  ),
+                },
+              );
+            },
+          ),
           title: Text(
             'vamos',
             textAlign: TextAlign.center,
@@ -94,7 +100,7 @@ class _PageDashboardWidgetState extends State<PageDashboardWidget> {
                     fontWeight: FontWeight.w300,
                     fontStyle: FontStyle.italic,
                   ),
-                  color: FlutterFlowTheme.of(context).navText,
+                  color: FlutterFlowTheme.of(context).secondary,
                   fontSize: 22.0,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.w300,
@@ -174,174 +180,514 @@ class _PageDashboardWidgetState extends State<PageDashboardWidget> {
           centerTitle: true,
           elevation: 0.0,
         ),
-        body: SafeArea(
-          top: true,
-          child: Align(
-            alignment: AlignmentDirectional(0.0, 0.0),
-            child: Container(
-              constraints: BoxConstraints(
-                maxWidth: 600.0,
-              ),
+        body: StreamBuilder<List<MembersRecord>>(
+          stream: queryMembersRecord(
+            queryBuilder: (membersRecord) => membersRecord.where(
+              'userRef',
+              isEqualTo: currentUserReference,
+            ),
+          ),
+          builder: (context, snapshot) {
+            // Customize what your widget looks like when it's loading.
+            if (!snapshot.hasData) {
+              return Center(
+                child: SizedBox(
+                  width: 50.0,
+                  height: 50.0,
+                  child: SpinKitRipple(
+                    color: FlutterFlowTheme.of(context).primary,
+                    size: 50.0,
+                  ),
+                ),
+              );
+            }
+            List<MembersRecord> containerMembersRecordList = snapshot.data!;
+
+            return Container(
               decoration: BoxDecoration(),
-              child: Stack(
-                alignment: AlignmentDirectional(0.0, 1.0),
-                children: [
-                  ListView(
-                    padding: EdgeInsets.zero,
-                    scrollDirection: Axis.vertical,
-                    children: [
-                      Stack(
-                        alignment: AlignmentDirectional(0.0, 1.0),
-                        children: [
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 16.0, 0.0, 16.0),
+              child: StreamBuilder<List<MatchesRecord>>(
+                stream: queryMatchesRecord(
+                  queryBuilder: (matchesRecord) => matchesRecord
+                      .where(
+                        'attendanceUserRefs',
+                        arrayContains: currentUserReference,
+                      )
+                      .where(
+                        'matchEndDate',
+                        isGreaterThanOrEqualTo: getCurrentTimestamp,
+                      )
+                      .orderBy('matchEndDate')
+                      .orderBy('matchDate'),
+                  limit: 5,
+                ),
+                builder: (context, snapshot) {
+                  // Customize what your widget looks like when it's loading.
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: SizedBox(
+                        width: 50.0,
+                        height: 50.0,
+                        child: SpinKitRipple(
+                          color: FlutterFlowTheme.of(context).primary,
+                          size: 50.0,
+                        ),
+                      ),
+                    );
+                  }
+                  List<MatchesRecord> containerMatchesRecordList =
+                      snapshot.data!;
+
+                  return Container(
+                    decoration: BoxDecoration(),
+                    child: Stack(
+                      children: [
+                        ListView(
+                          padding: EdgeInsets.fromLTRB(
+                            0,
+                            30.0,
+                            0,
+                            140.0,
+                          ),
+                          scrollDirection: Axis.vertical,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 0.0, 16.0, 0.0),
+                              child: Material(
+                                color: Colors.transparent,
+                                elevation: 1.0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 10.0,
+                                        color: Color(0x19000000),
+                                        offset: Offset(
+                                          0.0,
+                                          0.0,
+                                        ),
+                                      )
+                                    ],
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    border: Border.all(
+                                      color: FlutterFlowTheme.of(context)
+                                          .rowStroke,
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                  child: Visibility(
+                                    visible:
+                                        containerMatchesRecordList.isNotEmpty,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Stack(
+                                          alignment:
+                                              AlignmentDirectional(-1.0, 0.0),
+                                          children: [
+                                            Container(
+                                              width: double.infinity,
+                                              height: 40.0,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                borderRadius: BorderRadius.only(
+                                                  bottomLeft:
+                                                      Radius.circular(0.0),
+                                                  bottomRight:
+                                                      Radius.circular(0.0),
+                                                  topLeft:
+                                                      Radius.circular(10.0),
+                                                  topRight:
+                                                      Radius.circular(10.0),
+                                                ),
+                                                border: Border.all(
+                                                  color: Colors.transparent,
+                                                  width: 0.0,
+                                                ),
+                                              ),
+                                              alignment: AlignmentDirectional(
+                                                  0.0, 1.0),
+                                            ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          16.0, 0.0, 16.0, 0.0),
+                                                  child: AutoSizeText(
+                                                    valueOrDefault<String>(
+                                                      functions.isMatchToday(
+                                                              containerMatchesRecordList
+                                                                  .firstOrNull
+                                                                  ?.matchDate)
+                                                          ? 'MATCH DAY!'
+                                                          : 'Next match',
+                                                      'Next match',
+                                                    ),
+                                                    textAlign: TextAlign.center,
+                                                    minFontSize: 12.0,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .titleSmall
+                                                        .override(
+                                                          font: GoogleFonts
+                                                              .figtree(
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .fontStyle,
+                                                          ),
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .backButtons,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleSmall
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleSmall
+                                                                  .fontStyle,
+                                                        ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        wrapWithModel(
+                                          model: _model.rowMatchDayModel,
+                                          updateCallback: () =>
+                                              safeSetState(() {}),
+                                          child: RowMatchDayWidget(
+                                            showGroup: false,
+                                            match: containerMatchesRecordList
+                                                .firstOrNull,
+                                            isAdmin: containerMembersRecordList
+                                                    .where((e) =>
+                                                        e.groupRef ==
+                                                        containerMatchesRecordList
+                                                            .firstOrNull
+                                                            ?.groupRef)
+                                                    .toList()
+                                                    .firstOrNull
+                                                    ?.isAdmin ==
+                                                true,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 0.0, 16.0, 0.0),
+                                  child: Text(
+                                    'Upcoming matches',
+                                    style: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          font: GoogleFonts.figtree(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .fontStyle,
+                                          ),
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
+                                        ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 0.0, 16.0, 0.0),
+                                  child: Builder(
+                                    builder: (context) {
+                                      final upcomingMatches = functions
+                                              .upcomingMatchesBySkippingFirst(
+                                                  containerMatchesRecordList
+                                                      .toList())
+                                              ?.toList() ??
+                                          [];
+                                      if (upcomingMatches.isEmpty) {
+                                        return ComponentEmptyListViewWidget(
+                                          emptyText: 'No upcoming matches',
+                                        );
+                                      }
+
+                                      return ListView.separated(
+                                        padding: EdgeInsets.zero,
+                                        primary: false,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: upcomingMatches.length,
+                                        separatorBuilder: (_, __) =>
+                                            SizedBox(height: 10.0),
+                                        itemBuilder:
+                                            (context, upcomingMatchesIndex) {
+                                          final upcomingMatchesItem =
+                                              upcomingMatches[
+                                                  upcomingMatchesIndex];
+                                          return InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              await showModalBottomSheet(
+                                                isScrollControlled: true,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                context: context,
+                                                builder: (context) {
+                                                  return GestureDetector(
+                                                    onTap: () {
+                                                      FocusScope.of(context)
+                                                          .unfocus();
+                                                      FocusManager
+                                                          .instance.primaryFocus
+                                                          ?.unfocus();
+                                                    },
+                                                    child: Padding(
+                                                      padding: MediaQuery
+                                                          .viewInsetsOf(
+                                                              context),
+                                                      child: Container(
+                                                        height:
+                                                            MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .height *
+                                                                0.94,
+                                                        child: SheetMatchWidget(
+                                                          grouRef:
+                                                              upcomingMatchesItem
+                                                                  .groupRef!,
+                                                          matchRef:
+                                                              upcomingMatchesItem
+                                                                  .reference,
+                                                          userIsAdmin: containerMembersRecordList
+                                                                  .where((e) =>
+                                                                      e.groupRef ==
+                                                                      upcomingMatchesItem
+                                                                          .groupRef)
+                                                                  .toList()
+                                                                  .firstOrNull
+                                                                  ?.isAdmin ==
+                                                              true,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              ).then((value) =>
+                                                  safeSetState(() {}));
+                                            },
+                                            onLongPress: () async {
+                                              await showModalBottomSheet(
+                                                isScrollControlled: true,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                enableDrag: false,
+                                                context: context,
+                                                builder: (context) {
+                                                  return GestureDetector(
+                                                    onTap: () {
+                                                      FocusScope.of(context)
+                                                          .unfocus();
+                                                      FocusManager
+                                                          .instance.primaryFocus
+                                                          ?.unfocus();
+                                                    },
+                                                    child: Padding(
+                                                      padding: MediaQuery
+                                                          .viewInsetsOf(
+                                                              context),
+                                                      child:
+                                                          PickerAttendanceWidget(
+                                                        matchRef:
+                                                            upcomingMatchesItem
+                                                                .reference,
+                                                        matchAttendanceList:
+                                                            upcomingMatchesItem
+                                                                .attendance,
+                                                        playerMatchAttendance: functions
+                                                            .getUserAttendanceFromMatchAttendanceListWithRefId(
+                                                                upcomingMatchesItem
+                                                                    .attendance
+                                                                    .toList(),
+                                                                currentUserReference)!,
+                                                        isSelf: true,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              ).then((value) =>
+                                                  safeSetState(() {}));
+                                            },
+                                            child: RowMatchWidget(
+                                              key: Key(
+                                                  'Keyxpo_${upcomingMatchesIndex}_of_${upcomingMatches.length}'),
+                                              showGroup: true,
+                                              matchStatus:
+                                                  upcomingMatchesItem.status,
+                                              matchDate:
+                                                  upcomingMatchesItem.matchDate,
+                                              kickofftime:
+                                                  upcomingMatchesItem.matchDate,
+                                              match: upcomingMatchesItem,
+                                              playerAttendanceInMatch: functions
+                                                  .authUserAttendanceForMatch(
+                                                      upcomingMatchesItem
+                                                          .attendance
+                                                          .toList(),
+                                                      currentUserReference)!,
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ].divide(SizedBox(height: 8.0)),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 0.0, 16.0, 0.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  border: Border.all(
+                                    color:
+                                        FlutterFlowTheme.of(context).rowStroke,
+                                  ),
+                                ),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
                                   children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          16.0, 16.0, 16.0, 0.0),
-                                      child: Text(
-                                        'Upcoming Matches',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              font: GoogleFonts.lexendDeca(
-                                                fontWeight: FontWeight.w300,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontStyle,
-                                              ),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              fontSize: 16.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w300,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
+                                    Stack(
+                                      alignment:
+                                          AlignmentDirectional(-1.0, 0.0),
+                                      children: [
+                                        Container(
+                                          width: double.infinity,
+                                          height: 40.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(0.0),
+                                              bottomRight: Radius.circular(0.0),
+                                              topLeft: Radius.circular(10.0),
+                                              topRight: Radius.circular(10.0),
                                             ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 10.0, 0.0, 0.0),
-                                      child: StreamBuilder<List<MatchesRecord>>(
-                                        stream: queryMatchesRecord(
-                                          queryBuilder: (matchesRecord) =>
-                                              matchesRecord
-                                                  .where(
-                                                    'attendanceUserRefs',
-                                                    arrayContains:
-                                                        currentUserReference,
-                                                  )
-                                                  .where(
-                                                    'matchEndDate',
-                                                    isGreaterThanOrEqualTo:
-                                                        getCurrentTimestamp,
-                                                  )
-                                                  .orderBy('matchEndDate')
-                                                  .orderBy('matchDate'),
-                                          limit: 3,
+                                            border: Border.all(
+                                              color: Colors.transparent,
+                                              width: 0.0,
+                                            ),
+                                          ),
+                                          alignment:
+                                              AlignmentDirectional(0.0, 1.0),
                                         ),
-                                        builder: (context, snapshot) {
-                                          // Customize what your widget looks like when it's loading.
-                                          if (!snapshot.hasData) {
-                                            return LoaderMatchRowWidget();
-                                          }
-                                          List<MatchesRecord>
-                                              listViewMatchesRecordList =
-                                              snapshot.data!;
-                                          if (listViewMatchesRecordList
-                                              .isEmpty) {
-                                            return ComponentEmptyListViewWidget();
-                                          }
-
-                                          return ListView.separated(
-                                            padding: EdgeInsets.zero,
-                                            primary: false,
-                                            shrinkWrap: true,
-                                            scrollDirection: Axis.vertical,
-                                            itemCount: listViewMatchesRecordList
-                                                .length,
-                                            separatorBuilder: (_, __) =>
-                                                SizedBox(height: 10.0),
-                                            itemBuilder:
-                                                (context, listViewIndex) {
-                                              final listViewMatchesRecord =
-                                                  listViewMatchesRecordList[
-                                                      listViewIndex];
-                                              return Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        16.0, 0.0, 16.0, 0.0),
-                                                child: InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    await showModalBottomSheet(
-                                                      isScrollControlled: true,
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      context: context,
-                                                      builder: (context) {
-                                                        return GestureDetector(
-                                                          onTap: () {
-                                                            FocusScope.of(
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      16.0, 0.0, 16.0, 0.0),
+                                              child: AutoSizeText(
+                                                'My groups',
+                                                textAlign: TextAlign.center,
+                                                minFontSize: 12.0,
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .titleSmall
+                                                    .override(
+                                                      font: GoogleFonts.figtree(
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
                                                                     context)
-                                                                .unfocus();
-                                                            FocusManager
-                                                                .instance
-                                                                .primaryFocus
-                                                                ?.unfocus();
-                                                          },
-                                                          child: Padding(
-                                                            padding: MediaQuery
-                                                                .viewInsetsOf(
-                                                                    context),
-                                                            child: Container(
-                                                              height: MediaQuery
-                                                                          .sizeOf(
-                                                                              context)
-                                                                      .height *
-                                                                  0.94,
-                                                              child:
-                                                                  SheetMatchWidget(
-                                                                grouRef:
-                                                                    listViewMatchesRecord
-                                                                        .groupRef!,
-                                                                matchRef:
-                                                                    listViewMatchesRecord
-                                                                        .reference,
-                                                                userIsAdmin:
-                                                                    false,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        );
-                                                      },
-                                                    ).then((value) =>
-                                                        safeSetState(() {}));
-                                                  },
-                                                  onLongPress: () async {
-                                                    await showModalBottomSheet(
+                                                                .titleSmall
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleSmall
+                                                                .fontStyle,
+                                                      ),
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .backButtons,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontStyle,
+                                                    ),
+                                              ),
+                                            ),
+                                            Opacity(
+                                              opacity: getRemoteConfigBool(
+                                                      'groupCreationEnabled')
+                                                  ? 1.0
+                                                  : 0.5,
+                                              child: FFButtonWidget(
+                                                onPressed: () async {
+                                                  if (getRemoteConfigBool(
+                                                      'groupCreationEnabled')) {
+                                                    showModalBottomSheet(
                                                       isScrollControlled: true,
                                                       backgroundColor:
                                                           Colors.transparent,
@@ -363,187 +709,103 @@ class _PageDashboardWidgetState extends State<PageDashboardWidget> {
                                                                 .viewInsetsOf(
                                                                     context),
                                                             child:
-                                                                PickerAttendanceWidget(
-                                                              matchRef:
-                                                                  listViewMatchesRecord
-                                                                      .reference,
-                                                              matchAttendanceList:
-                                                                  listViewMatchesRecord
-                                                                      .attendance,
-                                                              playerMatchAttendance: functions.getUserAttendanceFromMatchAttendanceListWithRefId(
-                                                                  listViewMatchesRecord
-                                                                      .attendance
-                                                                      .toList(),
-                                                                  currentUserReference)!,
-                                                              isSelf: true,
-                                                            ),
+                                                                PickerAddOrJoinGroupWidget(),
                                                           ),
                                                         );
                                                       },
                                                     ).then((value) =>
                                                         safeSetState(() {}));
-                                                  },
-                                                  child: RowMatchWidget(
-                                                    key: Key(
-                                                        'Keyxpo_${listViewIndex}_of_${listViewMatchesRecordList.length}'),
-                                                    showGroup: true,
-                                                    matchStatus:
-                                                        listViewMatchesRecord
-                                                            .status,
-                                                    matchDate:
-                                                        listViewMatchesRecord
-                                                            .matchDate,
-                                                    kickofftime:
-                                                        listViewMatchesRecord
-                                                            .matchDate,
-                                                    match:
-                                                        listViewMatchesRecord,
-                                                    playerAttendanceInMatch: functions
-                                                        .authUserAttendanceForMatch(
-                                                            listViewMatchesRecord
-                                                                .attendance
-                                                                .toList(),
-                                                            currentUserReference)!,
-                                                  ),
+                                                  } else {
+                                                    unawaited(
+                                                      () async {
+                                                        await showDialog(
+                                                          context: context,
+                                                          builder:
+                                                              (alertDialogContext) {
+                                                            return AlertDialog(
+                                                              title: Text(
+                                                                  'Disabled'),
+                                                              content: Text(
+                                                                  'Group creation is currently disabled.'),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext),
+                                                                  child: Text(
+                                                                      'Ok'),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        );
+                                                      }(),
+                                                    );
+                                                  }
+                                                },
+                                                text: '',
+                                                icon: Icon(
+                                                  Icons.add,
+                                                  size: 30.0,
                                                 ),
-                                              );
-                                            },
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 16.0, 16.0, 0.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          1.0, 0.0, 0.0, 0.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'My Groups',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  font: GoogleFonts.lexendDeca(
-                                                    fontWeight: FontWeight.w300,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontStyle,
-                                                  ),
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
-                                                  fontSize: 16.0,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w300,
-                                                  fontStyle:
+                                                options: FFButtonOptions(
+                                                  width: 40.0,
+                                                  height: 40.0,
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 0.0, 0.0),
+                                                  iconPadding:
+                                                      EdgeInsetsDirectional
+                                                          .fromSTEB(0.0, 0.0,
+                                                              0.0, 0.0),
+                                                  iconColor:
                                                       FlutterFlowTheme.of(
                                                               context)
-                                                          .bodyMedium
-                                                          .fontStyle,
-                                                ),
-                                          ),
-                                          FFButtonWidget(
-                                            onPressed: () async {
-                                              showModalBottomSheet(
-                                                isScrollControlled: true,
-                                                backgroundColor:
-                                                    Colors.transparent,
-                                                enableDrag: false,
-                                                context: context,
-                                                builder: (context) {
-                                                  return GestureDetector(
-                                                    onTap: () {
-                                                      FocusScope.of(context)
-                                                          .unfocus();
-                                                      FocusManager
-                                                          .instance.primaryFocus
-                                                          ?.unfocus();
-                                                    },
-                                                    child: Padding(
-                                                      padding: MediaQuery
-                                                          .viewInsetsOf(
-                                                              context),
-                                                      child: Container(
-                                                        height:
-                                                            MediaQuery.sizeOf(
-                                                                        context)
-                                                                    .height *
-                                                                0.3,
-                                                        child:
-                                                            SheetCreateGroupWidget(),
+                                                          .backButtons,
+                                                  color: Color(0x004B39EF),
+                                                  textStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        font:
+                                                            GoogleFonts.figtree(
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleSmall
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleSmall
+                                                                  .fontStyle,
+                                                        ),
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .backButtons,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleSmall
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleSmall
+                                                                .fontStyle,
                                                       ),
-                                                    ),
-                                                  );
-                                                },
-                                              ).then((value) =>
-                                                  safeSetState(() {}));
-                                            },
-                                            text: '',
-                                            icon: Icon(
-                                              Icons.add,
-                                              size: 30.0,
+                                                  elevation: 0.0,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          0.0),
+                                                ),
+                                              ),
                                             ),
-                                            options: FFButtonOptions(
-                                              width: 48.0,
-                                              height: 48.0,
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              iconColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              color: Color(0x004B39EF),
-                                              textStyle: FlutterFlowTheme.of(
-                                                      context)
-                                                  .titleSmall
-                                                  .override(
-                                                    font:
-                                                        GoogleFonts.lexendDeca(
-                                                      fontWeight:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleSmall
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleSmall
-                                                              .fontStyle,
-                                                    ),
-                                                    color: Colors.white,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .titleSmall
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .titleSmall
-                                                            .fontStyle,
-                                                  ),
-                                              elevation: 0.0,
-                                              borderRadius:
-                                                  BorderRadius.circular(0.0),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                     Container(
                                       decoration: BoxDecoration(
@@ -556,163 +818,109 @@ class _PageDashboardWidgetState extends State<PageDashboardWidget> {
                                             offset: Offset(0.0, 0.0),
                                           )
                                         ],
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
+                                        borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(10.0),
+                                          bottomRight: Radius.circular(10.0),
+                                          topLeft: Radius.circular(0.0),
+                                          topRight: Radius.circular(0.0),
+                                        ),
                                         shape: BoxShape.rectangle,
                                         border: Border.all(
-                                          color: FlutterFlowTheme.of(context)
-                                              .rowStroke,
-                                          width: 1.0,
+                                          color: Colors.transparent,
+                                          width: 0.0,
                                         ),
                                       ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.stretch,
-                                        children: [
-                                          StreamBuilder<List<GroupsRecord>>(
-                                            stream: queryGroupsRecord(
-                                              queryBuilder: (groupsRecord) =>
-                                                  groupsRecord.where(
-                                                'membersUserIds',
-                                                arrayContains:
-                                                    currentUserReference,
-                                              ),
-                                            ),
-                                            builder: (context, snapshot) {
-                                              // Customize what your widget looks like when it's loading.
-                                              if (!snapshot.hasData) {
-                                                return LoaderGroupRowWidget();
-                                              }
-                                              List<GroupsRecord>
-                                                  columnGroupsRecordList =
-                                                  snapshot.data!;
-                                              if (columnGroupsRecordList
-                                                  .isEmpty) {
-                                                return ComponentEmptyListViewWidget(
-                                                  emptyText: 'No groups',
-                                                );
-                                              }
-
-                                              return Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: List.generate(
-                                                    columnGroupsRecordList
-                                                        .length, (columnIndex) {
-                                                  final columnGroupsRecord =
-                                                      columnGroupsRecordList[
-                                                          columnIndex];
-                                                  return InkWell(
-                                                    splashColor:
-                                                        Colors.transparent,
-                                                    focusColor:
-                                                        Colors.transparent,
-                                                    hoverColor:
-                                                        Colors.transparent,
-                                                    highlightColor:
-                                                        Colors.transparent,
-                                                    onTap: () async {
-                                                      context.pushNamed(
-                                                        PageGroupOverviewWidget
-                                                            .routeName,
-                                                        queryParameters: {
-                                                          'group':
-                                                              serializeParam(
-                                                            columnGroupsRecord,
-                                                            ParamType.Document,
-                                                          ),
-                                                        }.withoutNulls,
-                                                        extra: <String,
-                                                            dynamic>{
-                                                          'group':
-                                                              columnGroupsRecord,
-                                                        },
-                                                      );
-                                                    },
-                                                    child: RowGroupWidget(
-                                                      key: Key(
-                                                          'Keyu7i_${columnIndex}_of_${columnGroupsRecordList.length}'),
-                                                      group: columnGroupsRecord,
-                                                    ),
-                                                  );
-                                                }),
-                                              );
-                                            },
-                                          ),
-                                        ],
+                                      child: wrapWithModel(
+                                        model: _model.groupsListModel,
+                                        updateCallback: () =>
+                                            safeSetState(() {}),
+                                        child: GroupsListWidget(
+                                          memberships:
+                                              containerMembersRecordList,
+                                        ),
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(40.0, 0.0, 40.0, 50.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.rectangle,
+                            ),
+                          ].divide(SizedBox(height: 30.0)),
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional(0.0, 1.0),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                40.0, 0.0, 40.0, 50.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                if (false)
+                                  FFButtonWidget(
+                                    onPressed: () {
+                                      print('Button pressed ...');
+                                    },
+                                    text: '',
+                                    icon: Icon(
+                                      Icons.add,
+                                      size: 40.0,
+                                    ),
+                                    options: FFButtonOptions(
+                                      height: 60.0,
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          16.0, 0.0, 16.0, 0.0),
+                                      iconPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 0.0),
+                                      iconColor:
+                                          FlutterFlowTheme.of(context).navText,
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                        font: GoogleFonts.figtree(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .fontStyle,
+                                        ),
+                                        color: Colors.white,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .fontStyle,
+                                        shadows: [
+                                          Shadow(
+                                            color: Color(0x1A000000),
+                                            offset: Offset(2.0, 2.0),
+                                            blurRadius: 10.0,
+                                          )
+                                        ],
+                                      ),
+                                      elevation: 2.0,
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                  ),
+                              ],
+                            ),
                           ),
                         ),
-                        if (false)
-                          FFButtonWidget(
-                            onPressed: () {
-                              print('Button pressed ...');
-                            },
-                            text: '',
-                            icon: Icon(
-                              Icons.add,
-                              size: 40.0,
-                            ),
-                            options: FFButtonOptions(
-                              height: 60.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 0.0, 16.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 0.0),
-                              iconColor: FlutterFlowTheme.of(context).navText,
-                              color: FlutterFlowTheme.of(context).primary,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .titleSmall
-                                  .override(
-                                    font: GoogleFonts.lexendDeca(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .fontStyle,
-                                    ),
-                                    color: Colors.white,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .fontStyle,
-                                  ),
-                              elevation: 2.0,
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                          ),
                       ],
                     ),
-                  ),
-                ],
+                  );
+                },
               ),
-            ),
-          ),
+            );
+          },
         ),
       ),
     );
