@@ -396,7 +396,7 @@ class _PageCreateAccountSignInWidgetState
                                                             .emailAddressTextController,
                                                         focusNode: _model
                                                             .emailAddressFocusNode,
-                                                        autofocus: true,
+                                                        autofocus: false,
                                                         autofillHints: [
                                                           AutofillHints.email
                                                         ],
@@ -1274,7 +1274,7 @@ class _PageCreateAccountSignInWidgetState
                                                             .emailAddressCreateTextController,
                                                         focusNode: _model
                                                             .emailAddressCreateFocusNode,
-                                                        autofocus: true,
+                                                        autofocus: false,
                                                         autofillHints: [
                                                           AutofillHints.email
                                                         ],

@@ -292,7 +292,6 @@ class _SheetCreatePlayerWidgetState extends State<SheetCreatePlayerWidget> {
                               });
                               _model.futureMatchesInGroup =
                                   await queryMatchesRecordOnce(
-                                parent: widget.groupRef,
                                 queryBuilder: (matchesRecord) =>
                                     matchesRecord.where(
                                   'matchEndDate',

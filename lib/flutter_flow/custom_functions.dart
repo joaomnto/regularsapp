@@ -283,7 +283,7 @@ List<MatchAttendanceStruct>? filterOutAuthUserFromAttendance(
     return playerRef != userRef; // remove only if it matches auth user
   }).toList();
 
-  // 2. Sort by status (custom order)
+  // 2. Sort by status first, then by name within each status
   final statusOrder = {
     AttendanceStatus.attending: 0,
     AttendanceStatus.notAttending: 1,
@@ -291,9 +291,19 @@ List<MatchAttendanceStruct>? filterOutAuthUserFromAttendance(
   };
 
   filtered.sort((a, b) {
+    // First compare by status
     final aOrder = statusOrder[a.status] ?? 999;
     final bOrder = statusOrder[b.status] ?? 999;
-    return aOrder.compareTo(bOrder);
+    final statusComparison = aOrder.compareTo(bOrder);
+
+    if (statusComparison != 0) {
+      return statusComparison;
+    }
+
+    // If statuses are equal, compare by name
+    final aName = a.player?.name ?? '';
+    final bName = b.player?.name ?? '';
+    return aName.compareTo(bName);
   });
 
   return filtered;

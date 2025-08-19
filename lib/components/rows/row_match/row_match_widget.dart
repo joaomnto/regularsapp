@@ -65,7 +65,7 @@ class _RowMatchWidgetState extends State<RowMatchWidget> {
             : FlutterFlowTheme.of(context).secondaryBackground,
         boxShadow: [
           BoxShadow(
-            blurRadius: 20.0,
+            blurRadius: 10.0,
             color: Color(0x19000000),
             offset: Offset(0.0, 0.0),
           )
@@ -80,6 +80,7 @@ class _RowMatchWidgetState extends State<RowMatchWidget> {
         padding: EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 12.0, 8.0),
         child: Row(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
               width: 4.0,
@@ -99,10 +100,10 @@ class _RowMatchWidgetState extends State<RowMatchWidget> {
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(12.0, 2.0, 0.0, 2.0),
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Row(
@@ -148,11 +149,23 @@ class _RowMatchWidgetState extends State<RowMatchWidget> {
                             ),
                           ].divide(SizedBox(width: 10.0)),
                         ),
-                        if (widget.showGroup)
-                          Text(
-                            widget.match!.groupName,
-                            style:
-                                FlutterFlowTheme.of(context).bodySmall.override(
+                        if (widget.showGroup &&
+                            (widget.match?.groupName != null &&
+                                widget.match?.groupName != ''))
+                          Container(
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 4.0, 0.0, 4.0),
+                              child: Text(
+                                widget.match!.groupName,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodySmall
+                                    .override(
                                       font: GoogleFonts.figtree(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .bodySmall
@@ -163,6 +176,7 @@ class _RowMatchWidgetState extends State<RowMatchWidget> {
                                       ),
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryText,
+                                      fontSize: 11.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .bodySmall
@@ -171,6 +185,8 @@ class _RowMatchWidgetState extends State<RowMatchWidget> {
                                           .bodySmall
                                           .fontStyle,
                                     ),
+                              ),
+                            ),
                           ),
                       ],
                     ),
@@ -343,7 +359,7 @@ class _RowMatchWidgetState extends State<RowMatchWidget> {
                           ),
                       ],
                     ),
-                  ].divide(SizedBox(height: 20.0)),
+                  ],
                 ),
               ),
             ),

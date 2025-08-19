@@ -706,7 +706,6 @@ class _SheetPlayerWidgetState extends State<SheetPlayerWidget>
                                       });
                                       _model.matchesToRemovUser =
                                           await queryMatchesRecordOnce(
-                                        parent: widget.group?.reference,
                                         queryBuilder: (matchesRecord) =>
                                             matchesRecord.where(
                                           'matchEndDate',

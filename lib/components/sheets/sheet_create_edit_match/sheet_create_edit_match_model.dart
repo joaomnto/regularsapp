@@ -55,6 +55,10 @@ class SheetCreateEditMatchModel
   FormFieldController<String>? subsDropDownValueController;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   List<MembersRecord>? membersList;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  MatchesRecord? createdMatch;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  MatchesRecord? createdSigleMatch;
 
   @override
   void initState(BuildContext context) {}

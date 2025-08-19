@@ -5,6 +5,24 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
+          "fieldPath": "groupRef",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "matchEndDate",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Matches",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "groupRef",
+          "order": "ASCENDING"
+        },
+        {
           "fieldPath": "matchEndDate",
           "order": "ASCENDING"
         },
@@ -16,7 +34,7 @@
     },
     {
       "collectionGroup": "Matches",
-      "queryScope": "COLLECTION_GROUP",
+      "queryScope": "COLLECTION",
       "fields": [
         {
           "fieldPath": "attendanceUserRefs",

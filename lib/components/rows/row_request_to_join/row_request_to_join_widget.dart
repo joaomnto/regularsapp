@@ -203,7 +203,6 @@ class _RowRequestToJoinWidgetState extends State<RowRequestToJoinWidget> {
                         });
                         _model.futureMatchesInGroup =
                             await queryMatchesRecordOnce(
-                          parent: widget.group?.reference,
                           queryBuilder: (matchesRecord) => matchesRecord.where(
                             'matchEndDate',
                             isGreaterThanOrEqualTo: getCurrentTimestamp,

@@ -178,7 +178,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: PageDashboardWidget.routeName,
           path: PageDashboardWidget.routePath,
           asyncParams: {
-            'match': getDoc(['Groups', 'Matches'], MatchesRecord.fromSnapshot),
+            'match': getDoc(['Matches'], MatchesRecord.fromSnapshot),
           },
           builder: (context, params) => PageDashboardWidget(
             matchGroupMembers: params.getParam(

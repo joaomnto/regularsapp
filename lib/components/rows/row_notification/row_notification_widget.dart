@@ -79,7 +79,7 @@ class _RowNotificationWidgetState extends State<RowNotificationWidget> {
                   ),
             ),
             Text(
-              'You\'ve been invited to join ⚽️ Monday Blijdorp ',
+              'You\'ve been invited to join ⚽️ Monday Blijdorp',
               style: FlutterFlowTheme.of(context).bodyLarge.override(
                     font: GoogleFonts.figtree(
                       fontWeight:

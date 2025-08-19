@@ -19,7 +19,7 @@ export 'sheet_match_model.dart';
 class SheetMatchWidget extends StatefulWidget {
   const SheetMatchWidget({
     super.key,
-    required this.grouRef,
+    this.grouRef,
     this.matchRef,
     this.group,
     bool? userIsAdmin,
@@ -141,6 +141,11 @@ class _SheetMatchWidgetState extends State<SheetMatchWidget> {
                   centerTitle: true,
                   elevation: 0.0,
                 ),
+                Divider(
+                  height: 1.0,
+                  thickness: 1.0,
+                  color: Color(0x4DF0EDE4),
+                ),
                 Expanded(
                   child: Material(
                     color: Colors.transparent,
@@ -198,11 +203,6 @@ class _SheetMatchWidgetState extends State<SheetMatchWidget> {
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Divider(
-                                  height: 1.0,
-                                  thickness: 1.0,
-                                  color: Color(0x4DF0EDE4),
-                                ),
                                 Container(
                                   width: double.infinity,
                                   decoration: BoxDecoration(
@@ -213,10 +213,12 @@ class _SheetMatchWidgetState extends State<SheetMatchWidget> {
                                   ),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
                                     children: [
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 16.0, 16.0, 16.0),
+                                            16.0, 0.0, 16.0, 0.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -224,146 +226,162 @@ class _SheetMatchWidgetState extends State<SheetMatchWidget> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      0.0, 0.0, 16.0, 0.0),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    valueOrDefault<String>(
-                                                      functions.smartDateFormat(
-                                                          columnMatchesRecord
-                                                              .matchDate),
-                                                      '-',
-                                                    ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .headlineMedium
-                                                        .override(
-                                                          font: GoogleFonts
-                                                              .figtree(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal,
-                                                            fontStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .headlineMedium
-                                                                    .fontStyle,
-                                                          ),
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .navText,
-                                                          fontSize: 30.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.normal,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .headlineMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                  ),
-                                                  InkWell(
-                                                    splashColor:
-                                                        Colors.transparent,
-                                                    focusColor:
-                                                        Colors.transparent,
-                                                    hoverColor:
-                                                        Colors.transparent,
-                                                    highlightColor:
-                                                        Colors.transparent,
-                                                    onTap: () async {
-                                                      if (columnMatchesRecord
-                                                              .location !=
-                                                          null) {
-                                                        await showModalBottomSheet(
-                                                          isScrollControlled:
-                                                              true,
-                                                          backgroundColor:
-                                                              Colors
-                                                                  .transparent,
-                                                          enableDrag: false,
-                                                          context: context,
-                                                          builder: (context) {
-                                                            return Padding(
-                                                              padding: MediaQuery
-                                                                  .viewInsetsOf(
-                                                                      context),
-                                                              child:
-                                                                  PickerMapWidget(
-                                                                location:
-                                                                    columnMatchesRecord
-                                                                        .location!,
-                                                                locationName:
-                                                                    columnMatchesRecord
-                                                                        .locationName,
-                                                              ),
-                                                            );
-                                                          },
-                                                        ).then((value) =>
-                                                            safeSetState(
-                                                                () {}));
-                                                      }
-                                                    },
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      children: [
-                                                        Icon(
-                                                          Icons
-                                                              .location_on_outlined,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondary,
-                                                          size: 18.0,
-                                                        ),
-                                                        Text(
-                                                          valueOrDefault<
-                                                              String>(
+                                            Expanded(
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 16.0, 0.0),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      valueOrDefault<String>(
+                                                        functions.smartDateFormat(
                                                             columnMatchesRecord
-                                                                .locationName,
-                                                            '-',
-                                                          ),
-                                                          maxLines: 1,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .labelLarge
+                                                                .matchDate),
+                                                        '-',
+                                                      ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .headlineMedium
                                                               .override(
                                                                 font: GoogleFonts
                                                                     .figtree(
                                                                   fontWeight:
                                                                       FontWeight
-                                                                          .w300,
+                                                                          .normal,
                                                                   fontStyle: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .labelLarge
+                                                                      .headlineMedium
                                                                       .fontStyle,
                                                                 ),
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .secondary,
+                                                                    .navText,
+                                                                fontSize: 30.0,
                                                                 letterSpacing:
                                                                     0.0,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w300,
+                                                                        .normal,
                                                                 fontStyle: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .labelLarge
+                                                                    .headlineMedium
                                                                     .fontStyle,
                                                               ),
-                                                        ),
-                                                      ].divide(
-                                                          SizedBox(width: 2.0)),
                                                     ),
-                                                  ),
-                                                ].divide(SizedBox(height: 4.0)),
+                                                    InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        if (columnMatchesRecord
+                                                                .location !=
+                                                            null) {
+                                                          await showModalBottomSheet(
+                                                            isScrollControlled:
+                                                                true,
+                                                            backgroundColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            enableDrag: false,
+                                                            context: context,
+                                                            builder: (context) {
+                                                              return Padding(
+                                                                padding: MediaQuery
+                                                                    .viewInsetsOf(
+                                                                        context),
+                                                                child:
+                                                                    PickerMapWidget(
+                                                                  location:
+                                                                      columnMatchesRecord
+                                                                          .location!,
+                                                                  locationName:
+                                                                      columnMatchesRecord
+                                                                          .locationName,
+                                                                ),
+                                                              );
+                                                            },
+                                                          ).then((value) =>
+                                                              safeSetState(
+                                                                  () {}));
+                                                        }
+                                                      },
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Icon(
+                                                            Icons
+                                                                .location_on_outlined,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondary,
+                                                            size: 20.0,
+                                                          ),
+                                                          Expanded(
+                                                            child: Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          1.0,
+                                                                          0.0),
+                                                              child: Text(
+                                                                valueOrDefault<
+                                                                    String>(
+                                                                  columnMatchesRecord
+                                                                      .locationName,
+                                                                  '-',
+                                                                ),
+                                                                maxLines: 1,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelLarge
+                                                                    .override(
+                                                                      font: GoogleFonts
+                                                                          .figtree(
+                                                                        fontWeight:
+                                                                            FontWeight.w300,
+                                                                        fontStyle: FlutterFlowTheme.of(context)
+                                                                            .labelLarge
+                                                                            .fontStyle,
+                                                                      ),
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondary,
+                                                                      fontSize:
+                                                                          18.0,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w300,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .labelLarge
+                                                                          .fontStyle,
+                                                                    ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ].divide(SizedBox(
+                                                            width: 2.0)),
+                                                      ),
+                                                    ),
+                                                  ].divide(
+                                                      SizedBox(height: 4.0)),
+                                                ),
                                               ),
                                             ),
                                             if (false)
@@ -419,6 +437,55 @@ class _SheetMatchWidgetState extends State<SheetMatchWidget> {
                                                   size: 24.0,
                                                 ),
                                                 onPressed: () async {
+                                                  if (columnMatchesRecord
+                                                          .editingBy !=
+                                                      null) {
+                                                    var confirmDialogResponse =
+                                                        await showDialog<bool>(
+                                                              context: context,
+                                                              builder:
+                                                                  (alertDialogContext) {
+                                                                return AlertDialog(
+                                                                  title: Text(
+                                                                      '${columnMatchesRecord.editingByName} is currently editing this match'),
+                                                                  content: Text(
+                                                                      'Are you sure you want to proceed? This can cause loss of data or other inconsistencies.'),
+                                                                  actions: [
+                                                                    TextButton(
+                                                                      onPressed: () => Navigator.pop(
+                                                                          alertDialogContext,
+                                                                          false),
+                                                                      child: Text(
+                                                                          'Cancel'),
+                                                                    ),
+                                                                    TextButton(
+                                                                      onPressed: () => Navigator.pop(
+                                                                          alertDialogContext,
+                                                                          true),
+                                                                      child: Text(
+                                                                          'Confirm'),
+                                                                    ),
+                                                                  ],
+                                                                );
+                                                              },
+                                                            ) ??
+                                                            false;
+                                                    if (!confirmDialogResponse) {
+                                                      return;
+                                                    }
+                                                  }
+
+                                                  await columnMatchesRecord
+                                                      .reference
+                                                      .update(
+                                                          createMatchesRecordData(
+                                                    editingBy:
+                                                        currentUserReference,
+                                                    editingByName:
+                                                        currentUserDisplayName,
+                                                    editingAt:
+                                                        getCurrentTimestamp,
+                                                  ));
                                                   await showModalBottomSheet(
                                                     isScrollControlled: true,
                                                     backgroundColor:
@@ -437,8 +504,8 @@ class _SheetMatchWidgetState extends State<SheetMatchWidget> {
                                                                   0.9,
                                                           child:
                                                               SheetCreateEditMatchWidget(
-                                                            grouRef: widget
-                                                                .grouRef!,
+                                                            groupRef:
+                                                                widget.grouRef,
                                                             matchRef: widget
                                                                 .matchRef,
                                                             userIsAdmin: widget
@@ -658,9 +725,55 @@ class _SheetMatchWidgetState extends State<SheetMatchWidget> {
                                           ),
                                         ),
                                       ),
+                                      if ((columnMatchesRecord.editingBy !=
+                                              null) &&
+                                          (columnMatchesRecord.editingBy !=
+                                              currentUserReference) &&
+                                          widget.userIsAdmin)
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  16.0, 0.0, 16.0, 0.0),
+                                          child: Text(
+                                            '${columnMatchesRecord.editingByName} is currently editing this match',
+                                            textAlign: TextAlign.center,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  font: GoogleFonts.figtree(
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                  ),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .backButtons,
+                                                  fontSize: 12.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
+                                          ),
+                                        ),
                                     ]
+                                        .divide(SizedBox(height: 16.0))
                                         .addToStart(SizedBox(height: 10.0))
-                                        .addToEnd(SizedBox(height: 30.0)),
+                                        .addToEnd(SizedBox(height: 16.0)),
                                   ),
                                 ),
                                 Padding(

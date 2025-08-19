@@ -497,7 +497,6 @@ class _PageGroupSettingsWidgetState extends State<PageGroupSettingsWidget> {
                               });
                               _model.matchesToRemoveUserFrom =
                                   await queryMatchesRecordOnce(
-                                parent: widget.group?.reference,
                                 queryBuilder: (matchesRecord) =>
                                     matchesRecord.where(
                                   'matchDate',
@@ -612,6 +611,11 @@ class _PageGroupSettingsWidgetState extends State<PageGroupSettingsWidget> {
                                   Future(() async {}),
                                 ]);
                                 await widget.group!.reference.delete();
+                                await Future.delayed(
+                                  Duration(
+                                    milliseconds: 2000,
+                                  ),
+                                );
                                 context.safePop();
                                 context.safePop();
                               } else {

@@ -45,7 +45,6 @@ class PagePreviousMatchesModel
     return controller
       ..addPageRequestListener(
         (nextPageMarker) => queryMatchesRecordPage(
-          parent: parent,
           queryBuilder: (_) => listViewPagingQuery ??= query,
           nextPageMarker: nextPageMarker,
           streamSubscriptions: listViewStreamSubscriptions,

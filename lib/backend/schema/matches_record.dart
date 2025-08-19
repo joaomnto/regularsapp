@@ -113,7 +113,30 @@ class MatchesRecord extends FirestoreRecord {
   SurfaceType? get surfaceType => _surfaceType;
   bool hasSurfaceType() => _surfaceType != null;
 
-  DocumentReference get parentReference => reference.parent.parent!;
+  // "matchAdmins" field.
+  List<String>? _matchAdmins;
+  List<String> get matchAdmins => _matchAdmins ?? const [];
+  bool hasMatchAdmins() => _matchAdmins != null;
+
+  // "createdBy" field.
+  DocumentReference? _createdBy;
+  DocumentReference? get createdBy => _createdBy;
+  bool hasCreatedBy() => _createdBy != null;
+
+  // "editingBy" field.
+  DocumentReference? _editingBy;
+  DocumentReference? get editingBy => _editingBy;
+  bool hasEditingBy() => _editingBy != null;
+
+  // "editingByName" field.
+  String? _editingByName;
+  String get editingByName => _editingByName ?? '';
+  bool hasEditingByName() => _editingByName != null;
+
+  // "editingAt" field.
+  DateTime? _editingAt;
+  DateTime? get editingAt => _editingAt;
+  bool hasEditingAt() => _editingAt != null;
 
   void _initializeFields() {
     _matchDate = snapshotData['matchDate'] as DateTime?;
@@ -148,15 +171,15 @@ class MatchesRecord extends FirestoreRecord {
     _surfaceType = snapshotData['surfaceType'] is SurfaceType
         ? snapshotData['surfaceType']
         : deserializeEnum<SurfaceType>(snapshotData['surfaceType']);
+    _matchAdmins = getDataList(snapshotData['matchAdmins']);
+    _createdBy = snapshotData['createdBy'] as DocumentReference?;
+    _editingBy = snapshotData['editingBy'] as DocumentReference?;
+    _editingByName = snapshotData['editingByName'] as String?;
+    _editingAt = snapshotData['editingAt'] as DateTime?;
   }
 
-  static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
-      parent != null
-          ? parent.collection('Matches')
-          : FirebaseFirestore.instance.collectionGroup('Matches');
-
-  static DocumentReference createDoc(DocumentReference parent, {String? id}) =>
-      parent.collection('Matches').doc(id);
+  static CollectionReference get collection =>
+      FirebaseFirestore.instance.collection('Matches');
 
   static Stream<MatchesRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => MatchesRecord.fromSnapshot(s));
@@ -206,6 +229,10 @@ Map<String, dynamic> createMatchesRecordData({
   String? locationName,
   String? groupName,
   SurfaceType? surfaceType,
+  DocumentReference? createdBy,
+  DocumentReference? editingBy,
+  String? editingByName,
+  DateTime? editingAt,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -225,6 +252,10 @@ Map<String, dynamic> createMatchesRecordData({
       'locationName': locationName,
       'groupName': groupName,
       'surfaceType': surfaceType,
+      'createdBy': createdBy,
+      'editingBy': editingBy,
+      'editingByName': editingByName,
+      'editingAt': editingAt,
     }.withoutNulls,
   );
 
@@ -255,7 +286,12 @@ class MatchesRecordDocumentEquality implements Equality<MatchesRecord> {
         e1?.location == e2?.location &&
         e1?.locationName == e2?.locationName &&
         e1?.groupName == e2?.groupName &&
-        e1?.surfaceType == e2?.surfaceType;
+        e1?.surfaceType == e2?.surfaceType &&
+        listEquality.equals(e1?.matchAdmins, e2?.matchAdmins) &&
+        e1?.createdBy == e2?.createdBy &&
+        e1?.editingBy == e2?.editingBy &&
+        e1?.editingByName == e2?.editingByName &&
+        e1?.editingAt == e2?.editingAt;
   }
 
   @override
@@ -278,7 +314,12 @@ class MatchesRecordDocumentEquality implements Equality<MatchesRecord> {
         e?.location,
         e?.locationName,
         e?.groupName,
-        e?.surfaceType
+        e?.surfaceType,
+        e?.matchAdmins,
+        e?.createdBy,
+        e?.editingBy,
+        e?.editingByName,
+        e?.editingAt
       ]);
 
   @override

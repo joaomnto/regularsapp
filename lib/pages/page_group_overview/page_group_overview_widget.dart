@@ -395,8 +395,11 @@ class _PageGroupOverviewWidgetState extends State<PageGroupOverviewWidget> {
                                   16.0, 0.0, 16.0, 0.0),
                               child: StreamBuilder<List<MatchesRecord>>(
                                 stream: queryMatchesRecord(
-                                  parent: widget.groupRef,
                                   queryBuilder: (matchesRecord) => matchesRecord
+                                      .where(
+                                        'groupRef',
+                                        isEqualTo: widget.groupRef,
+                                      )
                                       .where(
                                         'matchEndDate',
                                         isGreaterThanOrEqualTo:
@@ -466,8 +469,7 @@ class _PageGroupOverviewWidgetState extends State<PageGroupOverviewWidget> {
                                                             .height *
                                                         0.94,
                                                     child: SheetMatchWidget(
-                                                      grouRef:
-                                                          widget.groupRef!,
+                                                      grouRef: widget.groupRef,
                                                       matchRef:
                                                           listViewMatchesRecord
                                                               .reference,
@@ -661,7 +663,7 @@ class _PageGroupOverviewWidgetState extends State<PageGroupOverviewWidget> {
                                                       .height *
                                                   0.94,
                                               child: SheetCreateEditMatchWidget(
-                                                grouRef: widget.groupRef!,
+                                                groupRef: widget.groupRef,
                                                 userIsAdmin: true,
                                                 group: widget.group,
                                               ),

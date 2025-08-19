@@ -107,14 +107,18 @@ class _PagePreviousMatchesWidgetState extends State<PagePreviousMatchesWidget> {
                 child: PagedListView<DocumentSnapshot<Object?>?,
                     MatchesRecord>.separated(
                   pagingController: _model.setListViewController(
-                      MatchesRecord.collection(widget.group?.reference)
-                          .where(
-                            'matchEndDate',
-                            isLessThan: functions.dateTimePlusMinutes(
-                                -15.0, getCurrentTimestamp),
-                          )
-                          .orderBy('matchEndDate', descending: true),
-                      parent: widget.group?.reference),
+                    MatchesRecord.collection
+                        .where(
+                          'groupRef',
+                          isEqualTo: widget.group?.reference,
+                        )
+                        .where(
+                          'matchEndDate',
+                          isLessThan: functions.dateTimePlusMinutes(
+                              -15.0, getCurrentTimestamp),
+                        )
+                        .orderBy('matchEndDate', descending: true),
+                  ),
                   padding: EdgeInsets.fromLTRB(
                     0,
                     30.0,
@@ -162,7 +166,7 @@ class _PagePreviousMatchesWidgetState extends State<PagePreviousMatchesWidget> {
                                     height: MediaQuery.sizeOf(context).height *
                                         0.94,
                                     child: SheetMatchWidget(
-                                      grouRef: listViewMatchesRecord.groupRef!,
+                                      grouRef: listViewMatchesRecord.groupRef,
                                       matchRef: listViewMatchesRecord.reference,
                                       group: widget.group,
                                       userIsAdmin: widget.userIsAdmin,

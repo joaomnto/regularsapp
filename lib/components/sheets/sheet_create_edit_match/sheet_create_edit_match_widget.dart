@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
@@ -19,14 +20,14 @@ export 'sheet_create_edit_match_model.dart';
 class SheetCreateEditMatchWidget extends StatefulWidget {
   const SheetCreateEditMatchWidget({
     super.key,
-    required this.grouRef,
+    this.groupRef,
     this.matchRef,
     this.group,
     bool? userIsAdmin,
     this.match,
   }) : this.userIsAdmin = userIsAdmin ?? false;
 
-  final DocumentReference? grouRef;
+  final DocumentReference? groupRef;
   final DocumentReference? matchRef;
   final GroupsRecord? group;
   final bool userIsAdmin;
@@ -135,6 +136,17 @@ class _SheetCreateEditMatchWidgetState
                     size: 30.0,
                   ),
                   onPressed: () async {
+                    if (widget.matchRef != null) {
+                      await widget.matchRef!.update({
+                        ...mapToFirestore(
+                          {
+                            'editingAt': FieldValue.delete(),
+                            'editingBy': FieldValue.delete(),
+                            'editingByName': FieldValue.delete(),
+                          },
+                        ),
+                      });
+                    }
                     Navigator.pop(context);
                   },
                 ),
@@ -1558,108 +1570,31 @@ class _SheetCreateEditMatchWidgetState
                                       child: FFButtonWidget(
                                         onPressed: () async {
                                           if (widget.match != null) {
-                                            await widget.matchRef!
-                                                .update(createMatchesRecordData(
-                                              venue: functions
-                                                  .stringToVenueType(_model
-                                                      .venueDropDownValue),
-                                              type: functions.stringToMatchType(
-                                                  _model
-                                                      .matchTypeDropDownValue),
-                                              subs: functions.stringToSubsType(
-                                                  _model.subsDropDownValue),
-                                              isRecurring: _model.isRecurring,
-                                              duration: _model.selectedDuration,
-                                              matchDate:
-                                                  functions.combineDateAndTime(
-                                                      _model.selectedDate,
-                                                      _model.selectedTime),
-                                              matchEndDate:
-                                                  functions.dateTimePlusMinutes(
-                                                      _model.selectedDuration,
-                                                      functions.combineDateAndTime(
-                                                          _model.selectedDate,
-                                                          _model
-                                                              .selectedTime)!),
-                                              location: _model
-                                                  .placePickerValue.latLng,
-                                              locationName:
-                                                  _model.placePickerValue.name,
-                                              groupName: widget.group?.name,
-                                            ));
-                                            context.safePop();
-                                          } else {
-                                            if ((_model.selectedDate != null) &&
-                                                (_model.selectedTime != null)) {
-                                              _model.membersList =
-                                                  await queryMembersRecordOnce(
-                                                parent: widget.grouRef,
-                                                queryBuilder: (membersRecord) =>
-                                                    membersRecord.where(
-                                                  'isPlayer',
-                                                  isEqualTo: true,
-                                                ),
-                                              );
-                                              for (int loop1Index = 0;
-                                                  loop1Index <
-                                                      _model
-                                                          .membersList!.length;
-                                                  loop1Index++) {
-                                                final currentLoop1Item = _model
-                                                    .membersList![loop1Index];
-                                                _model.addToTempAttendanceList(
-                                                    MatchAttendanceStruct(
-                                                  status:
-                                                      AttendanceStatus.noReply,
-                                                  player: EmbeddedPlayerStruct(
-                                                    name: currentLoop1Item.name,
-                                                    photoUrl: currentLoop1Item
-                                                        .photoUrl,
-                                                    userRefId: currentLoop1Item
-                                                        .userRef,
-                                                    memberRefId:
-                                                        currentLoop1Item
-                                                            .reference,
-                                                  ),
-                                                ));
-                                                safeSetState(() {});
-                                              }
-
-                                              await MatchesRecord.createDoc(
-                                                      widget.grouRef!)
-                                                  .set({
+                                            if (widget.match?.groupRef !=
+                                                null) {
+                                              await widget.matchRef!.update({
                                                 ...createMatchesRecordData(
-                                                  matchDate: functions
-                                                      .combineDateAndTime(
-                                                          _model.datePicked1,
-                                                          _model.datePicked2),
                                                   venue: functions
                                                       .stringToVenueType(_model
                                                           .venueDropDownValue),
-                                                  status: MatchStatus.Scheduled,
-                                                  subs: functions
-                                                      .stringToSubsType(_model
-                                                          .subsDropDownValue),
                                                   type: functions
                                                       .stringToMatchType(_model
                                                           .matchTypeDropDownValue),
-                                                  isRecurring: false,
-                                                  duration: _model.sliderValue,
-                                                  groupRef: widget.grouRef,
-                                                  recurringId:
-                                                      _model.isRecurring
-                                                          ? random_data
-                                                              .randomString(
-                                                              10,
-                                                              10,
-                                                              true,
-                                                              true,
-                                                              true,
-                                                            )
-                                                          : '',
+                                                  subs: functions
+                                                      .stringToSubsType(_model
+                                                          .subsDropDownValue),
+                                                  isRecurring:
+                                                      _model.isRecurring,
+                                                  duration:
+                                                      _model.selectedDuration,
+                                                  matchDate: functions
+                                                      .combineDateAndTime(
+                                                          _model.selectedDate,
+                                                          _model.selectedTime),
                                                   matchEndDate: functions
                                                       .dateTimePlusMinutes(
-                                                          _model.sliderValue,
+                                                          _model
+                                                              .selectedDuration,
                                                           functions.combineDateAndTime(
                                                               _model
                                                                   .selectedDate,
@@ -1674,26 +1609,441 @@ class _SheetCreateEditMatchWidgetState
                                                 ),
                                                 ...mapToFirestore(
                                                   {
-                                                    'attendance':
-                                                        getMatchAttendanceListFirestoreData(
-                                                      _model.tempAttendanceList,
-                                                    ),
-                                                    'matchGroupMembers': functions
-                                                        .memberRefsFromAttendance(
-                                                            _model
-                                                                .tempAttendanceList
-                                                                .toList()),
-                                                    'attendanceUserRefs': functions
-                                                        .userRefsFromAttendanceList(
-                                                            _model
-                                                                .tempAttendanceList
-                                                                .toList()),
-                                                    'createdIn': FieldValue
-                                                        .serverTimestamp(),
+                                                    'editingBy':
+                                                        FieldValue.delete(),
+                                                    'editingByName':
+                                                        FieldValue.delete(),
+                                                    'editingAt':
+                                                        FieldValue.delete(),
                                                   },
                                                 ),
                                               });
-                                              context.safePop();
+                                            } else {
+                                              await widget.matchRef!.update({
+                                                ...createMatchesRecordData(
+                                                  venue: functions
+                                                      .stringToVenueType(_model
+                                                          .venueDropDownValue),
+                                                  type: functions
+                                                      .stringToMatchType(_model
+                                                          .matchTypeDropDownValue),
+                                                  subs: functions
+                                                      .stringToSubsType(_model
+                                                          .subsDropDownValue),
+                                                  isRecurring:
+                                                      _model.isRecurring,
+                                                  duration:
+                                                      _model.selectedDuration,
+                                                  matchDate: functions
+                                                      .combineDateAndTime(
+                                                          _model.selectedDate,
+                                                          _model.selectedTime),
+                                                  matchEndDate: functions
+                                                      .dateTimePlusMinutes(
+                                                          _model
+                                                              .selectedDuration,
+                                                          functions.combineDateAndTime(
+                                                              _model
+                                                                  .selectedDate,
+                                                              _model
+                                                                  .selectedTime)!),
+                                                  location: _model
+                                                      .placePickerValue.latLng,
+                                                  locationName: _model
+                                                      .placePickerValue.name,
+                                                ),
+                                                ...mapToFirestore(
+                                                  {
+                                                    'editingBy':
+                                                        FieldValue.delete(),
+                                                    'editingAt':
+                                                        FieldValue.delete(),
+                                                    'editingByName':
+                                                        FieldValue.delete(),
+                                                  },
+                                                ),
+                                              });
+                                            }
+                                          } else {
+                                            if ((_model.selectedDate != null) &&
+                                                (_model.selectedTime != null)) {
+                                              if (widget.groupRef != null) {
+                                                _model.membersList =
+                                                    await queryMembersRecordOnce(
+                                                  parent: widget.groupRef,
+                                                  queryBuilder:
+                                                      (membersRecord) =>
+                                                          membersRecord.where(
+                                                    'isPlayer',
+                                                    isEqualTo: true,
+                                                  ),
+                                                );
+                                                for (int loop1Index = 0;
+                                                    loop1Index <
+                                                        _model.membersList!
+                                                            .length;
+                                                    loop1Index++) {
+                                                  final currentLoop1Item =
+                                                      _model.membersList![
+                                                          loop1Index];
+                                                  _model
+                                                      .addToTempAttendanceList(
+                                                          MatchAttendanceStruct(
+                                                    status: AttendanceStatus
+                                                        .noReply,
+                                                    player:
+                                                        EmbeddedPlayerStruct(
+                                                      name:
+                                                          currentLoop1Item.name,
+                                                      photoUrl: currentLoop1Item
+                                                          .photoUrl,
+                                                      userRefId:
+                                                          currentLoop1Item
+                                                              .userRef,
+                                                      memberRefId:
+                                                          currentLoop1Item
+                                                              .reference,
+                                                    ),
+                                                  ));
+                                                  safeSetState(() {});
+                                                }
+
+                                                var matchesRecordReference1 =
+                                                    MatchesRecord.collection
+                                                        .doc();
+                                                await matchesRecordReference1
+                                                    .set({
+                                                  ...createMatchesRecordData(
+                                                    matchDate: functions
+                                                        .combineDateAndTime(
+                                                            _model.datePicked1,
+                                                            _model.datePicked2),
+                                                    venue: functions
+                                                        .stringToVenueType(_model
+                                                            .venueDropDownValue),
+                                                    status:
+                                                        MatchStatus.Scheduled,
+                                                    subs: functions
+                                                        .stringToSubsType(_model
+                                                            .subsDropDownValue),
+                                                    type: functions
+                                                        .stringToMatchType(_model
+                                                            .matchTypeDropDownValue),
+                                                    isRecurring: false,
+                                                    duration:
+                                                        _model.sliderValue,
+                                                    groupRef: widget.groupRef,
+                                                    recurringId:
+                                                        _model.isRecurring
+                                                            ? random_data
+                                                                .randomString(
+                                                                10,
+                                                                10,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                              )
+                                                            : '',
+                                                    matchEndDate: functions
+                                                        .dateTimePlusMinutes(
+                                                            _model.sliderValue,
+                                                            functions.combineDateAndTime(
+                                                                _model
+                                                                    .selectedDate,
+                                                                _model
+                                                                    .selectedTime)!),
+                                                    location: _model
+                                                        .placePickerValue
+                                                        .latLng,
+                                                    locationName: _model
+                                                        .placePickerValue.name,
+                                                    groupName:
+                                                        widget.group?.name,
+                                                    createdBy:
+                                                        currentUserReference,
+                                                  ),
+                                                  ...mapToFirestore(
+                                                    {
+                                                      'attendance':
+                                                          getMatchAttendanceListFirestoreData(
+                                                        _model
+                                                            .tempAttendanceList,
+                                                      ),
+                                                      'matchGroupMembers': functions
+                                                          .memberRefsFromAttendance(
+                                                              _model
+                                                                  .tempAttendanceList
+                                                                  .toList()),
+                                                      'attendanceUserRefs': functions
+                                                          .userRefsFromAttendanceList(
+                                                              _model
+                                                                  .tempAttendanceList
+                                                                  .toList()),
+                                                      'createdIn': FieldValue
+                                                          .serverTimestamp(),
+                                                    },
+                                                  ),
+                                                });
+                                                _model.createdMatch =
+                                                    MatchesRecord
+                                                        .getDocumentFromData({
+                                                  ...createMatchesRecordData(
+                                                    matchDate: functions
+                                                        .combineDateAndTime(
+                                                            _model.datePicked1,
+                                                            _model.datePicked2),
+                                                    venue: functions
+                                                        .stringToVenueType(_model
+                                                            .venueDropDownValue),
+                                                    status:
+                                                        MatchStatus.Scheduled,
+                                                    subs: functions
+                                                        .stringToSubsType(_model
+                                                            .subsDropDownValue),
+                                                    type: functions
+                                                        .stringToMatchType(_model
+                                                            .matchTypeDropDownValue),
+                                                    isRecurring: false,
+                                                    duration:
+                                                        _model.sliderValue,
+                                                    groupRef: widget.groupRef,
+                                                    recurringId:
+                                                        _model.isRecurring
+                                                            ? random_data
+                                                                .randomString(
+                                                                10,
+                                                                10,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                              )
+                                                            : '',
+                                                    matchEndDate: functions
+                                                        .dateTimePlusMinutes(
+                                                            _model.sliderValue,
+                                                            functions.combineDateAndTime(
+                                                                _model
+                                                                    .selectedDate,
+                                                                _model
+                                                                    .selectedTime)!),
+                                                    location: _model
+                                                        .placePickerValue
+                                                        .latLng,
+                                                    locationName: _model
+                                                        .placePickerValue.name,
+                                                    groupName:
+                                                        widget.group?.name,
+                                                    createdBy:
+                                                        currentUserReference,
+                                                  ),
+                                                  ...mapToFirestore(
+                                                    {
+                                                      'attendance':
+                                                          getMatchAttendanceListFirestoreData(
+                                                        _model
+                                                            .tempAttendanceList,
+                                                      ),
+                                                      'matchGroupMembers': functions
+                                                          .memberRefsFromAttendance(
+                                                              _model
+                                                                  .tempAttendanceList
+                                                                  .toList()),
+                                                      'attendanceUserRefs': functions
+                                                          .userRefsFromAttendanceList(
+                                                              _model
+                                                                  .tempAttendanceList
+                                                                  .toList()),
+                                                      'createdIn':
+                                                          DateTime.now(),
+                                                    },
+                                                  ),
+                                                }, matchesRecordReference1);
+                                              } else {
+                                                var matchesRecordReference2 =
+                                                    MatchesRecord.collection
+                                                        .doc();
+                                                await matchesRecordReference2
+                                                    .set({
+                                                  ...createMatchesRecordData(
+                                                    matchDate: functions
+                                                        .combineDateAndTime(
+                                                            _model.datePicked1,
+                                                            _model.datePicked2),
+                                                    venue: functions
+                                                        .stringToVenueType(_model
+                                                            .venueDropDownValue),
+                                                    status:
+                                                        MatchStatus.Scheduled,
+                                                    subs: functions
+                                                        .stringToSubsType(_model
+                                                            .subsDropDownValue),
+                                                    type: functions
+                                                        .stringToMatchType(_model
+                                                            .matchTypeDropDownValue),
+                                                    isRecurring: false,
+                                                    duration:
+                                                        _model.sliderValue,
+                                                    recurringId:
+                                                        _model.isRecurring
+                                                            ? random_data
+                                                                .randomString(
+                                                                10,
+                                                                10,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                              )
+                                                            : '',
+                                                    matchEndDate: functions
+                                                        .dateTimePlusMinutes(
+                                                            _model.sliderValue,
+                                                            functions.combineDateAndTime(
+                                                                _model
+                                                                    .selectedDate,
+                                                                _model
+                                                                    .selectedTime)!),
+                                                    location: _model
+                                                        .placePickerValue
+                                                        .latLng,
+                                                    locationName: _model
+                                                        .placePickerValue.name,
+                                                    createdBy:
+                                                        currentUserReference,
+                                                  ),
+                                                  ...mapToFirestore(
+                                                    {
+                                                      'attendance': [
+                                                        getMatchAttendanceFirestoreData(
+                                                          createMatchAttendanceStruct(
+                                                            status:
+                                                                AttendanceStatus
+                                                                    .noReply,
+                                                            player:
+                                                                updateEmbeddedPlayerStruct(
+                                                              EmbeddedPlayerStruct(
+                                                                name:
+                                                                    currentUserDisplayName,
+                                                                photoUrl:
+                                                                    currentUserPhoto,
+                                                                userRefId:
+                                                                    currentUserReference,
+                                                              ),
+                                                              clearUnsetFields:
+                                                                  false,
+                                                              create: true,
+                                                            ),
+                                                            userRefId:
+                                                                currentUserReference,
+                                                            clearUnsetFields:
+                                                                false,
+                                                            create: true,
+                                                          ),
+                                                          true,
+                                                        )
+                                                      ],
+                                                      'attendanceUserRefs': [
+                                                        currentUserReference
+                                                      ],
+                                                      'createdIn': FieldValue
+                                                          .serverTimestamp(),
+                                                      'matchAdmins': [
+                                                        currentUserUid
+                                                      ],
+                                                    },
+                                                  ),
+                                                });
+                                                _model.createdSigleMatch =
+                                                    MatchesRecord
+                                                        .getDocumentFromData({
+                                                  ...createMatchesRecordData(
+                                                    matchDate: functions
+                                                        .combineDateAndTime(
+                                                            _model.datePicked1,
+                                                            _model.datePicked2),
+                                                    venue: functions
+                                                        .stringToVenueType(_model
+                                                            .venueDropDownValue),
+                                                    status:
+                                                        MatchStatus.Scheduled,
+                                                    subs: functions
+                                                        .stringToSubsType(_model
+                                                            .subsDropDownValue),
+                                                    type: functions
+                                                        .stringToMatchType(_model
+                                                            .matchTypeDropDownValue),
+                                                    isRecurring: false,
+                                                    duration:
+                                                        _model.sliderValue,
+                                                    recurringId:
+                                                        _model.isRecurring
+                                                            ? random_data
+                                                                .randomString(
+                                                                10,
+                                                                10,
+                                                                true,
+                                                                true,
+                                                                true,
+                                                              )
+                                                            : '',
+                                                    matchEndDate: functions
+                                                        .dateTimePlusMinutes(
+                                                            _model.sliderValue,
+                                                            functions.combineDateAndTime(
+                                                                _model
+                                                                    .selectedDate,
+                                                                _model
+                                                                    .selectedTime)!),
+                                                    location: _model
+                                                        .placePickerValue
+                                                        .latLng,
+                                                    locationName: _model
+                                                        .placePickerValue.name,
+                                                    createdBy:
+                                                        currentUserReference,
+                                                  ),
+                                                  ...mapToFirestore(
+                                                    {
+                                                      'attendance': [
+                                                        getMatchAttendanceFirestoreData(
+                                                          createMatchAttendanceStruct(
+                                                            status:
+                                                                AttendanceStatus
+                                                                    .noReply,
+                                                            player:
+                                                                updateEmbeddedPlayerStruct(
+                                                              EmbeddedPlayerStruct(
+                                                                name:
+                                                                    currentUserDisplayName,
+                                                                photoUrl:
+                                                                    currentUserPhoto,
+                                                                userRefId:
+                                                                    currentUserReference,
+                                                              ),
+                                                              clearUnsetFields:
+                                                                  false,
+                                                              create: true,
+                                                            ),
+                                                            userRefId:
+                                                                currentUserReference,
+                                                            clearUnsetFields:
+                                                                false,
+                                                            create: true,
+                                                          ),
+                                                          true,
+                                                        )
+                                                      ],
+                                                      'attendanceUserRefs': [
+                                                        currentUserReference
+                                                      ],
+                                                      'createdIn':
+                                                          DateTime.now(),
+                                                      'matchAdmins': [
+                                                        currentUserUid
+                                                      ],
+                                                    },
+                                                  ),
+                                                }, matchesRecordReference2);
+                                              }
                                             } else {
                                               await showDialog(
                                                 context: context,
@@ -1715,6 +2065,8 @@ class _SheetCreateEditMatchWidgetState
                                               );
                                             }
                                           }
+
+                                          context.safePop();
 
                                           safeSetState(() {});
                                         },
